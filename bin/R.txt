@@ -357,6 +357,7 @@ int drawable drawer_shadow 0x7f02003f
 int drawable edit_query 0x7f020040
 int drawable ic_drawer 0x7f020041
 int drawable ic_launcher 0x7f020042
+int id action_add 0x7f090047
 int id action_bar 0x7f090031
 int id action_bar_activity_content 0x7f090003
 int id action_bar_container 0x7f090030
@@ -475,6 +476,7 @@ int string abc_searchview_description_voice 0x7f0a000b
 int string abc_shareactionprovider_share_with 0x7f0a000f
 int string abc_shareactionprovider_share_with_application 0x7f0a000e
 int string abc_toolbar_collapse_description 0x7f0a0004
+int string action_add 0x7f0a0017
 int string action_settings 0x7f0a0012
 int string app_name 0x7f0a0010
 int string drawer_close 0x7f0a0015

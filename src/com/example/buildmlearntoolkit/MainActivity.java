@@ -1,18 +1,24 @@
 package com.example.buildmlearntoolkit;
 
+import android.app.SearchManager;
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.buildmlearn.base.BaseActivity;
 import com.buildmlearn.fragments.NoProjectFragment;
@@ -33,6 +39,13 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_main);
+        if (Build.VERSION.SDK_INT >= 21) {
+	           getWindow().setNavigationBarColor(BaseActivity.navigationColor);
+	           getWindow().setStatusBarColor(BaseActivity.navigationColor) ;
+	           Log.e("status bar color is ", ""+BaseActivity.currentColor);
+	         
+	        }
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(currentColor));
         
         mTitle = mDrawerTitle = getTitle();
         mTemplatesTitles = getResources().getStringArray(R.array.planets_array);
@@ -83,17 +96,30 @@ public class MainActivity extends BaseActivity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // If the nav drawer is open, hide action items related to the content view
+        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+        menu.findItem(R.id.action_add).setVisible(!drawerOpen);
+        return super.onPrepareOptionsMenu(menu);
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    	 if (mDrawerToggle.onOptionsItemSelected(item)) {
+             return true;
+         }
+         // Handle action buttons
+         switch(item.getItemId()) {
+         case R.id.action_add:
+             // create intent to perform web search for this planet
+            
+             return true;
+         default:
+             return super.onOptionsItemSelected(item);
+         }
     }
     
     

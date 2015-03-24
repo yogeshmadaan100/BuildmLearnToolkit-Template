@@ -1,5 +1,6 @@
 package com.buildmlearn.base;
 
+import android.R.color;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.Context;
@@ -21,8 +22,8 @@ import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 public class BaseActivity extends ActionBarActivity {
 	LinearLayout child_activity;
-	public static  int currentColor ;
-	public static int navigationColor;
+	public static  int currentColor=Color.parseColor("#0D4781") ;
+	public static int navigationColor=Color.parseColor("#CC2196f3");
 	private ColorGenerator mColorGenerator = ColorGenerator.MATERIAL;
     private TextDrawable.IBuilder mDrawableBuilder;
 	@Override

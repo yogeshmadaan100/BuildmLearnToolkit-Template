@@ -16,5 +16,6 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="no_project">No Projects have been created by you</string>
+    <string name="action_add">Add</string>
 
 </resources>
