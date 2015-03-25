@@ -22,8 +22,8 @@ import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 public class BaseActivity extends ActionBarActivity {
 	LinearLayout child_activity;
-	public static  int currentColor=Color.parseColor("#0D4781") ;
-	public static int navigationColor=Color.parseColor("#CC2196f3");
+	public static  int currentColor=Color.parseColor("#0D47A1") ;
+	public static int navigationColor=Color.parseColor("#CC1976D2");
 	private ColorGenerator mColorGenerator = ColorGenerator.MATERIAL;
     private TextDrawable.IBuilder mDrawableBuilder;
 	@Override
@@ -36,6 +36,7 @@ public class BaseActivity extends ActionBarActivity {
 		 
 		final ImageView fabIconNew = new ImageView(this);
         fabIconNew.setImageDrawable(getResources().getDrawable(android.R.drawable.ic_menu_close_clear_cancel));
+        fabIconNew.setRotation(45);
         
         //fabIconNew.setBackgroundColor(BaseActivity.currentColor);
         final FloatingActionButton rightLowerButton = new FloatingActionButton.Builder(this).setBackgroundDrawable(drawable)

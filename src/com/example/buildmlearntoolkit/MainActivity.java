@@ -73,12 +73,12 @@ public class MainActivity extends BaseActivity {
                 R.string.drawer_close  /* "close drawer" description for accessibility */
                 ) {
             public void onDrawerClosed(View view) {
-                getSupportActionBar().setTitle(mTitle);
+                getSupportActionBar().setTitle("BuildmLearn");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
             public void onDrawerOpened(View drawerView) {
-                getSupportActionBar().setTitle(mDrawerTitle);
+                getSupportActionBar().setTitle("Choose Template");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
@@ -139,7 +139,7 @@ public class MainActivity extends BaseActivity {
 
         // update selected item and title, then close the drawer
         mDrawerList.setItemChecked(position, true);
-        setTitle(mTemplatesTitles[position]);
+        //setTitle(mTemplatesTitles[position]);
         mDrawerLayout.closeDrawer(mDrawerList);
     }
 
