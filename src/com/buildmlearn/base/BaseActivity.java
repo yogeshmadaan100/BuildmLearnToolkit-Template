@@ -5,11 +5,13 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Matrix.ScaleToFit;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 
 import com.buildmlearn.design.models.ColorGenerator;
@@ -37,9 +39,10 @@ public class BaseActivity extends ActionBarActivity {
 		final ImageView fabIconNew = new ImageView(this);
         fabIconNew.setImageDrawable(getResources().getDrawable(android.R.drawable.ic_menu_close_clear_cancel));
         fabIconNew.setRotation(45);
+       //fabIconNew.setScaleType(ScaleType.CENTER_CROP);
         
         //fabIconNew.setBackgroundColor(BaseActivity.currentColor);
-        final FloatingActionButton rightLowerButton = new FloatingActionButton.Builder(this).setBackgroundDrawable(drawable)
+        final FloatingActionButton rightLowerButton = new FloatingActionButton.Builder(this)
                 .setContentView(fabIconNew)
                 .build();
 

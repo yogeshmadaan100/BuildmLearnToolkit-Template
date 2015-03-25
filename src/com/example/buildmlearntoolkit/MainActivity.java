@@ -1,7 +1,9 @@
 package com.example.buildmlearntoolkit;
 
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,13 +13,20 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.GravityEnum;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.buildmlearn.base.BaseActivity;
 import com.buildmlearn.fragments.NoProjectFragment;
 
@@ -32,7 +41,9 @@ public class MainActivity extends BaseActivity {
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     private String[] mTemplatesTitles;
-
+    private String[] mTemplateDescription;
+    public ImageView thumbnail;
+    boolean isFirstTime=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +57,8 @@ public class MainActivity extends BaseActivity {
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(currentColor));*/
         
         mTitle = mDrawerTitle = getTitle();
-        mTemplatesTitles = getResources().getStringArray(R.array.planets_array);
+        mTemplatesTitles = getResources().getStringArray(R.array.templates_array);
+        mTemplateDescription=getResources().getStringArray(R.array.template_description_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
@@ -83,6 +95,7 @@ public class MainActivity extends BaseActivity {
             public void onDrawerOpened(View drawerView) {
                 getSupportActionBar().setTitle("Choose Template");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+                isFirstTime=false;
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
@@ -118,8 +131,9 @@ public class MainActivity extends BaseActivity {
          switch(item.getItemId()) {
          case R.id.action_add:
              // create intent to perform web search for this planet
-            
-             return true;
+            if(!mDrawerLayout.isDrawerOpen(Gravity.LEFT))
+             mDrawerLayout.openDrawer(Gravity.LEFT);
+            	return true;
          default:
              return super.onOptionsItemSelected(item);
          }
@@ -129,12 +143,39 @@ public class MainActivity extends BaseActivity {
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        	if(!isFirstTime)
             selectItem(position);
         }
     }
 
     private void selectItem(int position) {
         // update the main content by replacing fragments
+    	thumbnail=new ImageView(getApplicationContext());
+    	thumbnail.setBackground(null);
+    	String dialog_title,dialog_description;
+    	dialog_title=mTemplatesTitles[position];
+    	dialog_description=mTemplateDescription[position];
+    	switch (position) {
+		case 0:
+			
+			thumbnail.setImageResource(R.drawable.mlearning_thumbnail);
+			
+			break;
+		case 1:
+			thumbnail.setImageResource(R.drawable.flashcard_thumbnail);
+			
+			break;
+		case 2:
+			thumbnail.setImageResource(R.drawable.spellings_thumbnail);
+			break;
+		case 3:
+			thumbnail.setImageResource(R.drawable.quiz_thumbnail);
+			break;
+
+		default:
+			break;
+		}
+    	
         Fragment fragment = new NoProjectFragment();
        
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -143,7 +184,9 @@ public class MainActivity extends BaseActivity {
         // update selected item and title, then close the drawer
         mDrawerList.setItemChecked(position, true);
         //setTitle(mTemplatesTitles[position]);
+        showThemed(dialog_title,dialog_description);
         mDrawerLayout.closeDrawer(mDrawerList);
+        
     }
 
     @Override
@@ -164,6 +207,41 @@ public class MainActivity extends BaseActivity {
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
+    private void showThemed(String title,String description) {
+        new MaterialDialog.Builder(this)
+                .title(title)
+                .content(description)
+                .positiveText(R.string.agree)
+                .negativeText(R.string.disagree)
+                .positiveColorRes(R.color.primaryColor)
+                .negativeColorRes(R.color.primaryColor)
+                .titleGravity(GravityEnum.CENTER)
+                .titleColorRes(R.color.primaryColor)
+                .contentColorRes(android.R.color.white)
+                .backgroundColorRes(R.color.material_blue_grey_800)
+                .dividerColorRes(R.color.status_bar)
+                .btnSelector(R.drawable.md_btn_selector_custom, DialogAction.POSITIVE)
+                .positiveColor(Color.WHITE)
+                .negativeColorAttr(android.R.attr.textColorSecondaryInverse)
+                .theme(Theme.LIGHT)
+                .customView(thumbnail, true)
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+                        Toast.makeText(getApplicationContext(), "Positive!", Toast.LENGTH_SHORT).show();
+                    }
 
+                    @Override
+                    public void onNeutral(MaterialDialog dialog) {
+                        Toast.makeText(getApplicationContext(), "Neutral", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onNegative(MaterialDialog dialog) {
+                        Toast.makeText(getApplicationContext(), "Negative…", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .show();
+    }
     
 }

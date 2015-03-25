@@ -7,5 +7,6 @@
       <color name="main">#63C3FF</color>
     <color name="actionbar_title_color">@android:color/white</color>
     <color name="action_bar_color">#0D47A1</color>
+    <color name="fab_color">#f50057</color>
     
 </resources>

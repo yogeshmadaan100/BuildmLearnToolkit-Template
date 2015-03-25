@@ -17,7 +17,8 @@ public final class R {
         public static final int abc_slide_out_top=0x7f040005;
     }
     public static final class array {
-        public static final int planets_array=0x7f0c0000;
+        public static final int template_description_array=0x7f0c0001;
+        public static final int templates_array=0x7f0c0000;
     }
     public static final class attr {
         /**  Custom divider drawable to use for elements in the action bar. 
@@ -1732,19 +1733,19 @@ containing a value of this type.
         public static final int abc_config_showMenuShortcutsWhenKeyboardPresent=0x7f060003;
     }
     public static final class color {
-        public static final int abc_background_cache_hint_selector_material_dark=0x7f07003e;
-        public static final int abc_background_cache_hint_selector_material_light=0x7f07003f;
+        public static final int abc_background_cache_hint_selector_material_dark=0x7f07003f;
+        public static final int abc_background_cache_hint_selector_material_light=0x7f070040;
         public static final int abc_input_method_navigation_guard=0x7f070003;
-        public static final int abc_primary_text_disable_only_material_dark=0x7f070040;
-        public static final int abc_primary_text_disable_only_material_light=0x7f070041;
-        public static final int abc_primary_text_material_dark=0x7f070042;
-        public static final int abc_primary_text_material_light=0x7f070043;
-        public static final int abc_search_url_text=0x7f070044;
+        public static final int abc_primary_text_disable_only_material_dark=0x7f070041;
+        public static final int abc_primary_text_disable_only_material_light=0x7f070042;
+        public static final int abc_primary_text_material_dark=0x7f070043;
+        public static final int abc_primary_text_material_light=0x7f070044;
+        public static final int abc_search_url_text=0x7f070045;
         public static final int abc_search_url_text_normal=0x7f070000;
         public static final int abc_search_url_text_pressed=0x7f070002;
         public static final int abc_search_url_text_selected=0x7f070001;
-        public static final int abc_secondary_text_material_dark=0x7f070045;
-        public static final int abc_secondary_text_material_light=0x7f070046;
+        public static final int abc_secondary_text_material_dark=0x7f070046;
+        public static final int abc_secondary_text_material_light=0x7f070047;
         public static final int accent_material_dark=0x7f07000f;
         public static final int accent_material_light=0x7f07000e;
         public static final int action_bar_color=0x7f07003d;
@@ -1769,6 +1770,7 @@ containing a value of this type.
         public static final int dim_foreground_disabled_material_light=0x7f07001d;
         public static final int dim_foreground_material_dark=0x7f07001a;
         public static final int dim_foreground_material_light=0x7f07001b;
+        public static final int fab_color=0x7f07003e;
         /**  TODO: This is 40% alpha on the default accent color. 
          */
         public static final int highlighted_text_material_dark=0x7f070020;
@@ -2075,20 +2077,29 @@ containing a value of this type.
         public static final int button_sub_action_touch=0x7f02003e;
         public static final int drawer_shadow=0x7f02003f;
         public static final int edit_query=0x7f020040;
-        public static final int ic_drawer=0x7f020041;
-        public static final int ic_launcher=0x7f020042;
-        public static final int md_btn_selected=0x7f020043;
-        public static final int md_btn_selected_dark=0x7f020044;
-        public static final int md_btn_selector=0x7f020045;
-        public static final int md_btn_selector_dark=0x7f020046;
-        public static final int md_btn_selector_ripple=0x7f020047;
-        public static final int md_btn_selector_ripple_dark=0x7f020048;
-        public static final int md_btn_shape=0x7f020049;
-        public static final int md_item_selected=0x7f02004a;
-        public static final int md_item_selected_dark=0x7f02004b;
-        public static final int md_selector=0x7f02004c;
-        public static final int md_selector_dark=0x7f02004d;
-        public static final int md_transparent=0x7f02004e;
+        public static final int fab_label_background=0x7f020041;
+        public static final int flashcard_thumbnail=0x7f020042;
+        public static final int ic_drawer=0x7f020043;
+        public static final int ic_launcher=0x7f020044;
+        public static final int md_btn_selected=0x7f020045;
+        public static final int md_btn_selected_custom=0x7f020046;
+        public static final int md_btn_selected_dark=0x7f020047;
+        public static final int md_btn_selector=0x7f020048;
+        public static final int md_btn_selector_custom=0x7f020049;
+        public static final int md_btn_selector_custom_holo=0x7f02004a;
+        public static final int md_btn_selector_dark=0x7f02004b;
+        public static final int md_btn_selector_ripple=0x7f02004c;
+        public static final int md_btn_selector_ripple_dark=0x7f02004d;
+        public static final int md_btn_shape=0x7f02004e;
+        public static final int md_btn_unselected_custom=0x7f02004f;
+        public static final int md_item_selected=0x7f020050;
+        public static final int md_item_selected_dark=0x7f020051;
+        public static final int md_selector=0x7f020052;
+        public static final int md_selector_dark=0x7f020053;
+        public static final int md_transparent=0x7f020054;
+        public static final int mlearning_thumbnail=0x7f020055;
+        public static final int quiz_thumbnail=0x7f020056;
+        public static final int spellings_thumbnail=0x7f020057;
     }
     public static final class id {
         public static final int action_add=0x7f09006d;
@@ -2328,11 +2339,14 @@ containing a value of this type.
         public static final int abc_toolbar_collapse_description=0x7f0a0004;
         public static final int action_add=0x7f0a0017;
         public static final int action_settings=0x7f0a0012;
+        public static final int agree=0x7f0a0019;
         public static final int app_name=0x7f0a0010;
+        public static final int disagree=0x7f0a001a;
         public static final int drawer_close=0x7f0a0015;
         public static final int drawer_open=0x7f0a0014;
         public static final int hello_world=0x7f0a0011;
         public static final int no_project=0x7f0a0016;
+        public static final int template_selection=0x7f0a0018;
         public static final int title_activity_base=0x7f0a0013;
     }
     public static final class style {
