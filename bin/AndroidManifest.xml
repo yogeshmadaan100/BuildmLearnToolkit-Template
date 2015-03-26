@@ -26,6 +26,14 @@
             android:name="com.buildmlearn.base.BaseActivity"
             android:label="@string/title_activity_base" >
         </activity>
+        <activity
+            android:name="com.buildmlearn.activities.TemplateActivity"
+            android:label="@string/title_activity_template" >
+        </activity>
+        <activity
+            android:name=".ContentActivity"
+            android:label="@string/title_activity_content" >
+        </activity>
     </application>
 
 </manifest>

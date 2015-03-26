@@ -1,10 +1,10 @@
 package com.example.buildmlearntoolkit;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,21 +12,25 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.GravityEnum;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
+import com.buildmlearn.activities.TemplateActivity;
 import com.buildmlearn.base.BaseActivity;
 import com.buildmlearn.fragments.NoProjectFragment;
 
@@ -42,7 +46,7 @@ public class MainActivity extends BaseActivity {
     private CharSequence mTitle;
     private String[] mTemplatesTitles;
     private String[] mTemplateDescription;
-    public ImageView thumbnail;
+    public int template_thumbnail;
     boolean isFirstTime=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +107,7 @@ public class MainActivity extends BaseActivity {
         if (savedInstanceState == null) {
             selectItem(0);
         }
+        
     }
 
 
@@ -150,31 +155,13 @@ public class MainActivity extends BaseActivity {
 
     private void selectItem(int position) {
         // update the main content by replacing fragments
-    	thumbnail=new ImageView(getApplicationContext());
-    	thumbnail.setBackground(null);
+    	
+    	//thumbnail.getLayoutParams().height=350;
+    	//thumbnail.requestLayout();
     	String dialog_title,dialog_description;
     	dialog_title=mTemplatesTitles[position];
     	dialog_description=mTemplateDescription[position];
-    	switch (position) {
-		case 0:
-			
-			thumbnail.setImageResource(R.drawable.mlearning_thumbnail);
-			
-			break;
-		case 1:
-			thumbnail.setImageResource(R.drawable.flashcard_thumbnail);
-			
-			break;
-		case 2:
-			thumbnail.setImageResource(R.drawable.spellings_thumbnail);
-			break;
-		case 3:
-			thumbnail.setImageResource(R.drawable.quiz_thumbnail);
-			break;
-
-		default:
-			break;
-		}
+    	
     	
         Fragment fragment = new NoProjectFragment();
        
@@ -184,9 +171,33 @@ public class MainActivity extends BaseActivity {
         // update selected item and title, then close the drawer
         mDrawerList.setItemChecked(position, true);
         //setTitle(mTemplatesTitles[position]);
-        showThemed(dialog_title,dialog_description);
+       
         mDrawerLayout.closeDrawer(mDrawerList);
-        
+        if(!isFirstTime)
+        {
+	        switch (position) {
+			case 0:
+				
+				template_thumbnail=R.drawable.mlearning_thumbnail;
+				 showThemed(dialog_title,dialog_description);
+				break;
+			case 1:
+				template_thumbnail=R.drawable.flashcard_thumbnail;
+				 showThemed(dialog_title,dialog_description);
+				break;
+			case 2:
+				template_thumbnail=R.drawable.spellings_thumbnail;
+				 showThemed(dialog_title,dialog_description);
+				break;
+			case 3:
+				template_thumbnail=R.drawable.quiz_thumbnail;
+				 showThemed(dialog_title,dialog_description);
+				break;
+	
+			default:
+				break;
+			}
+        }
     }
 
     @Override
@@ -208,9 +219,13 @@ public class MainActivity extends BaseActivity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
     private void showThemed(String title,String description) {
-        new MaterialDialog.Builder(this)
+    	LovelyView view =new LovelyView(getApplicationContext());
+    	view.setDescription(description);
+    	view.setThumbnail(template_thumbnail);
+    	
+    	 new MaterialDialog.Builder(this)
                 .title(title)
-                .content(description)
+                .content(R.string.no_project)
                 .positiveText(R.string.agree)
                 .negativeText(R.string.disagree)
                 .positiveColorRes(R.color.primaryColor)
@@ -224,11 +239,12 @@ public class MainActivity extends BaseActivity {
                 .positiveColor(Color.WHITE)
                 .negativeColorAttr(android.R.attr.textColorSecondaryInverse)
                 .theme(Theme.LIGHT)
-                .customView(thumbnail, true)
+                .customView(view, true)
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
-                        Toast.makeText(getApplicationContext(), "Positive!", Toast.LENGTH_SHORT).show();
+                    	startActivity(new Intent(getApplicationContext(),TemplateActivity.class));
+                    	finish();
                     }
 
                     @Override
@@ -242,6 +258,72 @@ public class MainActivity extends BaseActivity {
                     }
                 })
                 .show();
+    }
+    
+    
+    
+    public class LovelyView extends LinearLayout {
+    	private String description = "";
+    	private int res;
+    	private TextView template_description;
+    	private ImageView thumbnail;
+    	
+
+    	public LovelyView(Context context) {
+    		super(context);
+    		LayoutInflater.from(context).inflate(R.layout.layout_template_dialog, this);
+    		initViews(context, null);
+    	}
+
+    	public LovelyView(Context context, AttributeSet attrs) {
+    		super(context, attrs);
+    		initViews(context, attrs);
+    	}
+
+    	public LovelyView(Context context, AttributeSet attrs, int defStyle) {
+    		this(context, attrs);
+    		initViews(context, attrs);
+    	}
+
+    	private void initViews(Context context, AttributeSet attrs) {
+    		
+
+    		LayoutInflater.from(context).inflate(R.layout.layout_template_dialog, this);
+
+    		//left text view
+    		template_description = (TextView) this.findViewById(R.id.template_description);
+    		template_description.setText(description);
+    		
+    		//right text view
+    		thumbnail = (ImageView) this.findViewById(R.id.template_thumbnail);
+    		thumbnail.setImageResource(res);
+    		
+    	}
+
+    	public String getDescription() {
+    		return description;
+    	}
+
+    	public void setDescription(String description) {
+    		this.description = description;
+    		if(template_description!=null){
+    			template_description.setText(description);
+    		}
+    	}
+
+    	
+
+    	public int getThumbnail()
+    	{
+    		return res;
+    	}
+    	public void setThumbnail(int res)
+    	{
+    		this.res=res;
+    		
+    			thumbnail.setImageResource(res);
+    		
+    	}
     }
     
 }
