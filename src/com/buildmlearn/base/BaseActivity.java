@@ -24,8 +24,8 @@ import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 public class BaseActivity extends ActionBarActivity {
 	LinearLayout child_activity;
-	public static  int currentColor=Color.parseColor("#0D47A1") ;
-	public static int navigationColor=Color.parseColor("#CC1976D2");
+	public static  int currentColor=Color.parseColor("#1567bf") ;
+	public static int navigationColor=Color.parseColor("#CC1978d1");
 	private ColorGenerator mColorGenerator = ColorGenerator.MATERIAL;
     private TextDrawable.IBuilder mDrawableBuilder;
 	@Override
@@ -35,11 +35,11 @@ public class BaseActivity extends ActionBarActivity {
 		child_activity=(LinearLayout)findViewById(R.id.child);
 		 mDrawableBuilder=TextDrawable.builder().round();
 		 
-		 TextDrawable drawable = mDrawableBuilder.build("", Color.parseColor("#f50057"));
+		 TextDrawable drawable = mDrawableBuilder.build("", Color.parseColor("#e81e61"));
 		
 		final ImageView fabIconNew = new ImageView(this);
-        fabIconNew.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_next_item));
-        fabIconNew.setRotation(45);
+        fabIconNew.setImageDrawable(getResources().getDrawable(R.drawable.ic_menu_close_clear_cancel));
+        //fabIconNew.setRotation(45);
        // fabIconNew.setScaleType(ScaleType.CENTER_CROP);
         
       //  fabIconNew.setBackgroundColor(BaseActivity.currentColor);
@@ -49,23 +49,24 @@ public class BaseActivity extends ActionBarActivity {
 
         SubActionButton.Builder rLSubBuilder = new SubActionButton.Builder(this);
         ImageView rlIcon1 = new ImageView(this);
+        
         ImageView rlIcon2 = new ImageView(this);
         ImageView rlIcon3 = new ImageView(this);
         ImageView rlIcon4 = new ImageView(this);
 
-        rlIcon1.setImageDrawable(getResources().getDrawable(R.drawable.edit_query));
-        rlIcon2.setImageDrawable(getResources().getDrawable(R.drawable.edit_query));
-        rlIcon3.setImageDrawable(getResources().getDrawable(R.drawable.edit_query));
-        rlIcon4.setImageDrawable(getResources().getDrawable(R.drawable.edit_query));
+        rlIcon1.setImageDrawable(getResources().getDrawable(R.drawable.ic_menu_close_clear_cancel));
+        rlIcon2.setImageDrawable(getResources().getDrawable(R.drawable.ic_menu_close_clear_cancel));
+        rlIcon3.setImageDrawable(getResources().getDrawable(R.drawable.ic_menu_close_clear_cancel));
+        rlIcon4.setImageDrawable(getResources().getDrawable(R.drawable.ic_menu_close_clear_cancel));
 
         // Build the menu with default options: light theme, 90 degrees, 72dp radius.
         // Set 4 default SubActionButtons
         final FloatingActionMenu rightLowerMenu = new FloatingActionMenu.Builder(this)
         
                                                 .addSubActionView(rLSubBuilder.setContentView(rlIcon1).setBackgroundDrawable(drawable).build())
-                                                .addSubActionView(rLSubBuilder.setContentView(rlIcon2).setBackgroundDrawable(drawable).build())
-                                                .addSubActionView(rLSubBuilder.setContentView(rlIcon3).setBackgroundDrawable(drawable).build())
-                                                .addSubActionView(rLSubBuilder.setContentView(rlIcon4).setBackgroundDrawable(drawable).build())
+                                                .addSubActionView(rLSubBuilder.setContentView(rlIcon2).build())
+                                                .addSubActionView(rLSubBuilder.setContentView(rlIcon3).build())
+                                                .addSubActionView(rLSubBuilder.setContentView(rlIcon4).build())
                                                 .attachTo(rightLowerButton)
                                                 .build();
 
