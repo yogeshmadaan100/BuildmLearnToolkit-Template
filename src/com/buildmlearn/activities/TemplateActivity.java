@@ -1,27 +1,41 @@
 package com.buildmlearn.activities;
 
-import com.buildmlearn.base.BaseActivity;
-import com.buildmlearn.fragments.MetaDataFragment;
-import com.buildmlearn.fragments.NoProjectFragment;
-import com.example.buildmlearntoolkit.R;
-import com.example.buildmlearntoolkit.R.id;
-import com.example.buildmlearntoolkit.R.layout;
-import com.example.buildmlearntoolkit.R.menu;
-
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBarActivity;
-import android.database.MergeCursor;
-import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+
+import com.buildmlearn.base.BaseActivity;
+import com.buildmlearn.fragments.MetaDataFragment;
+import com.example.buildmlearntoolkit.MainActivity;
+import com.example.buildmlearntoolkit.R;
 
 public class TemplateActivity extends BaseActivity {
+	 private Toolbar toolbar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		super.setContentView(R.layout.activity_template);
+		 toolbar=(Toolbar)findViewById(R.id.toolbar);
+	        if (toolbar != null) {
+	            toolbar.setTitle("BuildmLearn");
+	            setSupportActionBar(toolbar);
+	            toolbar.setNavigationIcon(R.drawable.ic_menu_back);
+	        }
+	        toolbar.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					onBackPressed();
+				}
+			});
 		 Fragment fragment = new MetaDataFragment();
 	       
 	        FragmentManager fragmentManager = getSupportFragmentManager();
@@ -45,5 +59,13 @@ public class TemplateActivity extends BaseActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		Intent i =new Intent(TemplateActivity.this,MainActivity.class);
+		startActivity(i);
+		finish();
 	}
 }
