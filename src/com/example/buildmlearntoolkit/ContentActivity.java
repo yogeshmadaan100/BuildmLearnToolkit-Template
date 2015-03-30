@@ -3,33 +3,22 @@ package com.example.buildmlearntoolkit;
 import java.util.ArrayList;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
-import com.buildmlearn.activities.TemplateActivity;
-import com.buildmlearn.base.BaseActivity;
-import com.buildmlearn.fragments.MetaDataFragment;
-import com.buildmlearn.fragments.NoProjectFragment;
 import com.buildmlearn.fragments.QuestionsListFragment;
-import com.buildmlearn.template.mlearning.LearningDataTemplate;
-public class ContentActivity extends BaseActivity {
+public class ContentActivity extends ActionBarActivity {
 	
 	private Toolbar toolbar;
-	public static ArrayList<LearningDataTemplate>mDataList=new ArrayList<LearningDataTemplate>();
+	public static ArrayList mDataList=new ArrayList();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -40,18 +29,20 @@ public class ContentActivity extends BaseActivity {
             setSupportActionBar(toolbar);
             toolbar.setNavigationIcon(R.drawable.ic_menu_back);
         }
-        toolbar.setOnClickListener(new OnClickListener() {
+        toolbar.setNavigationOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				Log.e("back", "called");
 				onBackPressed();
 			}
 		});
+        
 	 Fragment fragment = new QuestionsListFragment();
        
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(android.R.id.content, fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.frame, fragment).commit();
 		 
 	}
 
@@ -83,7 +74,7 @@ public class ContentActivity extends BaseActivity {
 		finish();
 	}
 	
-	public ArrayList<LearningDataTemplate> getData()
+	public ArrayList getData()
 	{
 		Log.e("list size", ""+mDataList.size());
 		return mDataList;
@@ -94,6 +85,6 @@ public class ContentActivity extends BaseActivity {
 		 Fragment fragment = f;
 	       
 	        FragmentManager fragmentManager = getSupportFragmentManager();
-	        fragmentManager.beginTransaction().replace(android.R.id.content, fragment).commit();
+	        fragmentManager.beginTransaction().replace(R.id.frame, fragment).commit();
 	}
 }

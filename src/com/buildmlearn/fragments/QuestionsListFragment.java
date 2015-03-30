@@ -18,13 +18,21 @@ import android.widget.Toast;
 
 import android.view.View.OnClickListener;
 
+import com.buildmlearn.application.MyApplication;
+import com.buildmlearn.models.Template;
+import com.buildmlearn.template.flashcard.FlashCardDataTemplate;
 import com.buildmlearn.template.mlearning.LearningDataTemplate;
+import com.buildmlearn.template.quiz.QuizDataTemplate;
+import com.buildmlearn.template.spellings.SpellingsDataTemplate;
 import com.example.buildmlearntoolkit.ContentActivity;
 import com.example.buildmlearntoolkit.R;
 
 public class QuestionsListFragment extends Fragment {
 	private ListView mListView;
 	ImageButton mAdd,mRemove,moveUp,moveDown;
+	ArrayList mDataList=new ArrayList();;
+	ArrayList<String> mWords=new ArrayList<String>();
+	Fragment f;
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -35,18 +43,76 @@ public class QuestionsListFragment extends Fragment {
 		mRemove=(ImageButton)rootView.findViewById(R.id.remove);
 		moveDown=(ImageButton)rootView.findViewById(R.id.down);
 		moveUp=(ImageButton)rootView.findViewById(R.id.up);
-		final ArrayList<LearningDataTemplate> mDataList=((ContentActivity)getActivity()).getData();
-		ArrayList<String> mWords = new ArrayList<String>();
-		if(mDataList!=null&mDataList.size()!=0)
+		Template template= ((MyApplication)getActivity().getApplication()).getmModel().getmTemplate();
+		if(template==Template.FLASHCARD)
 		{
-			for(int i=0;i<mDataList.size();i++)
+			f= new FlashcardQuestionTemplate();
+			mDataList=new ArrayList<FlashCardDataTemplate>();
+			mDataList=((ContentActivity)getActivity()).getData();
+			
+			if(mDataList!=null&mDataList.size()!=0)
 			{
-				
-				String title=mDataList.get(i).getmTitle();
-				Log.e("title", ""+title);
-				mWords.add(title);
+				for(int i=0;i<mDataList.size();i++)
+				{
+					
+					String title=( (FlashCardDataTemplate) mDataList.get(i)).getQuestion();
+					Log.e("title", ""+title);
+					mWords.add(title);
+				}
 			}
 		}
+		else if(template==Template.LEARNING)
+		{
+			f=new LearningQuestionTemplate();
+			mDataList=new ArrayList<LearningDataTemplate>();
+			mDataList=((ContentActivity)getActivity()).getData();
+			
+			if(mDataList!=null&mDataList.size()!=0)
+			{
+				for(int i=0;i<mDataList.size();i++)
+				{
+					
+					String title=((LearningDataTemplate) mDataList.get(i)).getmTitle();
+					Log.e("title", ""+title);
+					mWords.add(title);
+				}
+			}
+		}
+		else if(template==Template.QUIZ)
+		{
+			f=new QuizQuestionTemplate();
+			mDataList=new ArrayList<QuizDataTemplate>();
+			mDataList=((ContentActivity)getActivity()).getData();
+		
+			if(mDataList!=null&mDataList.size()!=0)
+			{
+				for(int i=0;i<mDataList.size();i++)
+				{
+					
+					String title=((QuizDataTemplate) mDataList.get(i)).getQuestion();
+					Log.e("title", ""+title);
+					mWords.add(title);
+				}
+			}
+		}
+		else if(template==Template.SPELLLING)
+		{
+			f=new SpellingQuestionTemplate();
+			mDataList=new ArrayList<SpellingsDataTemplate>();
+			mDataList=((ContentActivity)getActivity()).getData();
+			
+			if(mDataList!=null&mDataList.size()!=0)
+			{
+				for(int i=0;i<mDataList.size();i++)
+				{
+					
+					String title=((SpellingsDataTemplate) mDataList.get(i)).getmWord();
+					Log.e("title", ""+title);
+					mWords.add(title);
+				}
+			}
+		}
+		
 		mListView.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,mWords));
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -54,7 +120,7 @@ public class QuestionsListFragment extends Fragment {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// TODO Auto-generated method stub
-				Toast.makeText(getActivity(), ""+mDataList.get(position).getDescription(), 2000).show();
+				//Toast.makeText(getActivity(), ""+mDataList.get(position).getDescription(), 2000).show();
 			}
 		});
 		mAdd.setOnClickListener(new OnClickListener() {
@@ -62,7 +128,7 @@ public class QuestionsListFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				((ContentActivity)getActivity()).switchFragment(new LearningQuestionTemplate());
+				((ContentActivity)getActivity()).switchFragment(f);
 			}
 		});
 		return rootView;

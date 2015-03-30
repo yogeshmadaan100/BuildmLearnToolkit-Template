@@ -24,8 +24,8 @@
     <string name="no_project">No Projects have been created by you. \n Create a new One.</string>
     <string name="action_add">Add</string>
     <string name="template_selection"> Select Your Template</string>
-    <string name="agree">Agree</string>
-    <string name="disagree">Disagree</string>
+    <string name="agree">Ok</string>
+    <string name="disagree">Cancel</string>
     <string name="title_activity_template">TemplateActivity</string>
     <string name="title_activity_content">ContentActivity</string>
 

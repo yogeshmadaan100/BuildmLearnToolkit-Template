@@ -31,8 +31,10 @@ import com.afollestad.materialdialogs.GravityEnum;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.buildmlearn.activities.TemplateActivity;
+import com.buildmlearn.application.MyApplication;
 import com.buildmlearn.base.BaseActivity;
 import com.buildmlearn.fragments.NoProjectFragment;
+import com.buildmlearn.models.Template;
 
 
 public class MainActivity extends BaseActivity {
@@ -180,18 +182,22 @@ public class MainActivity extends BaseActivity {
 				
 				template_thumbnail=R.drawable.mlearning_thumbnail;
 				 showThemed(dialog_title,dialog_description);
+				 ((MyApplication)getApplication()).getmModel().setmTemplate(Template.LEARNING);
 				break;
 			case 1:
 				template_thumbnail=R.drawable.flashcard_thumbnail;
 				 showThemed(dialog_title,dialog_description);
+				 ((MyApplication)getApplication()).getmModel().setmTemplate(Template.FLASHCARD);
 				break;
 			case 2:
 				template_thumbnail=R.drawable.spellings_thumbnail;
 				 showThemed(dialog_title,dialog_description);
+				 ((MyApplication)getApplication()).getmModel().setmTemplate(Template.SPELLLING);
 				break;
 			case 3:
 				template_thumbnail=R.drawable.quiz_thumbnail;
 				 showThemed(dialog_title,dialog_description);
+				 ((MyApplication)getApplication()).getmModel().setmTemplate(Template.QUIZ);
 				break;
 	
 			default:
@@ -243,6 +249,7 @@ public class MainActivity extends BaseActivity {
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
+                    	
                     	startActivity(new Intent(getApplicationContext(),TemplateActivity.class));
                     	finish();
                     }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,18 +29,22 @@ public class TemplateActivity extends BaseActivity {
 	            setSupportActionBar(toolbar);
 	            toolbar.setNavigationIcon(R.drawable.ic_menu_back);
 	        }
-	        toolbar.setOnClickListener(new OnClickListener() {
+	        else
+	        	Log.e("toolbar ", "null");
+	        toolbar.setNavigationOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
+					Log.e("back", "called");
 					onBackPressed();
 				}
 			});
+	        
 		 Fragment fragment = new MetaDataFragment();
 	       
 	        FragmentManager fragmentManager = getSupportFragmentManager();
-	        fragmentManager.beginTransaction().replace(android.R.id.content, fragment).commit();
+	        fragmentManager.beginTransaction().replace(R.id.frame, fragment).commit();
 	}
 
 	@Override

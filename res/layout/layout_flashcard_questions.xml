@@ -1,0 +1,76 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res/com.example.buildmlearntoolkit"
+     xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollView1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_marginTop="50dp" 
+    android:layout_marginRight="20dp"
+    android:layout_marginLeft="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/question"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:ems="10"
+            android:background="@color/fab_color" 
+            android:padding="10dp">
+
+            <requestFocus />
+        </EditText>
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:src="@drawable/abc_list_longpressed_holo"
+            android:scaleType="fitXY"
+            android:layout_marginTop="20dp" />
+        
+        <com.iangclifton.android.floatlabel.FloatLabel
+			    android:id="@+id/answer"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			   android:layout_marginTop="20dp"
+			    android:hint="Answer"
+			    
+			    android:layout="@layout/custom_float_label"
+			    android:maxLength="10"
+			     />
+        
+        <com.iangclifton.android.floatlabel.FloatLabel
+			    android:id="@+id/hint"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:layout_marginTop="20dp"
+			    android:hint="Hint"
+			    android:layout="@layout/custom_float_label"
+			    android:maxLength="10"
+			     />
+		<com.dd.processbutton.iml.ActionProcessButton
+            android:id="@+id/btnNext"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="0.75"
+            android:text="Add"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            custom:pb_colorComplete="@color/fab_color"
+            custom:pb_colorNormal="@color/fab_color"
+            custom:pb_colorPressed="@color/fab_color"
+            custom:pb_colorProgress="@color/fab_color"
+            custom:pb_textComplete="Success"
+            custom:pb_textProgress="Loading"
+            android:gravity="center_horizontal" 
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"/>
+       
+    </LinearLayout>
+
+</ScrollView>

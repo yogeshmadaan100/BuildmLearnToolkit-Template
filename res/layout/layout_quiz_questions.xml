@@ -1,0 +1,86 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.example.buildmlearntoolkit"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollView1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginTop="50dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/question"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@color/fab_color"
+            android:ems="10"
+            android:padding="10dp" >
+
+            <requestFocus />
+        </EditText>
+
+        <RadioGroup
+            android:id="@+id/options"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp" >
+
+            <RadioButton
+                android:id="@+id/option1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="RadioButton" 
+                android:background="@drawable/radio_background"
+                />
+
+            <RadioButton
+                android:id="@+id/option2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RadioButton" 
+                 android:background="@drawable/radio_background"/>
+
+            <RadioButton
+                android:id="@+id/option3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RadioButton" 
+                 android:background="@drawable/radio_background"/>
+
+            <RadioButton
+                android:id="@+id/option4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RadioButton" 
+                 android:background="@drawable/radio_background"/>
+
+        </RadioGroup>
+
+        <com.dd.processbutton.iml.ActionProcessButton
+            android:id="@+id/btnNext"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="0.75"
+            android:gravity="center_horizontal"
+            android:text="Add"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            custom:pb_colorComplete="@color/fab_color"
+            custom:pb_colorNormal="@color/fab_color"
+            custom:pb_colorPressed="@color/fab_color"
+            custom:pb_colorProgress="@color/fab_color"
+            custom:pb_textComplete="Success"
+            custom:pb_textProgress="Loading" />
+
+    </LinearLayout>
+
+</ScrollView>

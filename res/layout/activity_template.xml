@@ -5,6 +5,12 @@
    
     tools:context="com.buildmlearn.activities.TemplateActivity" >
 
-    <include layout="@layout/toolbar" />
+    <include layout="@layout/toolbar"
+         />
+    <FrameLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:id="@+id/frame"></FrameLayout>
 
 </RelativeLayout>
