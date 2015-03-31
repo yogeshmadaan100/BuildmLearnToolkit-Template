@@ -21,6 +21,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import android.os.Environment;
+import android.util.Log;
+
 import com.buildmlearn.template.mlearning.LearningDataTemplate;
 import com.buildmlearn.xml.XmlImplementation;
 
@@ -89,9 +92,9 @@ public class SpellingXml implements XmlImplementation<SpellingsDataTemplate>{
 		attribute.setValue("learning");
 		rootElement.setAttributeNodeNS(attribute);
 		Element template_name=document.createElement("template_name");
-		document.appendChild(template_name);
+		rootElement.appendChild(template_name);
 		Element author_name=document.createElement("author_name");
-		document.appendChild(author_name);
+		rootElement.appendChild(author_name);
 		for(int i=0;i<dataList.size();i++)
 		{
 			SpellingsDataTemplate currentElement=dataList.get(i);
@@ -110,10 +113,21 @@ public class SpellingXml implements XmlImplementation<SpellingsDataTemplate>{
 			
 			
 		}
+		String root = Environment.getExternalStorageDirectory().toString();
+	    File myDir = new File(root + "/buildmlearnFiles");    
+	    myDir.mkdirs();
+	    File file = new File (myDir, "spellings.xml");
+	    if (file.exists ()) file.delete (); 
+	    try {
+	    	
+	    }catch(Exception e)
+	    {
+	    	Log.e("file creation", ""+e);
+	    }
 		TransformerFactory transformerFactory=TransformerFactory.newInstance();
 		Transformer transformer=transformerFactory.newTransformer();
 		DOMSource domSource=new DOMSource(document);
-		StreamResult streamResult=new StreamResult(new File("buildmleanFiles/learning.xml"));
+		StreamResult streamResult=new StreamResult(file);
 		transformer.transform(domSource, streamResult);
 		
 		

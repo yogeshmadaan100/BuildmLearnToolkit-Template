@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.buildmlearn.template.flashcard.FlashCardDataTemplate;
@@ -22,7 +23,8 @@ import com.iangclifton.android.floatlabel.FloatLabel;
 
 public class QuizQuestionTemplate extends Fragment  implements com.buildmlearn.utils.ProgressGenerator.OnCompleteListener {
 	private ActionProcessButton mAdd;
-	private EditText mQuestion;
+	private EditText mQuestion,mOption1,mOption2,mOption3,mOption4;
+	RadioGroup rGroup;
 	private ProgressGenerator progressGenerator=new ProgressGenerator(this);
 	
 	@Override
@@ -32,7 +34,13 @@ public class QuizQuestionTemplate extends Fragment  implements com.buildmlearn.u
 		ViewGroup rootView=(ViewGroup) inflater.inflate(R.layout.layout_quiz_questions, container,false);
 		
 		mQuestion=(EditText)rootView.findViewById(R.id.question);
-		
+		mOption1=(EditText)rootView.findViewById(R.id.optionEdit1);
+		mOption2=(EditText)rootView.findViewById(R.id.optionEdit2);
+		mOption3=(EditText)rootView.findViewById(R.id.optionEdit3);
+		mOption4=(EditText)rootView.findViewById(R.id.optionEdit4);
+		rGroup=(RadioGroup)rootView.findViewById(R.id.options);
+		View rButton=rGroup.findViewById(rGroup.getCheckedRadioButtonId());
+		final int rselected=rGroup.indexOfChild(rButton);
 		mAdd=(ActionProcessButton)rootView.findViewById(R.id.btnNext);
 		mAdd.setOnClickListener(new OnClickListener() {
 			
@@ -41,7 +49,7 @@ public class QuizQuestionTemplate extends Fragment  implements com.buildmlearn.u
 				// TODO Auto-generated method stub
 				if(mQuestion.getText().toString().trim().length()!=0)
 				{
-					ContentActivity.mDataList.add(new QuizDataTemplate(mQuestion.getText().toString(),"option1","option2","option3","option4",3));
+					ContentActivity.mDataList.add(new QuizDataTemplate(mQuestion.getText().toString(),mOption1.getText().toString(),mOption2.getText().toString(),mOption3.getText().toString(),mOption4.getText().toString(),rselected));
 					progressGenerator.start(mAdd);
 					mAdd.setEnabled(false);
 				}

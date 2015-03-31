@@ -21,7 +21,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.buildmlearn.template.flashcard.FlashCardDataTemplate;
+import android.os.Environment;
+import android.util.Log;
+
 import com.buildmlearn.xml.XmlImplementation;
 
 public class LearningXml implements XmlImplementation<LearningDataTemplate>{
@@ -81,6 +83,8 @@ public class LearningXml implements XmlImplementation<LearningDataTemplate>{
 			throws ParserConfigurationException,
 			TransformerConfigurationException, TransformerException {
 		// TODO Auto-generated method stub
+		Log.e("write ", "start");
+		try{
 		DocumentBuilderFactory documentFactory=DocumentBuilderFactory.newInstance();
 		DocumentBuilder documentBuilder=documentFactory.newDocumentBuilder();
 		Document document=documentBuilder.newDocument();
@@ -90,9 +94,9 @@ public class LearningXml implements XmlImplementation<LearningDataTemplate>{
 		attribute.setValue("learning");
 		rootElement.setAttributeNodeNS(attribute);
 		Element template_name=document.createElement("template_name");
-		document.appendChild(template_name);
+		rootElement.appendChild(template_name);
 		Element author_name=document.createElement("author_name");
-		document.appendChild(author_name);
+		rootElement.appendChild(author_name);
 		for(int i=0;i<dataList.size();i++)
 		{
 			LearningDataTemplate currentElement=dataList.get(i);
@@ -114,10 +118,26 @@ public class LearningXml implements XmlImplementation<LearningDataTemplate>{
 		TransformerFactory transformerFactory=TransformerFactory.newInstance();
 		Transformer transformer=transformerFactory.newTransformer();
 		DOMSource domSource=new DOMSource(document);
-		StreamResult streamResult=new StreamResult(new File("buildmleanFiles/learning.xml"));
-		transformer.transform(domSource, streamResult);
-		
-		
+		String root = Environment.getExternalStorageDirectory().toString();
+	    File myDir = new File(root + "/buildmlearnFiles");    
+	    myDir.mkdirs();
+	    File file = new File (myDir, "learning.xml");
+	    if (file.exists ()) file.delete (); 
+	    try {
+	    	
+	    }catch(Exception e)
+	    {
+	    	Log.e("file creation", ""+e);
+	    }
+		//StreamResult streamResult=new StreamResult(new File("buildmleanFiles/learning.xml"));
+		StreamResult streamResult =new StreamResult(file);
+	    transformer.transform(domSource, streamResult);
+		Log.e("Xml is", ""+streamResult);
+		}catch(Exception e)
+		{
+			Log.e("thorw exception", ""+e);
+		}
 	}
+		
 
 }

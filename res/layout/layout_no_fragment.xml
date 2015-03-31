@@ -9,7 +9,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:orientation="vertical" >
+        android:orientation="vertical" 
+        android:id="@+id/noprojects">
 
         <ImageButton
             android:id="@+id/imageButton1"
@@ -32,5 +33,16 @@
             android:gravity="center"/>
 
     </LinearLayout>
+
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+           android:textColor="@drawable/list_item_text"
+          
+         >
+    </ListView>
 
 </RelativeLayout>

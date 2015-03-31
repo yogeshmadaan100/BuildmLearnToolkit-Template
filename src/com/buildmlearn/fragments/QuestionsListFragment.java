@@ -30,7 +30,7 @@ import com.example.buildmlearntoolkit.R;
 public class QuestionsListFragment extends Fragment {
 	private ListView mListView;
 	ImageButton mAdd,mRemove,moveUp,moveDown;
-	ArrayList mDataList=new ArrayList();;
+	public static ArrayList mDataList=new ArrayList();;
 	ArrayList<String> mWords=new ArrayList<String>();
 	Fragment f;
 	@Override

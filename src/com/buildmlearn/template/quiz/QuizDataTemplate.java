@@ -1,6 +1,14 @@
 package com.buildmlearn.template.quiz;
 
 public class QuizDataTemplate {
+	public int getCorrect_option() {
+		return correct_option;
+	}
+
+	public void setCorrect_option(int correct_option) {
+		this.correct_option = correct_option;
+	}
+
 	private String question;
 	private String option1;
 	private String option2;

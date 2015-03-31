@@ -2,6 +2,12 @@ package com.example.buildmlearntoolkit;
 
 import java.util.ArrayList;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,7 +20,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.buildmlearn.application.MyApplication;
+import com.buildmlearn.fragments.FlashcardQuestionTemplate;
+import com.buildmlearn.fragments.LearningQuestionTemplate;
 import com.buildmlearn.fragments.QuestionsListFragment;
+import com.buildmlearn.fragments.QuizQuestionTemplate;
+import com.buildmlearn.fragments.SpellingQuestionTemplate;
+import com.buildmlearn.models.Template;
+import com.buildmlearn.template.flashcard.FlashCardDataTemplate;
+import com.buildmlearn.template.flashcard.FlashCardXml;
+import com.buildmlearn.template.mlearning.LearningDataTemplate;
+import com.buildmlearn.template.mlearning.LearningXml;
+import com.buildmlearn.template.quiz.QuizDataTemplate;
+import com.buildmlearn.template.quiz.QuizXml;
+import com.buildmlearn.template.spellings.SpellingXml;
+import com.buildmlearn.template.spellings.SpellingsDataTemplate;
 public class ContentActivity extends ActionBarActivity {
 	
 	private Toolbar toolbar;
@@ -35,7 +55,73 @@ public class ContentActivity extends ActionBarActivity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Log.e("back", "called");
-				onBackPressed();
+				Template template= ((MyApplication)getApplication()).getmModel().getmTemplate();
+				if(template==Template.FLASHCARD)
+				{
+					FlashCardXml xml=new FlashCardXml();
+					try {
+						xml.writeXml(QuestionsListFragment.mDataList);
+					} catch (TransformerConfigurationException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (ParserConfigurationException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (TransformerException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				else if(template==Template.LEARNING)
+				{
+					LearningXml xml=new LearningXml();
+					try {
+						xml.writeXml(QuestionsListFragment.mDataList);
+					} catch (TransformerConfigurationException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (ParserConfigurationException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (TransformerException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				else if(template==Template.QUIZ)
+				{
+					QuizXml xml=new QuizXml();
+					try {
+						xml.writeXml(QuestionsListFragment.mDataList);
+					} catch (TransformerConfigurationException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (ParserConfigurationException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (TransformerException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				else if(template==Template.SPELLLING)
+				{
+					SpellingXml xml=new SpellingXml();
+					try {
+						xml.writeXml(QuestionsListFragment.mDataList);
+					} catch (TransformerConfigurationException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (ParserConfigurationException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (TransformerException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+			//	onBackPressed();
 			}
 		});
         
@@ -60,6 +146,19 @@ public class ContentActivity extends ActionBarActivity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
+			LearningXml xml=new LearningXml();
+			try {
+				xml.writeXml(QuestionsListFragment.mDataList);
+			} catch (TransformerConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParserConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (TransformerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -69,9 +168,44 @@ public class ContentActivity extends ActionBarActivity {
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
 		super.onBackPressed();
-		Intent i =new Intent(ContentActivity.this,MainActivity.class);
-		startActivity(i);
-		finish();
+		final Intent i =new Intent(ContentActivity.this,MainActivity.class);
+		if(mDataList.size()>0)
+		{
+			new AlertDialog.Builder(this)
+		    .setTitle("Delete entry")
+		    .setMessage("Are you sure you want to delete this entry?")
+		    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface dialog, int which) { 
+		            // continue with delete
+		        	LearningXml xml=new LearningXml();
+					try {
+						xml.writeXml(QuestionsListFragment.mDataList);
+					} catch (TransformerConfigurationException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (ParserConfigurationException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (TransformerException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					//startActivity(i);
+					//finish();
+		        }
+		     })
+		    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface dialog, int which) { 
+		           //startActivity(i);
+					//finish();
+		        	
+		        }
+		     })
+		    .setIcon(android.R.drawable.ic_dialog_alert)
+		     .show();
+			
+		}
+	
 	}
 	
 	public ArrayList getData()

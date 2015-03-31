@@ -21,6 +21,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import android.os.Environment;
+import android.util.Log;
+
 import com.buildmlearn.template.flashcard.FlashCardDataTemplate;
 import com.buildmlearn.xml.XmlImplementation;
 
@@ -98,9 +101,9 @@ public class QuizXml implements XmlImplementation<QuizDataTemplate>{
 		attribute.setValue("quiz");
 		rootElement.setAttributeNodeNS(attribute);
 		Element template_name=document.createElement("template_name");
-		document.appendChild(template_name);
+		rootElement.appendChild(template_name);
 		Element author_name=document.createElement("author_name");
-		document.appendChild(author_name);
+		rootElement.appendChild(author_name);
 		for(int i=0;i<dataList.size();i++)
 		{
 			QuizDataTemplate currentElement=dataList.get(i);
@@ -124,15 +127,29 @@ public class QuizXml implements XmlImplementation<QuizDataTemplate>{
 			Element option4=document.createElement("option4");
 			option1.appendChild(document.createTextNode(currentElement.getOption4()));
 			element.appendChild(option4);
+			Element answer=document.createElement("answer");
+			option1.appendChild(document.createTextNode(""+currentElement.getCorrect_option()));
+			element.appendChild(answer);
 			
 			
 			
 			
 		}
+		String root = Environment.getExternalStorageDirectory().toString();
+	    File myDir = new File(root + "/buildmlearnFiles");    
+	    myDir.mkdirs();
+	    File file = new File (myDir, "quiz.xml");
+	    if (file.exists ()) file.delete (); 
+	    try {
+	    	
+	    }catch(Exception e)
+	    {
+	    	Log.e("file creation", ""+e);
+	    }
 		TransformerFactory transformerFactory=TransformerFactory.newInstance();
 		Transformer transformer=transformerFactory.newTransformer();
 		DOMSource domSource=new DOMSource(document);
-		StreamResult streamResult=new StreamResult(new File("buildmleanFiles/quiz.xml"));
+		StreamResult streamResult=new StreamResult(file);
 		transformer.transform(domSource, streamResult);
 		
 		

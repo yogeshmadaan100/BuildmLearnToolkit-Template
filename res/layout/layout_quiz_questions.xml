@@ -28,37 +28,87 @@
             android:id="@+id/options"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp" >
+            android:layout_marginTop="20dp"
+            android:orientation="vertical" >
 
+            <LinearLayout 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
             <RadioButton
                 android:id="@+id/option1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="RadioButton" 
-                android:background="@drawable/radio_background"
+                android:button="@drawable/radio_background"
                 />
-
+              <EditText
+			    android:id="@+id/optionEdit1"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:background="@android:drawable/editbox_background"
+			    android:hint="Option1"
+			   android:textColor="#ffffff"
+			    android:maxLength="10"
+			     />
+			</LinearLayout>
+			 <LinearLayout 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
             <RadioButton
                 android:id="@+id/option2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="RadioButton" 
-                 android:background="@drawable/radio_background"/>
-
+                 android:button="@drawable/radio_background"/>
+            <EditText
+			    android:id="@+id/optionEdit2"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:background="@android:drawable/editbox_background"
+			    android:hint="Option2"
+			   android:textColor="#ffffff"
+			    android:maxLength="10"
+			     />
+            </LinearLayout>
+ 			<LinearLayout 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
             <RadioButton
                 android:id="@+id/option3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="RadioButton" 
-                 android:background="@drawable/radio_background"/>
-
+                 android:button="@drawable/radio_background"/>
+            <EditText
+			    android:id="@+id/optionEdit3"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:background="@android:drawable/editbox_background"
+			    android:hint="Option3"
+			   android:textColor="#ffffff"
+			    android:maxLength="10"
+			     />
+            </LinearLayout>
+			 <LinearLayout 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
             <RadioButton
                 android:id="@+id/option4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="RadioButton" 
-                 android:background="@drawable/radio_background"/>
+                 android:button="@drawable/radio_background"/>
+            <EditText
+			    android:id="@+id/optionEdit4"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:background="@android:drawable/editbox_background"
+			    android:hint="Option1"
+			   android:textColor="#ffffff"
+			    android:maxLength="10"
+			     />
+            </LinearLayout>
 
         </RadioGroup>
 
