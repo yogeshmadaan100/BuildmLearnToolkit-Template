@@ -49,8 +49,8 @@
 			    android:layout_width="0dip"
 			    android:layout_height="wrap_content"
 			    android:layout_weight="0.71"
-			    android:hint="Word"
-			   
+			    android:hint="Title"
+			    android:text="@string/default_learning_title"
 			    android:layout="@layout/custom_float_label"
 			    android:maxLength="10"
 			     />
@@ -71,8 +71,8 @@
 			    android:layout_width="0dip"
 			    android:layout_height="wrap_content"
 			    android:layout_weight="0.71"
-			    android:hint="Meaning"
-			   
+			    android:hint="Description"
+			    android:text="@string/default_learning_description"
 			    android:layout="@layout/custom_float_label"
 			    android:maxLength="10"
 			    android:layout_gravity="center"

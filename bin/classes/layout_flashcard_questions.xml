@@ -19,7 +19,8 @@
             android:layout_height="100dp"
             android:ems="10"
             android:background="@color/fab_color" 
-            android:padding="10dp">
+            android:padding="10dp"
+             android:text="@string/default_flashcard_question">
 
             <requestFocus />
         </EditText>
@@ -38,7 +39,7 @@
 			    android:layout_height="wrap_content"
 			   android:layout_marginTop="20dp"
 			    android:hint="Answer"
-			    
+			     android:text="@string/default_flashcard_answer"
 			    android:layout="@layout/custom_float_label"
 			    android:maxLength="10"
 			     />
@@ -49,6 +50,7 @@
 			    android:layout_height="wrap_content"
 			    android:layout_marginTop="20dp"
 			    android:hint="Hint"
+			     android:text="@string/default_flashcard_hint"
 			    android:layout="@layout/custom_float_label"
 			    android:maxLength="10"
 			     />

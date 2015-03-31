@@ -24,6 +24,7 @@ import org.xml.sax.SAXException;
 import android.os.Environment;
 import android.util.Log;
 
+import com.buildmlearn.application.MyApplication;
 import com.buildmlearn.template.flashcard.FlashCardDataTemplate;
 import com.buildmlearn.xml.XmlImplementation;
 
@@ -97,14 +98,18 @@ public class QuizXml implements XmlImplementation<QuizDataTemplate>{
 		Document document=documentBuilder.newDocument();
 		Element rootElement=document.createElement("template");
 		document.appendChild(rootElement);
-		Attr attribute =document.createAttribute("type");
-		attribute.setValue("quiz");
-		rootElement.setAttributeNodeNS(attribute);
-		Element template_name=document.createElement("template_name");
-		rootElement.appendChild(template_name);
+		Element metaData=document.createElement("metadata");
+		rootElement.appendChild(metaData);
+		Element template_name=document.createElement("type");
+		template_name.appendChild(document.createTextNode( ((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmTemplate().toString()));
+		metaData.appendChild(template_name);
+		Element app_name=document.createElement("app_name");
+		metaData.appendChild(document.createTextNode( ((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmAppName().toString()));
+		metaData.appendChild(app_name);
 		Element author_name=document.createElement("author_name");
-		rootElement.appendChild(author_name);
-		for(int i=0;i<dataList.size();i++)
+		author_name.appendChild(document.createTextNode(((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmAuthorName().toString()));
+		metaData.appendChild(author_name);
+			for(int i=0;i<dataList.size();i++)
 		{
 			QuizDataTemplate currentElement=dataList.get(i);
 			Element element=document.createElement("data");

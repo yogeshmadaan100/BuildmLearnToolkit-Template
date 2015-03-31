@@ -24,6 +24,7 @@ import org.xml.sax.SAXException;
 import android.os.Environment;
 import android.util.Log;
 
+import com.buildmlearn.application.MyApplication;
 import com.buildmlearn.xml.XmlImplementation;
 
 public class LearningXml implements XmlImplementation<LearningDataTemplate>{
@@ -90,21 +91,28 @@ public class LearningXml implements XmlImplementation<LearningDataTemplate>{
 		Document document=documentBuilder.newDocument();
 		Element rootElement=document.createElement("template");
 		document.appendChild(rootElement);
-		Attr attribute =document.createAttribute("type");
-		attribute.setValue("learning");
-		rootElement.setAttributeNodeNS(attribute);
-		Element template_name=document.createElement("template_name");
-		rootElement.appendChild(template_name);
+		Element metaData=document.createElement("metadata");
+		rootElement.appendChild(metaData);
+		Element template_name=document.createElement("type");
+		template_name.appendChild(document.createTextNode( ((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmTemplate().toString()));
+		Log.e("type is", ""+template_name.getTextContent());
+		metaData.appendChild(template_name);
 		Element author_name=document.createElement("author_name");
-		rootElement.appendChild(author_name);
+		author_name.appendChild(document.createTextNode(((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmAuthorName().toString()));
+		Log.e("author name is ", ""+author_name.getTextContent());
+		metaData.appendChild(author_name);
+		Element app_name=document.createElement("app_name");
+		metaData.appendChild(document.createTextNode( ((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmAppName().toString()));
+		Log.e("app name is", ""+app_name.getTextContent());
+		metaData.appendChild(app_name);
 		for(int i=0;i<dataList.size();i++)
 		{
 			LearningDataTemplate currentElement=dataList.get(i);
 			Element element=document.createElement("data");
 			rootElement.appendChild(element);
-			Attr id =document.createAttribute("id");
-			id.setValue(""+i+1);
-			rootElement.setAttributeNodeNS(id);
+			//Attr id =document.createAttribute("id");
+			//id.setValue(""+i+1);
+			//rootElement.setAttributeNodeNS(id);
 			Element question=document.createElement("title");
 			question.appendChild(document.createTextNode(currentElement.getmTitle()));
 			element.appendChild(question);

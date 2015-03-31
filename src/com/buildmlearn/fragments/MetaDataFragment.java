@@ -30,6 +30,13 @@ public class MetaDataFragment extends Fragment  implements com.buildmlearn.utils
 		mNext=(ActionProcessButton)rootView.findViewById(R.id.btnNext);
 		mAuthorName=(FloatLabel)rootView.findViewById(R.id.authorName);
 		mAppName=(FloatLabel)rootView.findViewById(R.id.appName);
+		try{
+			mAuthorName.getEditText().setText(((MyApplication)getActivity().getApplication()).getmModel().getmAuthorName());
+			mAppName.getEditText().setText(((MyApplication)getActivity().getApplication()).getmModel().getmAppName());
+		}catch(Exception e)
+		{
+			
+		}
 		return rootView;
 	}
 	@Override

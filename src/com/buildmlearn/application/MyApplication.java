@@ -4,7 +4,7 @@ import android.app.Application;
 
 public class MyApplication extends Application {
 	
-	private static MyApplication mApplication;
+	public static MyApplication mApplication;
 	private ApplicationModel mModel;
 	
 	@Override

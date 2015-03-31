@@ -2,6 +2,8 @@ package com.buildmlearn.fragments;
 
 import java.util.ArrayList;
 
+import org.w3c.dom.Text;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,10 +16,12 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import android.view.View.OnClickListener;
 
+import com.buildmlearn.adapters.EfficientAdapter;
 import com.buildmlearn.application.MyApplication;
 import com.buildmlearn.models.Template;
 import com.buildmlearn.template.flashcard.FlashCardDataTemplate;
@@ -44,76 +48,94 @@ public class QuestionsListFragment extends Fragment {
 		moveDown=(ImageButton)rootView.findViewById(R.id.down);
 		moveUp=(ImageButton)rootView.findViewById(R.id.up);
 		Template template= ((MyApplication)getActivity().getApplication()).getmModel().getmTemplate();
-		if(template==Template.FLASHCARD)
+		if(((ContentActivity)getActivity()).getData().size()==0)
 		{
-			f= new FlashcardQuestionTemplate();
-			mDataList=new ArrayList<FlashCardDataTemplate>();
-			mDataList=((ContentActivity)getActivity()).getData();
+			TextView noquestions=(TextView)rootView.findViewById(R.id.textView1);
+			noquestions.setVisibility(View.VISIBLE);
 			
-			if(mDataList!=null&mDataList.size()!=0)
-			{
-				for(int i=0;i<mDataList.size();i++)
-				{
-					
-					String title=( (FlashCardDataTemplate) mDataList.get(i)).getQuestion();
-					Log.e("title", ""+title);
-					mWords.add(title);
-				}
-			}
 		}
-		else if(template==Template.LEARNING)
-		{
-			f=new LearningQuestionTemplate();
-			mDataList=new ArrayList<LearningDataTemplate>();
-			mDataList=((ContentActivity)getActivity()).getData();
+		try{
 			
-			if(mDataList!=null&mDataList.size()!=0)
-			{
-				for(int i=0;i<mDataList.size();i++)
+				
+				if(template==Template.FLASHCARD)
 				{
+					f= new FlashcardQuestionTemplate();
+					mDataList=new ArrayList<FlashCardDataTemplate>();
+					mDataList=((ContentActivity)getActivity()).getData();
 					
-					String title=((LearningDataTemplate) mDataList.get(i)).getmTitle();
-					Log.e("title", ""+title);
-					mWords.add(title);
+					if(mDataList!=null&mDataList.size()!=0)
+					{
+						for(int i=0;i<mDataList.size();i++)
+						{
+							try{
+							String title=( (FlashCardDataTemplate) mDataList.get(i)).getQuestion();
+							Log.e("title", ""+title);
+							mWords.add(title);
+							}catch(Exception e)
+							{
+								
+							}
+						}
+					}
 				}
-			}
-		}
-		else if(template==Template.QUIZ)
+				else if(template==Template.LEARNING)
+				{
+					f=new LearningQuestionTemplate();
+					mDataList=new ArrayList<LearningDataTemplate>();
+					mDataList=((ContentActivity)getActivity()).getData();
+					
+					if(mDataList!=null&mDataList.size()!=0)
+					{
+						for(int i=0;i<mDataList.size();i++)
+						{
+							
+							String title=((LearningDataTemplate) mDataList.get(i)).getmTitle();
+							Log.e("title", ""+title);
+							mWords.add(title);
+						}
+					}
+				}
+				else if(template==Template.QUIZ)
+				{
+					f=new QuizQuestionTemplate();
+					mDataList=new ArrayList<QuizDataTemplate>();
+					mDataList=((ContentActivity)getActivity()).getData();
+				
+					if(mDataList!=null&mDataList.size()!=0)
+					{
+						for(int i=0;i<mDataList.size();i++)
+						{
+							
+							String title=((QuizDataTemplate) mDataList.get(i)).getQuestion();
+							Log.e("title", ""+title);
+							mWords.add(title);
+						}
+					}
+				}
+				else if(template==Template.SPELLLING)
+				{
+					f=new SpellingQuestionTemplate();
+					mDataList=new ArrayList<SpellingsDataTemplate>();
+					mDataList=((ContentActivity)getActivity()).getData();
+					
+					if(mDataList!=null&mDataList.size()!=0)
+					{
+						for(int i=0;i<mDataList.size();i++)
+						{
+							
+							String title=((SpellingsDataTemplate) mDataList.get(i)).getmWord();
+							Log.e("title", ""+title);
+							mWords.add(title);
+						}
+					}
+				}
+		}catch(Exception e)
 		{
-			f=new QuizQuestionTemplate();
-			mDataList=new ArrayList<QuizDataTemplate>();
-			mDataList=((ContentActivity)getActivity()).getData();
-		
-			if(mDataList!=null&mDataList.size()!=0)
-			{
-				for(int i=0;i<mDataList.size();i++)
-				{
-					
-					String title=((QuizDataTemplate) mDataList.get(i)).getQuestion();
-					Log.e("title", ""+title);
-					mWords.add(title);
-				}
-			}
+			Log.e("case exception", ""+e);
 		}
-		else if(template==Template.SPELLLING)
-		{
-			f=new SpellingQuestionTemplate();
-			mDataList=new ArrayList<SpellingsDataTemplate>();
-			mDataList=((ContentActivity)getActivity()).getData();
-			
-			if(mDataList!=null&mDataList.size()!=0)
-			{
-				for(int i=0;i<mDataList.size();i++)
-				{
-					
-					String title=((SpellingsDataTemplate) mDataList.get(i)).getmWord();
-					Log.e("title", ""+title);
-					mWords.add(title);
-				}
-			}
-		}
-		
-		mListView.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,mWords));
+		EfficientAdapter adapter =new EfficientAdapter(getActivity(),mWords);
+		mListView.setAdapter(adapter);
+		adapter.notifyDataSetChanged();
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -129,6 +151,28 @@ public class QuestionsListFragment extends Fragment {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				((ContentActivity)getActivity()).switchFragment(f);
+			}
+		});
+		mRemove.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+			try{
+				mDataList.remove(EfficientAdapter.mPosition);
+				
+			}catch(Exception e)
+			{
+				Log.e("delete exception", ""+e+EfficientAdapter.mPosition);
+			}
+			}
+		});
+		moveUp.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
 			}
 		});
 		return rootView;

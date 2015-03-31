@@ -1,26 +1,38 @@
 package com.buildmlearn.fragments;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
 
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.transition.Visibility;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.buildmlearn.adapters.EfficientAdapter;
+import com.buildmlearn.xml.XmlReader;
 import com.example.buildmlearntoolkit.R;
 
 public class NoProjectFragment extends Fragment{
 	LinearLayout noprojects;
 	ArrayList<String> files;
 	ListView mList;
+	File file[];
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -36,26 +48,51 @@ public class NoProjectFragment extends Fragment{
 		String path = Environment.getExternalStorageDirectory().toString()+"/buildmLearnFiles";
 		Log.e("Files", "Path: " + path);
 		File f = new File(path);        
-		File file[] = f.listFiles();
+		 file= f.listFiles();
 
 		if(file!=null)
 		{
+			if(file.length!=0)
 			noprojects.setVisibility(View.GONE);
 			Log.e("Files", "Size: "+ file.length);
 			for (int i=0; i < file.length; i++)
 			{
 			    Log.e("Files", "FileName:" + file[i].getName());
 			    Log.e("Files", "File Location :" +file[i].getAbsolutePath());
-			    String temp=file[i].getName().substring(5, file[i].getName().toString().length()-4);
+			    String temp=file[i].getName().substring(0, file[i].getName().toString().length()-4);
 			    Log.e("file name is ", temp);
 			    
 			     
 
-			 files.add(new String(file[i].getName()));
+			 files.add(temp);
 			}
-			mList.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,files));
+			mList.setAdapter(new EfficientAdapter(getActivity(),files));
+		}
+		else
+		{
+			noprojects.setVisibility(View.VISIBLE);
 		}
 		
+		mList.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO Auto-generated method stub
+				try {
+					XmlReader.readXml(file[position].getAbsolutePath().toString());
+				} catch (ParserConfigurationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SAXException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 		return rootView;
 	}
 	@Override

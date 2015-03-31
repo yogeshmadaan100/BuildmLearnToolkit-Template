@@ -47,7 +47,7 @@ public class QuizQuestionTemplate extends Fragment  implements com.buildmlearn.u
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if(mQuestion.getText().toString().trim().length()!=0)
+				if(mQuestion.getText().toString().trim().length()!=0&&mOption1.getText().toString().trim().length()!=0&&mOption4.getText().toString().trim().length()!=0&&mOption4.getText().toString().trim().length()!=0&&mOption4.getText().toString().trim().length()!=0)
 				{
 					ContentActivity.mDataList.add(new QuizDataTemplate(mQuestion.getText().toString(),mOption1.getText().toString(),mOption2.getText().toString(),mOption3.getText().toString(),mOption4.getText().toString(),rselected));
 					progressGenerator.start(mAdd);

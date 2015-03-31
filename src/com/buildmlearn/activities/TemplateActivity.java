@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.buildmlearn.application.MyApplication;
 import com.buildmlearn.base.BaseActivity;
 import com.buildmlearn.fragments.MetaDataFragment;
 import com.example.buildmlearntoolkit.MainActivity;
@@ -25,7 +26,7 @@ public class TemplateActivity extends BaseActivity {
 		super.setContentView(R.layout.activity_template);
 		 toolbar=(Toolbar)findViewById(R.id.toolbar);
 	        if (toolbar != null) {
-	            toolbar.setTitle("BuildmLearn");
+	            toolbar.setTitle(""+((MyApplication)getApplication()).getmModel().getmTemplate());
 	            setSupportActionBar(toolbar);
 	            toolbar.setNavigationIcon(R.drawable.ic_menu_back);
 	        }

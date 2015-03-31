@@ -19,8 +19,9 @@
             android:layout_height="150dp"
             android:background="@color/fab_color"
             android:ems="10"
-            android:padding="10dp" >
-
+            android:padding="10dp" 
+            android:text="@string/default_quiz_question">
+			
             <requestFocus />
         </EditText>
 
@@ -48,8 +49,9 @@
 			    android:layout_height="wrap_content"
 			    android:background="@android:drawable/editbox_background"
 			    android:hint="Option1"
-			   android:textColor="#ffffff"
+			    android:text="@string/default_quiz_option1"
 			    android:maxLength="10"
+			    android:textColor="#000"
 			     />
 			</LinearLayout>
 			 <LinearLayout 
@@ -67,8 +69,9 @@
 			    android:layout_height="wrap_content"
 			    android:background="@android:drawable/editbox_background"
 			    android:hint="Option2"
-			   android:textColor="#ffffff"
+			    android:text="@string/default_quiz_option2"
 			    android:maxLength="10"
+			    android:textColor="#000"
 			     />
             </LinearLayout>
  			<LinearLayout 
@@ -86,8 +89,9 @@
 			    android:layout_height="wrap_content"
 			    android:background="@android:drawable/editbox_background"
 			    android:hint="Option3"
-			   android:textColor="#ffffff"
+			    android:text="@string/default_quiz_option3"
 			    android:maxLength="10"
+			    android:textColor="#000"
 			     />
             </LinearLayout>
 			 <LinearLayout 
@@ -105,8 +109,9 @@
 			    android:layout_height="wrap_content"
 			    android:background="@android:drawable/editbox_background"
 			    android:hint="Option1"
-			   android:textColor="#ffffff"
+			    android:text="@string/default_quiz_option4"
 			    android:maxLength="10"
+			    android:textColor="#000"
 			     />
             </LinearLayout>
 

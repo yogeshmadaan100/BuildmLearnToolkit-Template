@@ -50,7 +50,7 @@
 			    android:layout_height="wrap_content"
 			    android:layout_weight="0.71"
 			    android:hint="Title"
-			   
+			     android:text="@string/default_spelling_word"
 			    android:layout="@layout/custom_float_label"
 			    android:maxLength="10"
 			     />
@@ -72,7 +72,7 @@
 			    android:layout_height="wrap_content"
 			    android:layout_weight="0.71"
 			    android:hint="Description"
-			   
+			    android:text="@string/default_spelling_meaning"
 			    android:layout="@layout/custom_float_label"
 			    android:maxLength="10"
 			    android:layout_gravity="center"

@@ -23,6 +23,7 @@ import org.xml.sax.SAXException;
 import android.os.Environment;
 import android.util.Log;
 
+import com.buildmlearn.application.MyApplication;
 import com.buildmlearn.xml.XmlImplementation;
 
 public class FlashCardXml implements XmlImplementation<FlashCardDataTemplate>{
@@ -79,13 +80,17 @@ public class FlashCardXml implements XmlImplementation<FlashCardDataTemplate>{
 		Document document=documentBuilder.newDocument();
 		Element rootElement=document.createElement("template");
 		document.appendChild(rootElement);
-		Attr attribute =document.createAttribute("type");
-		attribute.setValue("flashcard");
-		rootElement.setAttributeNodeNS(attribute);
-		Element template_name=document.createElement("template_name");
-		rootElement.appendChild(template_name);
+		Element metaData=document.createElement("metadata");
+		rootElement.appendChild(metaData);
+		Element template_name=document.createElement("type");
+		template_name.appendChild(document.createTextNode( ((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmTemplate().toString()));
+		metaData.appendChild(template_name);
+		Element app_name=document.createElement("app_name");
+		template_name.appendChild(document.createTextNode( ((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmAppName().toString()));
+		metaData.appendChild(app_name);
 		Element author_name=document.createElement("author_name");
-		rootElement.appendChild(author_name);
+		author_name.appendChild(document.createTextNode(((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmAuthorName().toString()));
+		metaData.appendChild(author_name);
 		for(int i=0;i<dataList.size();i++)
 		{
 			FlashCardDataTemplate currentElement=dataList.get(i);
