@@ -38,7 +38,7 @@ import com.buildmlearn.template.spellings.SpellingsDataTemplate;
 public class ContentActivity extends ActionBarActivity {
 	
 	private Toolbar toolbar;
-	public static ArrayList mDataList=new ArrayList();
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -178,11 +178,7 @@ public class ContentActivity extends ActionBarActivity {
 	
 	}
 	
-	public ArrayList getData()
-	{
-		Log.e("list size", ""+mDataList.size());
-		return mDataList;
-	}
+	
 	public void switchFragment(Fragment f)
 	{
 		Log.e("switch", ""+f.toString());

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.buildmlearn.application.MyApplication;
 import com.buildmlearn.template.flashcard.FlashCardDataTemplate;
 import com.buildmlearn.template.mlearning.LearningDataTemplate;
 import com.buildmlearn.template.quiz.QuizDataTemplate;
@@ -49,7 +50,7 @@ public class QuizQuestionTemplate extends Fragment  implements com.buildmlearn.u
 				// TODO Auto-generated method stub
 				if(mQuestion.getText().toString().trim().length()!=0&&mOption1.getText().toString().trim().length()!=0&&mOption4.getText().toString().trim().length()!=0&&mOption4.getText().toString().trim().length()!=0&&mOption4.getText().toString().trim().length()!=0)
 				{
-					ContentActivity.mDataList.add(new QuizDataTemplate(mQuestion.getText().toString(),mOption1.getText().toString(),mOption2.getText().toString(),mOption3.getText().toString(),mOption4.getText().toString(),rselected));
+					MyApplication.mDataList.add(new QuizDataTemplate(mQuestion.getText().toString(),mOption1.getText().toString(),mOption2.getText().toString(),mOption3.getText().toString(),mOption4.getText().toString(),rselected));
 					progressGenerator.start(mAdd);
 					mAdd.setEnabled(false);
 				}

@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.buildmlearn.application.MyApplication;
 import com.buildmlearn.template.flashcard.FlashCardDataTemplate;
 import com.buildmlearn.template.mlearning.LearningDataTemplate;
 import com.buildmlearn.utils.ProgressGenerator;
@@ -43,7 +44,7 @@ public class FlashcardQuestionTemplate extends Fragment  implements com.buildmle
 				// TODO Auto-generated method stub
 				if(mAnswer.getEditText().getText().toString().trim().length()!=0&&mHint.getEditText().getText().toString().trim().length()!=0&&mQuestion.getText().toString().trim().length()!=0)
 				{
-					ContentActivity.mDataList.add(new FlashCardDataTemplate(mQuestion.getText().toString(),mAnswer.getEditText().getText().toString(),"www.google.com", mHint.getEditText().getText().toString()));
+					MyApplication.mDataList.add(new FlashCardDataTemplate(mQuestion.getText().toString(),mAnswer.getEditText().getText().toString(),"www.google.com", mHint.getEditText().getText().toString()));
 					progressGenerator.start(mAdd);
 					mAdd.setEnabled(false);
 				}

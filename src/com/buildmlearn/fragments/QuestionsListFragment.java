@@ -48,7 +48,7 @@ public class QuestionsListFragment extends Fragment {
 		moveDown=(ImageButton)rootView.findViewById(R.id.down);
 		moveUp=(ImageButton)rootView.findViewById(R.id.up);
 		Template template= ((MyApplication)getActivity().getApplication()).getmModel().getmTemplate();
-		if(((ContentActivity)getActivity()).getData().size()==0)
+		if(((MyApplication)getActivity().getApplication()).getData().size()==0)
 		{
 			TextView noquestions=(TextView)rootView.findViewById(R.id.textView1);
 			noquestions.setVisibility(View.VISIBLE);
@@ -61,7 +61,7 @@ public class QuestionsListFragment extends Fragment {
 				{
 					f= new FlashcardQuestionTemplate();
 					mDataList=new ArrayList<FlashCardDataTemplate>();
-					mDataList=((ContentActivity)getActivity()).getData();
+					mDataList=((MyApplication)getActivity().getApplication()).getData();
 					
 					if(mDataList!=null&mDataList.size()!=0)
 					{
@@ -82,7 +82,7 @@ public class QuestionsListFragment extends Fragment {
 				{
 					f=new LearningQuestionTemplate();
 					mDataList=new ArrayList<LearningDataTemplate>();
-					mDataList=((ContentActivity)getActivity()).getData();
+					mDataList=((MyApplication)getActivity().getApplication()).getData();
 					
 					if(mDataList!=null&mDataList.size()!=0)
 					{
@@ -99,7 +99,7 @@ public class QuestionsListFragment extends Fragment {
 				{
 					f=new QuizQuestionTemplate();
 					mDataList=new ArrayList<QuizDataTemplate>();
-					mDataList=((ContentActivity)getActivity()).getData();
+					mDataList=((MyApplication)getActivity().getApplication()).getData();
 				
 					if(mDataList!=null&mDataList.size()!=0)
 					{
@@ -116,7 +116,7 @@ public class QuestionsListFragment extends Fragment {
 				{
 					f=new SpellingQuestionTemplate();
 					mDataList=new ArrayList<SpellingsDataTemplate>();
-					mDataList=((ContentActivity)getActivity()).getData();
+					mDataList=((MyApplication)getActivity().getApplication()).getData();
 					
 					if(mDataList!=null&mDataList.size()!=0)
 					{

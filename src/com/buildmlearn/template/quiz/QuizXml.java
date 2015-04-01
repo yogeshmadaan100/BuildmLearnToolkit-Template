@@ -52,7 +52,7 @@ public class QuizXml implements XmlImplementation<QuizDataTemplate>{
 		   Document doc = documentBuilder.parse(xmlFile);  
 		  
 		   doc.getDocumentElement().normalize();  
-		   NodeList nodeList = doc.getElementsByTagName("template");  
+		   NodeList nodeList = doc.getElementsByTagName("data");  
 		  
 		   System.out.println("Root element :"  
 		     + doc.getDocumentElement().getNodeName());  
@@ -83,7 +83,14 @@ public class QuizXml implements XmlImplementation<QuizDataTemplate>{
 		     System.out.println("Option4 : "  
 				       + student.getElementsByTagName("option4").item(0)  
 				         .getTextContent());  
-		  
+		    
+		  MyApplication.mDataList.add( new QuizDataTemplate(student.getElementsByTagName("question").item(0)  
+			         .getTextContent(), student.getElementsByTagName("option1").item(0)  
+			         .getTextContent(), student.getElementsByTagName("option2").item(0)  
+			         .getTextContent(), student.getElementsByTagName("option3").item(0)  
+			         .getTextContent(), student.getElementsByTagName("option4").item(0)  
+			         .getTextContent(),Integer.parseInt(student.getElementsByTagName("answer").item(0)  
+			         .getTextContent())));
 		    }  
 		   }  
 	}

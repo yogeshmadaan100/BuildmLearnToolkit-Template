@@ -52,7 +52,7 @@ public class SpellingXml implements XmlImplementation<SpellingsDataTemplate>{
 		   Document doc = documentBuilder.parse(xmlFile);  
 		  
 		   doc.getDocumentElement().normalize();  
-		   NodeList nodeList = doc.getElementsByTagName("template");  
+		   NodeList nodeList = doc.getElementsByTagName("data");  
 		  
 		   System.out.println("Root element :"  
 		     + doc.getDocumentElement().getNodeName());  
@@ -74,7 +74,9 @@ public class SpellingXml implements XmlImplementation<SpellingsDataTemplate>{
 		     System.out.println("Meaning : "  
 		       + student.getElementsByTagName("meaning").item(0)  
 		         .getTextContent());  
-		     
+		     MyApplication.mDataList.add(new SpellingsDataTemplate( student.getElementsByTagName("word").item(0)  
+			         .getTextContent(),student.getElementsByTagName("meaning").item(0)  
+			         .getTextContent()));
 		  
 		    }  
 		   }  

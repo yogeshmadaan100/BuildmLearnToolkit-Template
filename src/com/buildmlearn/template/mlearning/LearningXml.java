@@ -25,6 +25,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.buildmlearn.application.MyApplication;
+import com.buildmlearn.template.spellings.SpellingsDataTemplate;
 import com.buildmlearn.xml.XmlImplementation;
 
 public class LearningXml implements XmlImplementation<LearningDataTemplate>{
@@ -51,7 +52,7 @@ public class LearningXml implements XmlImplementation<LearningDataTemplate>{
 		   Document doc = documentBuilder.parse(xmlFile);  
 		  
 		   doc.getDocumentElement().normalize();  
-		   NodeList nodeList = doc.getElementsByTagName("template");  
+		   NodeList nodeList = doc.getElementsByTagName("data");  
 		  
 		   System.out.println("Root element :"  
 		     + doc.getDocumentElement().getNodeName());  
@@ -73,7 +74,10 @@ public class LearningXml implements XmlImplementation<LearningDataTemplate>{
 		     System.out.println("Description : "  
 		       + student.getElementsByTagName("description").item(0)  
 		         .getTextContent());  
-		     
+		      
+		     MyApplication.mDataList.add(new SpellingsDataTemplate( student.getElementsByTagName("title").item(0)  
+			         .getTextContent(),student.getElementsByTagName("description").item(0)  
+			         .getTextContent()));
 		  
 		    }  
 		   }  

@@ -32,6 +32,7 @@ public class FlashCardXml implements XmlImplementation<FlashCardDataTemplate>{
 	public void readXml(String fileLocation) throws ParserConfigurationException, SAXException, IOException {
 		// TODO Auto-generated method stub
 		 File xmlFile = new File(fileLocation);  
+		
 		   DocumentBuilderFactory documentFactory = DocumentBuilderFactory  
 		     .newInstance();  
 		   DocumentBuilder documentBuilder = documentFactory  
@@ -39,7 +40,7 @@ public class FlashCardXml implements XmlImplementation<FlashCardDataTemplate>{
 		   Document doc = documentBuilder.parse(xmlFile);  
 		  
 		   doc.getDocumentElement().normalize();  
-		   NodeList nodeList = doc.getElementsByTagName("template");  
+		   NodeList nodeList = doc.getElementsByTagName("data");  
 		  
 		   System.out.println("Root element :"  
 		     + doc.getDocumentElement().getNodeName());  
@@ -67,7 +68,11 @@ public class FlashCardXml implements XmlImplementation<FlashCardDataTemplate>{
 		     System.out.println("Hint : "  
 		       + student.getElementsByTagName("hint").item(0)  
 		         .getTextContent());  
-		  
+		  MyApplication.mDataList.add(new FlashCardDataTemplate(student.getElementsByTagName("question").item(0)  
+			         .getTextContent(), student.getElementsByTagName("answer").item(0)  
+			         .getTextContent(), student.getElementsByTagName("image").item(0)  
+			         .getTextContent(), student.getElementsByTagName("hint").item(0)  
+			         .getTextContent()));
 		    }  
 		   }  
 	}
@@ -84,13 +89,16 @@ public class FlashCardXml implements XmlImplementation<FlashCardDataTemplate>{
 		rootElement.appendChild(metaData);
 		Element template_name=document.createElement("type");
 		template_name.appendChild(document.createTextNode( ((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmTemplate().toString()));
+		Log.e("type is", ""+template_name.getTextContent());
 		metaData.appendChild(template_name);
-		Element app_name=document.createElement("app_name");
-		template_name.appendChild(document.createTextNode( ((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmAppName().toString()));
-		metaData.appendChild(app_name);
 		Element author_name=document.createElement("author_name");
 		author_name.appendChild(document.createTextNode(((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmAuthorName().toString()));
+		Log.e("author name is ", ""+author_name.getTextContent());
 		metaData.appendChild(author_name);
+		Element app_name=document.createElement("app_name");
+		metaData.appendChild(document.createTextNode( ((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmAppName().toString()));
+		Log.e("app name is", ""+app_name.getTextContent());
+		metaData.appendChild(app_name);
 		for(int i=0;i<dataList.size();i++)
 		{
 			FlashCardDataTemplate currentElement=dataList.get(i);
