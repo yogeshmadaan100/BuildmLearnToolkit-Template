@@ -68,6 +68,7 @@ public class FlashCardXml implements XmlImplementation<FlashCardDataTemplate>{
 		     System.out.println("Hint : "  
 		       + student.getElementsByTagName("hint").item(0)  
 		         .getTextContent());  
+		     MyApplication.mDataList=new ArrayList<FlashCardDataTemplate>();
 		  MyApplication.mDataList.add(new FlashCardDataTemplate(student.getElementsByTagName("question").item(0)  
 			         .getTextContent(), student.getElementsByTagName("answer").item(0)  
 			         .getTextContent(), student.getElementsByTagName("image").item(0)  

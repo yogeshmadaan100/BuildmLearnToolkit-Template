@@ -2,7 +2,7 @@ package com.buildmlearn.fragments;
 
 import java.util.ArrayList;
 
-import org.w3c.dom.Text;
+
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,11 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import android.view.View.OnClickListener;
 
@@ -34,6 +32,7 @@ import com.example.buildmlearntoolkit.R;
 public class QuestionsListFragment extends Fragment {
 	private ListView mListView;
 	ImageButton mAdd,mRemove,moveUp,moveDown;
+	@SuppressWarnings("rawtypes")
 	public static ArrayList mDataList=new ArrayList();;
 	ArrayList<String> mWords=new ArrayList<String>();
 	Fragment f;
@@ -54,7 +53,7 @@ public class QuestionsListFragment extends Fragment {
 			noquestions.setVisibility(View.VISIBLE);
 			
 		}
-		try{
+		//try{
 			
 				
 				if(template==Template.FLASHCARD)
@@ -129,10 +128,10 @@ public class QuestionsListFragment extends Fragment {
 						}
 					}
 				}
-		}catch(Exception e)
+		/*}catch(Exception e)
 		{
 			Log.e("case exception", ""+e);
-		}
+		}*/
 		EfficientAdapter adapter =new EfficientAdapter(getActivity(),mWords);
 		mListView.setAdapter(adapter);
 		adapter.notifyDataSetChanged();

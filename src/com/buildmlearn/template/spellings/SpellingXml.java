@@ -74,6 +74,7 @@ public class SpellingXml implements XmlImplementation<SpellingsDataTemplate>{
 		     System.out.println("Meaning : "  
 		       + student.getElementsByTagName("meaning").item(0)  
 		         .getTextContent());  
+		     MyApplication.mDataList=new ArrayList<SpellingsDataTemplate>();
 		     MyApplication.mDataList.add(new SpellingsDataTemplate( student.getElementsByTagName("word").item(0)  
 			         .getTextContent(),student.getElementsByTagName("meaning").item(0)  
 			         .getTextContent()));

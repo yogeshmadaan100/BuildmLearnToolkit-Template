@@ -74,8 +74,8 @@ public class LearningXml implements XmlImplementation<LearningDataTemplate>{
 		     System.out.println("Description : "  
 		       + student.getElementsByTagName("description").item(0)  
 		         .getTextContent());  
-		      
-		     MyApplication.mDataList.add(new SpellingsDataTemplate( student.getElementsByTagName("title").item(0)  
+		      MyApplication.mDataList=new ArrayList<LearningDataTemplate>();
+		     MyApplication.mDataList.add(new LearningDataTemplate( student.getElementsByTagName("title").item(0)  
 			         .getTextContent(),student.getElementsByTagName("description").item(0)  
 			         .getTextContent()));
 		  
