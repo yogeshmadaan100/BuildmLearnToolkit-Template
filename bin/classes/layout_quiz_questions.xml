@@ -17,7 +17,7 @@
             android:id="@+id/question"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:background="@color/fab_color"
+            android:background="@drawable/edittext_background"
             android:ems="10"
             android:padding="10dp" 
             android:text="@string/default_quiz_question">
@@ -50,7 +50,7 @@
 			    android:background="@android:drawable/editbox_background"
 			    android:hint="Option1"
 			    android:text="@string/default_quiz_option1"
-			    android:maxLength="10"
+			   	
 			    android:textColor="#000"
 			     />
 			</LinearLayout>
@@ -70,7 +70,6 @@
 			    android:background="@android:drawable/editbox_background"
 			    android:hint="Option2"
 			    android:text="@string/default_quiz_option2"
-			    android:maxLength="10"
 			    android:textColor="#000"
 			     />
             </LinearLayout>
@@ -90,7 +89,6 @@
 			    android:background="@android:drawable/editbox_background"
 			    android:hint="Option3"
 			    android:text="@string/default_quiz_option3"
-			    android:maxLength="10"
 			    android:textColor="#000"
 			     />
             </LinearLayout>
@@ -110,7 +108,6 @@
 			    android:background="@android:drawable/editbox_background"
 			    android:hint="Option1"
 			    android:text="@string/default_quiz_option4"
-			    android:maxLength="10"
 			    android:textColor="#000"
 			     />
             </LinearLayout>

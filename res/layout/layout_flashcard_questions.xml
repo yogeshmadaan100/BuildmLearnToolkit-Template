@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:ems="10"
-            android:background="@color/fab_color" 
+            android:background="@drawable/edittext_background" 
             android:padding="10dp"
              android:text="@string/default_flashcard_question">
 
@@ -29,8 +29,8 @@
             android:id="@+id/imageView1"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:src="@drawable/abc_list_longpressed_holo"
-            android:scaleType="fitXY"
+            android:src="@drawable/cat"
+            android:scaleType="centerCrop"
             android:layout_marginTop="20dp" />
         
         <com.iangclifton.android.floatlabel.FloatLabel
