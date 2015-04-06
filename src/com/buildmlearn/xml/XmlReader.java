@@ -58,7 +58,10 @@ public class XmlReader {
 				System.out.println("Nick Name : " + eElement.getElementsByTagName("author_name").item(0).getTextContent());
 				String type =eElement.getElementsByTagName("type").item(0).getTextContent();
 				Object xml;
-				switch (type) {
+				 ((MyApplication)MyApplication.mApplication.getApplication()).getmModel().setmAppName(eElement.getElementsByTagName("app_name").item(0).getTextContent());
+				 ((MyApplication)MyApplication.mApplication.getApplication()).getmModel().setmAuthorName(eElement.getElementsByTagName("author_name").item(0).getTextContent());
+					
+				 switch (type) {
 				
 				case "FLASHCARD":
 					 ((MyApplication)MyApplication.mApplication.getApplication()).getmModel().setmTemplate(Template.FLASHCARD);

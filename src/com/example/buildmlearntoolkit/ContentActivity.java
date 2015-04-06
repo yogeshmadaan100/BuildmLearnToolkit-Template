@@ -27,6 +27,7 @@ import com.buildmlearn.fragments.QuestionsListFragment;
 import com.buildmlearn.fragments.QuizQuestionTemplate;
 import com.buildmlearn.fragments.SpellingQuestionTemplate;
 import com.buildmlearn.models.Template;
+import com.buildmlearn.simulator.SimulationActivity;
 import com.buildmlearn.template.flashcard.FlashCardDataTemplate;
 import com.buildmlearn.template.flashcard.FlashCardXml;
 import com.buildmlearn.template.mlearning.LearningDataTemplate;
@@ -163,6 +164,11 @@ public class ContentActivity extends ActionBarActivity {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			return true;
+		}
+		if (id == R.id.action_simulate) {
+			Intent i = new Intent(getApplicationContext(),SimulationActivity.class);
+			startActivity(i);
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

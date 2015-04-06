@@ -41,5 +41,6 @@
     <string name="disagree">Cancel</string>
     <string name="title_activity_template">TemplateActivity</string>
     <string name="title_activity_content">ContentActivity</string>
+    <string name="title_activity_simulation">SimulationActivity</string>
 
 </resources>

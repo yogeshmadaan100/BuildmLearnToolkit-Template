@@ -1,21 +1,21 @@
 package com.buildmlearn.base;
 
-import android.R.color;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Matrix.ScaleToFit;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 
 import com.buildmlearn.design.models.ColorGenerator;
 import com.buildmlearn.design.models.TextDrawable;
+import com.buildmlearn.simulator.SimulationActivity;
 import com.example.buildmlearntoolkit.R;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
@@ -90,6 +90,15 @@ public class BaseActivity extends ActionBarActivity {
                 animation.start();
             }
         });
+        rlIcon1.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent i = new Intent(getApplicationContext(),SimulationActivity.class);
+				startActivity(i);
+			}
+		});
 	}
 	@Override
 	public void setContentView(int layoutResID) {
