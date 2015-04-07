@@ -43,4 +43,5 @@ public class SimulationActivity extends ActionBarActivity {
 	        FragmentManager fragmentManager = getSupportFragmentManager();
 	        fragmentManager.beginTransaction().replace(R.id.child, fragment).commit();
 	}
+	
 }

@@ -23,7 +23,7 @@ import com.example.buildmlearntoolkit.R;
 
 public class SimulatorLearningFragment extends Fragment {
 	private ListView mListView;
-	public static ArrayList mDataList=new ArrayList();;
+	public static ArrayList mDataList=new ArrayList();
 	ArrayList<String> mWords=new ArrayList<String>();
 	Fragment f;
 	

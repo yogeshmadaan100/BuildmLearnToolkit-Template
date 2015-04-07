@@ -6,5 +6,6 @@
     <dimen name="simulator_margin">60dp</dimen>    
 	<dimen name="simulator_margin_horizontal">24dp</dimen>
     <dimen name="no_project_edit">40dp</dimen>
-
+<dimen name="card_width">320dp</dimen>
+    <dimen name="card_height">250dp</dimen>
 </resources>

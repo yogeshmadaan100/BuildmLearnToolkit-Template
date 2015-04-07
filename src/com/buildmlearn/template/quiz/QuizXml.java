@@ -137,10 +137,10 @@ public class QuizXml implements XmlImplementation<QuizDataTemplate>{
 			option3.appendChild(document.createTextNode(currentElement.getOption3()));
 			element.appendChild(option3);
 			Element option4=document.createElement("option4");
-			option1.appendChild(document.createTextNode(currentElement.getOption4()));
+			option4.appendChild(document.createTextNode(currentElement.getOption4()));
 			element.appendChild(option4);
 			Element answer=document.createElement("answer");
-			option1.appendChild(document.createTextNode(""+currentElement.getCorrect_option()));
+			answer.appendChild(document.createTextNode(""+currentElement.getCorrect_option()));
 			element.appendChild(answer);
 			
 			
