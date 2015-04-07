@@ -1,5 +1,7 @@
 package com.buildmlearn.application;
 
+import android.util.Log;
+
 import com.buildmlearn.models.Template;
 
 public class ApplicationModel {
@@ -18,6 +20,7 @@ public class ApplicationModel {
 		return mAppName;
 	}
 	public void setmAppName(String mAppName) {
+		Log.e("setting app name as", ""+mAppName);
 		this.mAppName = mAppName;
 	}
 	public String getmAuthorName() {
@@ -26,7 +29,12 @@ public class ApplicationModel {
 	public void setmAuthorName(String mAuthorName) {
 		this.mAuthorName = mAuthorName;
 	}
-	
+	public void reset()
+	{
+		this.mTemplate=null;
+		this.mAppName="";
+		this.mAuthorName="";
+	}
 	
 
 }

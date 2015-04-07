@@ -96,7 +96,7 @@ public class QuizXml implements XmlImplementation<QuizDataTemplate>{
 	}
 
 	@Override
-	public void writeXml(ArrayList<QuizDataTemplate> dataList)
+	public void writeXml(ArrayList<QuizDataTemplate> dataList,String filename)
 			throws ParserConfigurationException,
 			TransformerConfigurationException, TransformerException {
 		// TODO Auto-generated method stub
@@ -111,7 +111,7 @@ public class QuizXml implements XmlImplementation<QuizDataTemplate>{
 		template_name.appendChild(document.createTextNode( ((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmTemplate().toString()));
 		metaData.appendChild(template_name);
 		Element app_name=document.createElement("app_name");
-		metaData.appendChild(document.createTextNode( ((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmAppName().toString()));
+		app_name.appendChild(document.createTextNode( ((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmAppName().toString()));
 		metaData.appendChild(app_name);
 		Element author_name=document.createElement("author_name");
 		author_name.appendChild(document.createTextNode(((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmAuthorName().toString()));
@@ -150,7 +150,7 @@ public class QuizXml implements XmlImplementation<QuizDataTemplate>{
 		String root = Environment.getExternalStorageDirectory().toString();
 	    File myDir = new File(root + "/buildmlearnFiles");    
 	    myDir.mkdirs();
-	    File file = new File (myDir, "quiz.xml");
+	    File file = new File (myDir, filename+".xml");
 	    if (file.exists ()) file.delete (); 
 	    try {
 	    	

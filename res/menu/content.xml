@@ -9,16 +9,6 @@
         android:icon="@android:drawable/ic_menu_save"
         android:title="@string/action_settings"
         app:showAsAction="always"/>
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never"/>
-
-     <item
-        android:id="@+id/action_simulate"
-        android:orderInCategory="100"
-        android:title="Simulate"
-        app:showAsAction="never"/>
+   
     
 </menu>

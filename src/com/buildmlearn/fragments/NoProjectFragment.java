@@ -25,6 +25,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.buildmlearn.adapters.EfficientAdapter;
+import com.buildmlearn.application.MyApplication;
 import com.buildmlearn.xml.XmlReader;
 import com.example.buildmlearntoolkit.R;
 
@@ -42,7 +43,7 @@ public class NoProjectFragment extends Fragment{
 		noprojects=(LinearLayout)rootView.findViewById(R.id.noprojects);
 		mList=(ListView)rootView.findViewById(R.id.listView1);
 		files = new ArrayList<String>();
-		
+		 ((MyApplication)MyApplication.mApplication.getApplication()).resetModel();
 			
 		
 		String path = Environment.getExternalStorageDirectory().toString()+"/buildmLearnFiles";

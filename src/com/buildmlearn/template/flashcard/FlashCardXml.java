@@ -79,7 +79,7 @@ public class FlashCardXml implements XmlImplementation<FlashCardDataTemplate>{
 	}
 
 	@Override
-	public void writeXml(ArrayList<FlashCardDataTemplate> dataList) throws ParserConfigurationException, TransformerException {
+	public void writeXml(ArrayList<FlashCardDataTemplate> dataList,String filename) throws ParserConfigurationException, TransformerException {
 		// TODO Auto-generated method stub
 		DocumentBuilderFactory documentFactory=DocumentBuilderFactory.newInstance();
 		DocumentBuilder documentBuilder=documentFactory.newDocumentBuilder();
@@ -97,7 +97,7 @@ public class FlashCardXml implements XmlImplementation<FlashCardDataTemplate>{
 		Log.e("author name is ", ""+author_name.getTextContent());
 		metaData.appendChild(author_name);
 		Element app_name=document.createElement("app_name");
-		metaData.appendChild(document.createTextNode( ((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmAppName().toString()));
+		app_name.appendChild(document.createTextNode( ((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmAppName().toString()));
 		Log.e("app name is", ""+app_name.getTextContent());
 		metaData.appendChild(app_name);
 		for(int i=0;i<dataList.size();i++)
@@ -127,7 +127,7 @@ public class FlashCardXml implements XmlImplementation<FlashCardDataTemplate>{
 		String root = Environment.getExternalStorageDirectory().toString();
 	    File myDir = new File(root + "/buildmlearnFiles");    
 	    myDir.mkdirs();
-	    File file = new File (myDir, "flashcard.xml");
+	    File file = new File (myDir, filename+".xml");
 	    if (file.exists ()) file.delete (); 
 	    try {
 	    	

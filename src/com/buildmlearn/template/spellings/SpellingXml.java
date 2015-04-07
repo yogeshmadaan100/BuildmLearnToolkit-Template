@@ -83,7 +83,7 @@ public class SpellingXml implements XmlImplementation<SpellingsDataTemplate>{
 		   }  
 	}
 	@Override
-	public void writeXml(ArrayList<SpellingsDataTemplate> dataList)
+	public void writeXml(ArrayList<SpellingsDataTemplate> dataList,String filename)
 			throws ParserConfigurationException,
 			TransformerConfigurationException, TransformerException {
 		// TODO Auto-generated method stub
@@ -98,7 +98,7 @@ public class SpellingXml implements XmlImplementation<SpellingsDataTemplate>{
 		template_name.appendChild(document.createTextNode( ((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmTemplate().toString()));
 		metaData.appendChild(template_name);
 		Element app_name=document.createElement("app_name");
-		template_name.appendChild(document.createTextNode( ((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmAppName().toString()));
+		app_name.appendChild(document.createTextNode( ((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmAppName().toString()));
 		metaData.appendChild(app_name);
 		Element author_name=document.createElement("author_name");
 		author_name.appendChild(document.createTextNode(((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmAuthorName().toString()));
@@ -124,7 +124,7 @@ public class SpellingXml implements XmlImplementation<SpellingsDataTemplate>{
 		String root = Environment.getExternalStorageDirectory().toString();
 	    File myDir = new File(root + "/buildmlearnFiles");    
 	    myDir.mkdirs();
-	    File file = new File (myDir, "spellings.xml");
+	    File file = new File (myDir, filename+".xml");
 	    if (file.exists ()) file.delete (); 
 	    try {
 	    	

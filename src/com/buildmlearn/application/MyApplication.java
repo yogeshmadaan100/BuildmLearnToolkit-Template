@@ -35,4 +35,8 @@ public class MyApplication extends Application {
 		Log.e("list size", ""+mDataList.size());
 		return mDataList;
 	}
+	public void resetModel()
+	{
+		mModel=new ApplicationModel();
+	}
 }

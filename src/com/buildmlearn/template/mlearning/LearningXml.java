@@ -84,7 +84,7 @@ public class LearningXml implements XmlImplementation<LearningDataTemplate>{
 	}
 
 	@Override
-	public void writeXml(ArrayList<LearningDataTemplate> dataList)
+	public void writeXml(ArrayList<LearningDataTemplate> dataList,String filename)
 			throws ParserConfigurationException,
 			TransformerConfigurationException, TransformerException {
 		// TODO Auto-generated method stub
@@ -106,7 +106,7 @@ public class LearningXml implements XmlImplementation<LearningDataTemplate>{
 		Log.e("author name is ", ""+author_name.getTextContent());
 		metaData.appendChild(author_name);
 		Element app_name=document.createElement("app_name");
-		metaData.appendChild(document.createTextNode( ((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmAppName().toString()));
+		app_name.appendChild(document.createTextNode( ((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmAppName().toString()));
 		Log.e("app name is", ""+app_name.getTextContent());
 		metaData.appendChild(app_name);
 		for(int i=0;i<dataList.size();i++)
@@ -133,7 +133,7 @@ public class LearningXml implements XmlImplementation<LearningDataTemplate>{
 		String root = Environment.getExternalStorageDirectory().toString();
 	    File myDir = new File(root + "/buildmlearnFiles");    
 	    myDir.mkdirs();
-	    File file = new File (myDir, "learning.xml");
+	    File file = new File (myDir, filename+".xml");
 	    if (file.exists ()) file.delete (); 
 	    try {
 	    	

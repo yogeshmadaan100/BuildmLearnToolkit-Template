@@ -2223,9 +2223,10 @@ containing a value of this type.
         public static final int simulator_right=0x7f020070;
         public static final int simulator_top=0x7f020071;
         public static final int spellings_thumbnail=0x7f020072;
+        public static final int text_selectore=0x7f020073;
     }
     public static final class id {
-        public static final int action_add=0x7f0800c1;
+        public static final int action_add=0x7f0800c0;
         public static final int action_bar=0x7f080044;
         public static final int action_bar_activity_content=0x7f080005;
         public static final int action_bar_container=0x7f080043;
@@ -2241,7 +2242,6 @@ containing a value of this type.
         public static final int action_mode_close_button=0x7f080033;
         public static final int action_save=0x7f0800bf;
         public static final int action_settings=0x7f0800be;
-        public static final int action_simulate=0x7f0800c0;
         public static final int activity_chooser_view_content=0x7f080034;
         public static final int add=0x7f080078;
         public static final int alignBounds=0x7f08000d;
@@ -2592,6 +2592,7 @@ containing a value of this type.
         public static final int drawer_open=0x7f050015;
         public static final int hello=0x7f050000;
         public static final int hello_world=0x7f050012;
+        public static final int help_text=0x7f05002c;
         public static final int no_project=0x7f050017;
         public static final int no_questions=0x7f050018;
         public static final int template_selection=0x7f050026;
@@ -2776,6 +2777,7 @@ containing a value of this type.
         public static final int MD_ActionButtonStacked=0x7f0900ee;
         public static final int MD_Dark=0x7f0900ed;
         public static final int MD_Light=0x7f0900ec;
+        public static final int MyApp_PopupMenu=0x7f0900f4;
         public static final int Platform_AppCompat=0x7f0900ca;
         public static final int Platform_AppCompat_Dialog=0x7f0900cc;
         public static final int Platform_AppCompat_Light=0x7f0900cb;

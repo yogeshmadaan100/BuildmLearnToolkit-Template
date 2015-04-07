@@ -506,7 +506,8 @@ int drawable simulator_left 0x7f02006f
 int drawable simulator_right 0x7f020070
 int drawable simulator_top 0x7f020071
 int drawable spellings_thumbnail 0x7f020072
-int id action_add 0x7f0800c1
+int drawable text_selectore 0x7f020073
+int id action_add 0x7f0800c0
 int id action_bar 0x7f080044
 int id action_bar_activity_content 0x7f080005
 int id action_bar_container 0x7f080043
@@ -522,7 +523,6 @@ int id action_mode_bar_stub 0x7f080040
 int id action_mode_close_button 0x7f080033
 int id action_save 0x7f0800bf
 int id action_settings 0x7f0800be
-int id action_simulate 0x7f0800c0
 int id activity_chooser_view_content 0x7f080034
 int id add 0x7f080078
 int id alignBounds 0x7f08000d
@@ -803,6 +803,7 @@ int string drawer_close 0x7f050016
 int string drawer_open 0x7f050015
 int string hello 0x7f050000
 int string hello_world 0x7f050012
+int string help_text 0x7f05002c
 int string no_project 0x7f050017
 int string no_questions 0x7f050018
 int string template_selection 0x7f050026
@@ -927,6 +928,7 @@ int style MD_ActionButton_Text 0x7f0900f0
 int style MD_ActionButtonStacked 0x7f0900ee
 int style MD_Dark 0x7f0900ed
 int style MD_Light 0x7f0900ec
+int style MyApp_PopupMenu 0x7f0900f4
 int style Platform_AppCompat 0x7f0900ca
 int style Platform_AppCompat_Dialog 0x7f0900cc
 int style Platform_AppCompat_Light 0x7f0900cb

@@ -33,17 +33,13 @@ public class BaseActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		super.setContentView(R.layout.activity_base);
 		child_activity=(LinearLayout)findViewById(R.id.child);
-		 mDrawableBuilder=TextDrawable.builder().round();
+		/* mDrawableBuilder=TextDrawable.builder().round();
 		 
 		 TextDrawable drawable = mDrawableBuilder.build("", Color.parseColor("#e81e61"));
 		
 		final ImageView fabIconNew = new ImageView(this);
         fabIconNew.setImageDrawable(getResources().getDrawable(R.drawable.ic_menu_close_clear_cancel));
-        //fabIconNew.setRotation(45);
-       // fabIconNew.setScaleType(ScaleType.CENTER_CROP);
-        
-      //  fabIconNew.setBackgroundColor(BaseActivity.currentColor);
-        final FloatingActionButton rightLowerButton = new FloatingActionButton.Builder(this)
+       final FloatingActionButton rightLowerButton = new FloatingActionButton.Builder(this)
                 .setContentView(fabIconNew).setBackgroundDrawable(drawable)
                 .build();
 
@@ -54,7 +50,7 @@ public class BaseActivity extends ActionBarActivity {
         ImageView rlIcon3 = new ImageView(this);
         ImageView rlIcon4 = new ImageView(this);
 
-        rlIcon1.setImageDrawable(getResources().getDrawable(R.drawable.ic_menu_close_clear_cancel));
+        rlIcon1.setImageDrawable(getResources().getDrawable(android.R.drawable.ic_menu_share));
         rlIcon2.setImageDrawable(getResources().getDrawable(R.drawable.ic_menu_close_clear_cancel));
         rlIcon3.setImageDrawable(getResources().getDrawable(R.drawable.ic_menu_close_clear_cancel));
         rlIcon4.setImageDrawable(getResources().getDrawable(R.drawable.ic_menu_close_clear_cancel));
@@ -98,7 +94,7 @@ public class BaseActivity extends ActionBarActivity {
 				Intent i = new Intent(getApplicationContext(),SimulationActivity.class);
 				startActivity(i);
 			}
-		});
+		});*/
 	}
 	@Override
 	public void setContentView(int layoutResID) {
