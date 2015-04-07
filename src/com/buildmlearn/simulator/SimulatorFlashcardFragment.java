@@ -88,7 +88,7 @@ AnimationListener {
 		
 		populateQuestion(iQuestionIndex);
 		currentView = questionView;
-		fl.setOnTouchListener(new OnTouchListener() {
+		/*fl.setOnTouchListener(new OnTouchListener() {
 			
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
@@ -100,7 +100,7 @@ AnimationListener {
 				return false;
 			}
 		});
-		
+		*/
 		fl.setOnClickListener(new OnClickListener() {
 			
 			@Override

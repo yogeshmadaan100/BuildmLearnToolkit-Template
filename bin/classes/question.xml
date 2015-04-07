@@ -12,7 +12,9 @@
     <ImageView
         android:id="@+id/questionImage"
         android:layout_width="@dimen/card_width"
-        android:layout_height="@dimen/card_height" />
+        android:layout_height="@dimen/card_height" 
+        android:src="@drawable/cat"
+        android:scaleType="fitXY"/>
 
     <TextView
         android:id="@+id/questionhint"
