@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.buildmlearn.application.MyApplication;
 import com.buildmlearn.template.mlearning.LearningDataTemplate;
+import com.buildmlearn.template.spellings.SpellingsDataTemplate;
 import com.buildmlearn.utils.ProgressGenerator;
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.example.buildmlearntoolkit.ContentActivity;
@@ -37,7 +38,7 @@ public class SpellingQuestionTemplate extends Fragment  implements com.buildmlea
 				// TODO Auto-generated method stub
 				if(mWord.getEditText().getText().toString().trim().length()!=0&&mMeaning.getEditText().getText().toString().trim().length()!=0)
 				{
-					MyApplication.mDataList.add(new LearningDataTemplate(mWord.getEditText().getText().toString(), mMeaning.getEditText().getText().toString()));
+					MyApplication.mDataList.add(new SpellingsDataTemplate(mWord.getEditText().getText().toString(), mMeaning.getEditText().getText().toString()));
 					progressGenerator.start(mAdd);
 					mAdd.setEnabled(false);
 				}
