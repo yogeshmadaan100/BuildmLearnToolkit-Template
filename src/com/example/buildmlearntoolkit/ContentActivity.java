@@ -25,6 +25,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.GravityEnum;
@@ -209,27 +210,33 @@ public class ContentActivity extends ActionBarActivity {
 		int id = item.getItemId();
 		if(id==R.id.action_save)
 		{
-			
-			LayoutInflater factory = LayoutInflater.from(this);
-			final View textEntryView = factory.inflate(
-					R.layout.dialog_spellinginput, null);
-			Builder builder = new Builder(this);
-			mAlert = builder.create();
-			mAlert.setCancelable(true);
-			mAlert.setView(textEntryView, 10, 10, 10, 10);
-			if (mAlert != null && !mAlert.isShowing()) {
-				mAlert.show();
-			}
-			final EditText mEt_Spelling = (EditText) mAlert.findViewById(R.id.et_spelling);
-			Button mBtn_Submit = (Button) mAlert.findViewById(R.id.btn_submit);
-			mBtn_Submit.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					saveProject(mEt_Spelling.getText().toString());
+			if(((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmFileName()==null)
+			{
+				LayoutInflater factory = LayoutInflater.from(this);
+				final View textEntryView = factory.inflate(
+						R.layout.dialog_spellinginput, null);
+				Builder builder = new Builder(this);
+				mAlert = builder.create();
+				mAlert.setCancelable(true);
+				mAlert.setView(textEntryView, 10, 10, 10, 10);
+				if (mAlert != null && !mAlert.isShowing()) {
+					mAlert.show();
 				}
-			});
-			
+				final EditText mEt_Spelling = (EditText) mAlert.findViewById(R.id.et_spelling);
+				TextView dialog_name=(TextView)mAlert.findViewById(R.id.tv_spelling);
+				dialog_name.setText("File Name");
+				Button mBtn_Submit = (Button) mAlert.findViewById(R.id.btn_submit);
+				mBtn_Submit.setOnClickListener(new OnClickListener() {
+	
+					@Override
+					public void onClick(View v) {
+						saveProject(mEt_Spelling.getText().toString());
+						mAlert.hide();
+					}
+				});
+			}
+			else
+				saveProject(((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmFileName());
 			
 		}
 		
@@ -248,6 +255,7 @@ public class ContentActivity extends ActionBarActivity {
 	public void saveProject(String filename)
 	{
 		Template template= ((MyApplication)getApplication()).getmModel().getmTemplate();
+		Log.e("saving project list size", ""+QuestionsListFragment.mDataList.size());
 		if(template==Template.FLASHCARD)
 		{
 			FlashCardXml xml=new FlashCardXml();
@@ -316,7 +324,7 @@ public class ContentActivity extends ActionBarActivity {
 	
 	public void switchFragment(Fragment f)
 	{
-		Log.e("switch", ""+f.toString());
+		
 		 Fragment fragment = f;
 	       
 	        FragmentManager fragmentManager = getSupportFragmentManager();

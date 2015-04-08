@@ -19,7 +19,8 @@
         android:layout_margin="5dp"
         android:imeOptions="actionDone"
         android:inputType="textFilter|textNoSuggestions|textVisiblePassword"
-        android:singleLine="true" />
+        android:singleLine="true" 
+        android:textColor="#000000"/>
 
     <Button
         android:id="@+id/btn_submit"

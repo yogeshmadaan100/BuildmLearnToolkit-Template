@@ -43,7 +43,7 @@ public class NoProjectFragment extends Fragment{
 		noprojects=(LinearLayout)rootView.findViewById(R.id.noprojects);
 		mList=(ListView)rootView.findViewById(R.id.listView1);
 		files = new ArrayList<String>();
-		 ((MyApplication)MyApplication.mApplication.getApplication()).resetModel();
+		 //((MyApplication)MyApplication.mApplication.getApplication()).resetModel();
 			
 		
 		String path = Environment.getExternalStorageDirectory().toString()+"/buildmLearnFiles";
@@ -81,6 +81,7 @@ public class NoProjectFragment extends Fragment{
 					int position, long id) {
 				// TODO Auto-generated method stub
 				try {
+					((MyApplication)MyApplication.mApplication.getApplication()).getmModel().setmFileName(files.get(position));
 					XmlReader.readXml(file[position].getAbsolutePath().toString());
 				} catch (ParserConfigurationException e) {
 					// TODO Auto-generated catch block

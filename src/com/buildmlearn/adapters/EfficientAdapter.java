@@ -1,9 +1,11 @@
 package com.buildmlearn.adapters;
 
+import java.util.Arrays;
 import java.util.List;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +24,7 @@ public class EfficientAdapter extends BaseAdapter {
     private static final int HIGHLIGHT_COLOR = 0x999be6ff;
     private ColorGenerator mColorGenerator = ColorGenerator.MATERIAL;
     private TextDrawable.IBuilder mDrawableBuilder;
-   public static int mPosition=-1;
+   public static int mPosition=-1,mLastPosition=-1;
     private Context mContext;
     
     public EfficientAdapter(Context context,List<String>mDataList) {
@@ -30,6 +32,7 @@ public class EfficientAdapter extends BaseAdapter {
     	mInflater = LayoutInflater.from(context);
         this.mDataList=mDataList;
         mDrawableBuilder=TextDrawable.builder().round();
+        mPosition=-1;
         
     }
 
@@ -61,9 +64,10 @@ public class EfficientAdapter extends BaseAdapter {
         
         holder.title.setText(mDataList.get(position));
         //holder.info.setText(mDataList.get(position).getInfo());
-        try{TextDrawable drawable = mDrawableBuilder.build(String.valueOf(mDataList.get(position).charAt(0)).toUpperCase(), mColorGenerator.getColor(mDataList.get(position)));
-        holder.image.setImageDrawable(drawable);
-        holder.view.setBackgroundColor(Color.TRANSPARENT);
+        try{
+        	TextDrawable drawable = mDrawableBuilder.build(String.valueOf(mDataList.get(position).charAt(0)).toUpperCase(), mColorGenerator.getColor(mDataList.get(position)));
+        	holder.image.setImageDrawable(drawable);
+        	holder.view.setBackgroundColor(Color.TRANSPARENT);
         }catch(Exception e)
         {
         	
@@ -74,7 +78,7 @@ public class EfficientAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 // when the image is clicked, update the selected state
-              
+              if(mPosition==-1||position==mPosition)
                 updateCheckedState(holder,position);
             }
         });
@@ -97,10 +101,17 @@ public class EfficientAdapter extends BaseAdapter {
         
     }	
     private void updateCheckedState(ViewHolder holder,int position) {
+    	Log.e("position is ", ""+position);
+    	Log.e("mposition is ", ""+mPosition);
+    
         if (position!=mPosition) {
             holder.image.setImageDrawable(mDrawableBuilder.build(" ", 0xff616161));
             holder.view.setBackgroundColor(HIGHLIGHT_COLOR);
             holder.checkIcon.setVisibility(View.VISIBLE);
+            
+            
+            	 
+            
             mPosition=position;
             
         }
@@ -109,23 +120,11 @@ public class EfficientAdapter extends BaseAdapter {
             holder.image.setImageDrawable(drawable);
             holder.view.setBackgroundColor(Color.TRANSPARENT);
             holder.checkIcon.setVisibility(View.GONE);
+            mPosition=-1;
         }
     }
 
-    private static class ListData {
-
-        private String data;
-
-        private boolean isChecked;
-
-        public ListData(String data) {
-            this.data = data;
-        }
-
-        public void setChecked(boolean isChecked) {
-            this.isChecked = isChecked;
-        }
-    }
+    
 }
     
 	

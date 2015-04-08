@@ -26,6 +26,7 @@ import android.util.Log;
 
 import com.buildmlearn.application.MyApplication;
 import com.buildmlearn.template.flashcard.FlashCardDataTemplate;
+import com.buildmlearn.template.spellings.SpellingsDataTemplate;
 import com.buildmlearn.xml.XmlImplementation;
 
 public class QuizXml implements XmlImplementation<QuizDataTemplate>{
@@ -45,6 +46,7 @@ public class QuizXml implements XmlImplementation<QuizDataTemplate>{
 	public void readXml(String fileLocation) throws ParserConfigurationException, SAXException, IOException {
 		// TODO Auto-generated method stub
 		 File xmlFile = new File(fileLocation);  
+		  MyApplication.mDataList=new ArrayList<QuizDataTemplate>();
 		   DocumentBuilderFactory documentFactory = DocumentBuilderFactory  
 		     .newInstance();  
 		   DocumentBuilder documentBuilder = documentFactory  

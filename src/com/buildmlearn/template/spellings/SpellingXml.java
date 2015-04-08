@@ -45,6 +45,7 @@ public class SpellingXml implements XmlImplementation<SpellingsDataTemplate>{
 	public void readXml(String fileLocation) throws ParserConfigurationException, SAXException, IOException {
 		// TODO Auto-generated method stub
 		 File xmlFile = new File(fileLocation);  
+		  MyApplication.mDataList=new ArrayList<SpellingsDataTemplate>();
 		   DocumentBuilderFactory documentFactory = DocumentBuilderFactory  
 		     .newInstance();  
 		   DocumentBuilder documentBuilder = documentFactory  
@@ -74,7 +75,7 @@ public class SpellingXml implements XmlImplementation<SpellingsDataTemplate>{
 		     System.out.println("Meaning : "  
 		       + student.getElementsByTagName("meaning").item(0)  
 		         .getTextContent());  
-		     MyApplication.mDataList=new ArrayList<SpellingsDataTemplate>();
+		   
 		     MyApplication.mDataList.add(new SpellingsDataTemplate( student.getElementsByTagName("word").item(0)  
 			         .getTextContent(),student.getElementsByTagName("meaning").item(0)  
 			         .getTextContent()));

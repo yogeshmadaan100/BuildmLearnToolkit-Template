@@ -9,6 +9,7 @@ public class ApplicationModel {
 	private Template mTemplate;
 	private String mAppName;
 	private String mAuthorName;
+	private String mFileName;
 	
 	public Template getmTemplate() {
 		return mTemplate;
@@ -34,6 +35,12 @@ public class ApplicationModel {
 		this.mTemplate=null;
 		this.mAppName="";
 		this.mAuthorName="";
+	}
+	public String getmFileName() {
+		return mFileName;
+	}
+	public void setmFileName(String mFileName) {
+		this.mFileName = mFileName;
 	}
 	
 

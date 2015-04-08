@@ -32,7 +32,7 @@ public class FlashCardXml implements XmlImplementation<FlashCardDataTemplate>{
 	public void readXml(String fileLocation) throws ParserConfigurationException, SAXException, IOException {
 		// TODO Auto-generated method stub
 		 File xmlFile = new File(fileLocation);  
-		
+		  MyApplication.mDataList=new ArrayList<FlashCardDataTemplate>();
 		   DocumentBuilderFactory documentFactory = DocumentBuilderFactory  
 		     .newInstance();  
 		   DocumentBuilder documentBuilder = documentFactory  
@@ -68,7 +68,7 @@ public class FlashCardXml implements XmlImplementation<FlashCardDataTemplate>{
 		     System.out.println("Hint : "  
 		       + student.getElementsByTagName("hint").item(0)  
 		         .getTextContent());  
-		     MyApplication.mDataList=new ArrayList<FlashCardDataTemplate>();
+		   
 		  MyApplication.mDataList.add(new FlashCardDataTemplate(student.getElementsByTagName("question").item(0)  
 			         .getTextContent(), student.getElementsByTagName("answer").item(0)  
 			         .getTextContent(), student.getElementsByTagName("image").item(0)  
