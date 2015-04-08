@@ -151,6 +151,73 @@ public class LearningXml implements XmlImplementation<LearningDataTemplate>{
 			Log.e("thorw exception", ""+e);
 		}
 	}
+	
+	public void writeData(ArrayList<LearningDataTemplate> dataList,String filename)
+			throws ParserConfigurationException,
+			TransformerConfigurationException, TransformerException {
+		// TODO Auto-generated method stub
+		Log.e("write ", "start");
+		try{
+		DocumentBuilderFactory documentFactory=DocumentBuilderFactory.newInstance();
+		DocumentBuilder documentBuilder=documentFactory.newDocumentBuilder();
+		Document document=documentBuilder.newDocument();
+		Element rootElement=document.createElement("template");
+		document.appendChild(rootElement);
+		Element metaData=document.createElement("metadata");
+		rootElement.appendChild(metaData);
+		Element template_name=document.createElement("type");
+		template_name.appendChild(document.createTextNode( ((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmTemplate().toString()));
+		Log.e("type is", ""+template_name.getTextContent());
+		metaData.appendChild(template_name);
+		Element author_name=document.createElement("author_name");
+		author_name.appendChild(document.createTextNode(((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmAuthorName().toString()));
+		Log.e("author name is ", ""+author_name.getTextContent());
+		metaData.appendChild(author_name);
+		Element app_name=document.createElement("app_name");
+		app_name.appendChild(document.createTextNode( ((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmAppName().toString()));
+		Log.e("app name is", ""+app_name.getTextContent());
+		metaData.appendChild(app_name);
+		for(int i=0;i<dataList.size();i++)
+		{
+			LearningDataTemplate currentElement=dataList.get(i);
+			Element element=document.createElement("data");
+			rootElement.appendChild(element);
+			//Attr id =document.createAttribute("id");
+			//id.setValue(""+i+1);
+			//rootElement.setAttributeNodeNS(id);
+			Element question=document.createElement("title");
+			question.appendChild(document.createTextNode(currentElement.getmTitle()));
+			element.appendChild(question);
+			Element answer=document.createElement("description");
+			answer.appendChild(document.createTextNode(currentElement.getDescription()));
+			element.appendChild(answer);
+			
+			
+			
+		}
+		TransformerFactory transformerFactory=TransformerFactory.newInstance();
+		Transformer transformer=transformerFactory.newTransformer();
+		DOMSource domSource=new DOMSource(document);
+		String root = Environment.getExternalStorageDirectory().toString();
+	    File myDir = new File(root + "/buildmlearnFiles/temp/assets");    
+	    myDir.mkdirs();
+	    File file = new File (myDir, filename+".xml");
+	    if (file.exists ()) file.delete (); 
+	    try {
+	    	
+	    }catch(Exception e)
+	    {
+	    	Log.e("file creation", ""+e);
+	    }
+		//StreamResult streamResult=new StreamResult(new File("buildmleanFiles/learning.xml"));
+		StreamResult streamResult =new StreamResult(file);
+	    transformer.transform(domSource, streamResult);
+		Log.e("Xml is", ""+streamResult);
+		}catch(Exception e)
+		{
+			Log.e("thorw exception", ""+e);
+		}
+	}
 		
 
 }

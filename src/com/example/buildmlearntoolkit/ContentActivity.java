@@ -1,5 +1,8 @@
 package com.example.buildmlearntoolkit;
 
+import java.io.File;
+import java.io.IOException;
+
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -12,6 +15,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
@@ -31,6 +35,8 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.GravityEnum;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
+import com.buildmlearn.apkutilities.Decompress;
+import com.buildmlearn.apkutilities.ZipHandler;
 import com.buildmlearn.application.MyApplication;
 import com.buildmlearn.design.models.ColorGenerator;
 import com.buildmlearn.design.models.TextDrawable;
@@ -136,7 +142,26 @@ public class ContentActivity extends ActionBarActivity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent i = new Intent(getApplicationContext(),SimulationActivity.class);
-				startActivity(i);
+				//startActivity(i);
+				String root = Environment.getExternalStorageDirectory().toString();
+			    File myDir = new File(root + "/buildmlearnFiles/temp/");    
+			    myDir.mkdirs();
+			    File file = new File (myDir, "LearningTemplate.apk");
+			    Log.e("location is", ""+myDir.toString());
+				ZipHandler zip=new ZipHandler();
+				
+				
+				zip.copyFile(mContext, "LearningTemplate.apk");
+				 
+				Decompress dec=new Decompress(file.toString(), myDir.toString()+"/");
+			    try {
+					dec.unzip(file,myDir);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				bindData("abc");
+				zip.zipFileAtPath(myDir.toString()+"/", root+"/buildmlearnFiles/myApplication.apk");
 			}
 		});
       rlIcon2.setOnClickListener(new OnClickListener() {
@@ -309,6 +334,77 @@ public class ContentActivity extends ActionBarActivity {
 			SpellingXml xml=new SpellingXml();
 			try {
 				xml.writeXml(QuestionsListFragment.mDataList,filename);
+			} catch (TransformerConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParserConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (TransformerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
+	public void bindData(String filename)
+	{
+		Template template= ((MyApplication)getApplication()).getmModel().getmTemplate();
+		Log.e("saving project list size", ""+QuestionsListFragment.mDataList.size());
+		if(template==Template.FLASHCARD)
+		{
+			FlashCardXml xml=new FlashCardXml();
+			try {
+				xml.writeData(QuestionsListFragment.mDataList,"flashcard");
+			} catch (TransformerConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParserConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (TransformerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if(template==Template.LEARNING)
+		{
+			LearningXml xml=new LearningXml();
+			try {
+				xml.writeData(QuestionsListFragment.mDataList,"learning");
+			} catch (TransformerConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParserConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (TransformerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if(template==Template.QUIZ)
+		{
+			QuizXml xml=new QuizXml();
+			try {
+				xml.writeData(QuestionsListFragment.mDataList,"quiz");
+			} catch (TransformerConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParserConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (TransformerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if(template==Template.SPELLLING)
+		{
+			SpellingXml xml=new SpellingXml();
+			try {
+				xml.writeData(QuestionsListFragment.mDataList,"spelling");
 			} catch (TransformerConfigurationException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

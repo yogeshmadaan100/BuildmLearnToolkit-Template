@@ -168,5 +168,77 @@ public class QuizXml implements XmlImplementation<QuizDataTemplate>{
 		
 		
 	}
+	
+	
+	public void writeData(ArrayList<QuizDataTemplate> dataList,String filename)
+			throws ParserConfigurationException,
+			TransformerConfigurationException, TransformerException {
+		// TODO Auto-generated method stub
+		DocumentBuilderFactory documentFactory=DocumentBuilderFactory.newInstance();
+		DocumentBuilder documentBuilder=documentFactory.newDocumentBuilder();
+		Document document=documentBuilder.newDocument();
+		Element rootElement=document.createElement("template");
+		document.appendChild(rootElement);
+		Element metaData=document.createElement("metadata");
+		rootElement.appendChild(metaData);
+		Element template_name=document.createElement("type");
+		template_name.appendChild(document.createTextNode( ((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmTemplate().toString()));
+		metaData.appendChild(template_name);
+		Element app_name=document.createElement("app_name");
+		app_name.appendChild(document.createTextNode( ((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmAppName().toString()));
+		metaData.appendChild(app_name);
+		Element author_name=document.createElement("author_name");
+		author_name.appendChild(document.createTextNode(((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmAuthorName().toString()));
+		metaData.appendChild(author_name);
+			for(int i=0;i<dataList.size();i++)
+		{
+			QuizDataTemplate currentElement=dataList.get(i);
+			Element element=document.createElement("data");
+			rootElement.appendChild(element);
+			Attr id =document.createAttribute("id");
+			id.setValue(""+i+1);
+			rootElement.setAttributeNodeNS(id);
+			Element question=document.createElement("question");
+			question.appendChild(document.createTextNode(currentElement.getQuestion()));
+			element.appendChild(question);
+			Element option1=document.createElement("option1");
+			option1.appendChild(document.createTextNode(currentElement.getOption1()));
+			element.appendChild(option1);
+			Element option2=document.createElement("option2");
+			option2.appendChild(document.createTextNode(currentElement.getOption2()));
+			element.appendChild(option2);
+			Element option3=document.createElement("option3");
+			option3.appendChild(document.createTextNode(currentElement.getOption3()));
+			element.appendChild(option3);
+			Element option4=document.createElement("option4");
+			option4.appendChild(document.createTextNode(currentElement.getOption4()));
+			element.appendChild(option4);
+			Element answer=document.createElement("answer");
+			answer.appendChild(document.createTextNode(""+currentElement.getCorrect_option()));
+			element.appendChild(answer);
+			
+			
+			
+			
+		}
+		String root = Environment.getExternalStorageDirectory().toString();
+	    File myDir = new File(root + "/buildmlearnFiles/temp/assets");    
+	    myDir.mkdirs();
+	    File file = new File (myDir, filename+".xml");
+	    if (file.exists ()) file.delete (); 
+	    try {
+	    	
+	    }catch(Exception e)
+	    {
+	    	Log.e("file creation", ""+e);
+	    }
+		TransformerFactory transformerFactory=TransformerFactory.newInstance();
+		Transformer transformer=transformerFactory.newTransformer();
+		DOMSource domSource=new DOMSource(document);
+		StreamResult streamResult=new StreamResult(file);
+		transformer.transform(domSource, streamResult);
+		
+		
+	}
 
 }

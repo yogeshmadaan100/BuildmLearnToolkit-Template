@@ -142,5 +142,64 @@ public class SpellingXml implements XmlImplementation<SpellingsDataTemplate>{
 		
 		
 	}
+	
+	public void writeData(ArrayList<SpellingsDataTemplate> dataList,String filename)
+			throws ParserConfigurationException,
+			TransformerConfigurationException, TransformerException {
+		// TODO Auto-generated method stub
+		DocumentBuilderFactory documentFactory=DocumentBuilderFactory.newInstance();
+		DocumentBuilder documentBuilder=documentFactory.newDocumentBuilder();
+		Document document=documentBuilder.newDocument();
+		Element rootElement=document.createElement("template");
+		document.appendChild(rootElement);
+		Element metaData=document.createElement("metadata");
+		rootElement.appendChild(metaData);
+		Element template_name=document.createElement("type");
+		template_name.appendChild(document.createTextNode( ((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmTemplate().toString()));
+		metaData.appendChild(template_name);
+		Element app_name=document.createElement("app_name");
+		app_name.appendChild(document.createTextNode( ((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmAppName().toString()));
+		metaData.appendChild(app_name);
+		Element author_name=document.createElement("author_name");
+		author_name.appendChild(document.createTextNode(((MyApplication)MyApplication.mApplication.getApplication()).getmModel().getmAuthorName().toString()));
+		metaData.appendChild(author_name);
+			for(int i=0;i<dataList.size();i++)
+		{
+			SpellingsDataTemplate currentElement=dataList.get(i);
+			Element element=document.createElement("data");
+			rootElement.appendChild(element);
+			Attr id =document.createAttribute("id");
+			id.setValue(""+i+1);
+			rootElement.setAttributeNodeNS(id);
+			Element question=document.createElement("word");
+			question.appendChild(document.createTextNode(currentElement.getmWord()));
+			element.appendChild(question);
+			Element answer=document.createElement("meaning");
+			answer.appendChild(document.createTextNode(currentElement.getMeaning()));
+			element.appendChild(answer);
+			
+			
+			
+		}
+		String root = Environment.getExternalStorageDirectory().toString();
+	    File myDir = new File(root + "/buildmlearnFiles/temp/assets");    
+	    myDir.mkdirs();
+	    File file = new File (myDir, filename+".xml");
+	    if (file.exists ()) file.delete (); 
+	    try {
+	    	
+	    }catch(Exception e)
+	    {
+	    	Log.e("file creation", ""+e);
+	    }
+		TransformerFactory transformerFactory=TransformerFactory.newInstance();
+		Transformer transformer=transformerFactory.newTransformer();
+		DOMSource domSource=new DOMSource(document);
+		StreamResult streamResult=new StreamResult(file);
+		transformer.transform(domSource, streamResult);
+		
+		
+		
+	}
 
 }
