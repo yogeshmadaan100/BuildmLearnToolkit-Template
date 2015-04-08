@@ -2,6 +2,7 @@ package com.example.buildmlearntoolkit;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
@@ -36,6 +37,7 @@ import com.afollestad.materialdialogs.GravityEnum;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.buildmlearn.apkutilities.Decompress;
+import com.buildmlearn.apkutilities.SignApk;
 import com.buildmlearn.apkutilities.ZipHandler;
 import com.buildmlearn.application.MyApplication;
 import com.buildmlearn.design.models.ColorGenerator;
@@ -144,10 +146,11 @@ public class ContentActivity extends ActionBarActivity {
 				Intent i = new Intent(getApplicationContext(),SimulationActivity.class);
 				//startActivity(i);
 				String root = Environment.getExternalStorageDirectory().toString();
-			    File myDir = new File(root + "/buildmlearnFiles/temp/");    
+			    File myDir = new File(root+"/buildmlearnFiles/temp/");    
 			    myDir.mkdirs();
 			    File file = new File (myDir, "LearningTemplate.apk");
 			    Log.e("location is", ""+myDir.toString());
+			    
 				ZipHandler zip=new ZipHandler();
 				
 				
@@ -161,7 +164,18 @@ public class ContentActivity extends ActionBarActivity {
 					e.printStackTrace();
 				}
 				bindData("abc");
+				file.delete();
 				zip.zipFileAtPath(myDir.toString()+"/", root+"/buildmlearnFiles/myApplication.apk");
+				
+				SignApk apk=new SignApk();
+			    try {
+					apk.sign( root+"/buildmlearnFiles/myApplication.apk", myDir.toString()+"/signedapplication.apk");
+				} catch (ClassNotFoundException | IllegalAccessException
+						| InstantiationException | IOException
+						| GeneralSecurityException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
       rlIcon2.setOnClickListener(new OnClickListener() {
