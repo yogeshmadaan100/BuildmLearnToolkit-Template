@@ -64,8 +64,8 @@ public class NoProjectFragment extends Fragment{
 			    Log.e("file name is ", temp);
 			    
 			     
-
-			 files.add(temp);
+			    if(file[i].getName().endsWith(".xml"))
+			    	files.add(temp);
 			}
 			mList.setAdapter(new EfficientAdapter(getActivity(),files));
 		}
