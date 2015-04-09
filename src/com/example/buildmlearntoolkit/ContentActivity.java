@@ -154,23 +154,7 @@ public class ContentActivity extends ActionBarActivity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			String apk_name = null;
 			
-			Template template= ((MyApplication)getApplication()).getmModel().getmTemplate();
-			if(template==Template.FLASHCARD)
-				apk_name="FlashcardTemplate.apk";
-			else if(template==Template.LEARNING)
-				apk_name="LearningTemplate.apk";
-			else if(template==Template.QUIZ)
-				apk_name="QuizTemplate.apk";
-			else if(template==Template.SPELLLING)
-				apk_name="SpellingTemplate.apk";
-			String root = Environment.getExternalStorageDirectory().toString();
-		    File myDir = new File(root+"/buildmlearnFiles/temp/");    
-		    File outputDir =new File(root+"/buildmlearnFiles/generatedApks/");
-		    myDir.mkdirs();
-		    outputDir.mkdirs();
-		    
 			LayoutInflater factory = LayoutInflater.from(mContext);
 			final View textEntryView = factory.inflate(
 					R.layout.dialog_spellinginput, null);
@@ -184,72 +168,23 @@ public class ContentActivity extends ActionBarActivity {
 			final EditText mEt_Spelling = (EditText) mAlert.findViewById(R.id.et_spelling);
 			TextView dialog_name=(TextView)mAlert.findViewById(R.id.tv_spelling);
 			dialog_name.setText("Apk Name");
-			Button mBtn_Submit = (Button) mAlert.findViewById(R.id.btn_submit);
+			final Button mBtn_Submit = (Button) mAlert.findViewById(R.id.btn_submit);
 			mBtn_Submit.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
 					outputApkName=mEt_Spelling.getText().toString();
-					mAlert.hide();
+					if(outputApkName!=null)
+					{
+						mBtn_Submit.setEnabled(false);
+						mAlert.hide();
+						generateApk();
+					}
 				}
 			});
-		    
-		    File file = new File (myDir, apk_name);
-		    Log.e("location is", ""+myDir.toString());
-		    
-			ZipHandler zip=new ZipHandler();
-			
-			
-			zip.copyFile(mContext, apk_name);
-			 
-			Decompress dec=new Decompress(file.toString(), myDir.toString()+"/");
-		    try {
-				dec.unzip(file,myDir);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			bindData("abc");
-			file.delete();
-			zip.zipFileAtPath(myDir.toString(), root+"/buildmlearnFiles/myApplication.apk");
-			
-			SignApk apk=new SignApk();
-		    try {
-				apk.sign( root+"/buildmlearnFiles/myApplication.apk", outputDir.toString()+"/"+outputApkName);
-			} catch (ClassNotFoundException | IllegalAccessException
-					| InstantiationException | IOException
-					| GeneralSecurityException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			mAlert.show();
 		    
 		    
-		    new MaterialDialog.Builder(mContext)
-            .title("Application Generated")
-            .content("The application has been saved at builmlearnFiles folder")
-            .positiveText(R.string.agree)
-            .positiveColorRes(R.color.primaryColor)
-            .negativeColorRes(R.color.primaryColor)
-            .titleGravity(GravityEnum.CENTER)
-            .titleColorRes(R.color.primaryColor)
-            .contentColorRes(android.R.color.white)
-            .backgroundColorRes(R.color.material_blue_grey_800)
-            .dividerColorRes(R.color.status_bar)
-            .btnSelector(R.drawable.md_btn_selector_custom, DialogAction.POSITIVE)
-            .positiveColor(Color.WHITE)
-            .negativeColorAttr(android.R.attr.textColorSecondaryInverse)
-            .theme(Theme.LIGHT)
-            .callback(new MaterialDialog.ButtonCallback() {
-                @Override
-                public void onPositive(MaterialDialog dialog) {
-                	
-                	
-                	
-                }
-
-               
-            })
-            .show();
 		    rightLowerMenu.close(true);
 		}
 	});
@@ -500,7 +435,82 @@ public class ContentActivity extends ActionBarActivity {
 			}
 		}
 	}
-	
+	public void generateApk()
+	{
+		String apk_name = null;
+		
+		Template template= ((MyApplication)getApplication()).getmModel().getmTemplate();
+		if(template==Template.FLASHCARD)
+			apk_name="FlashcardTemplate.apk";
+		else if(template==Template.LEARNING)
+			apk_name="LearningTemplate.apk";
+		else if(template==Template.QUIZ)
+			apk_name="QuizTemplate.apk";
+		else if(template==Template.SPELLLING)
+			apk_name="SpellingTemplate.apk";
+		String root = Environment.getExternalStorageDirectory().toString();
+	    File myDir = new File(root+"/buildmlearnFiles/temp/");    
+	    File outputDir =new File(root+"/buildmlearnFiles/generatedApks/");
+	    myDir.mkdirs();
+	    outputDir.mkdirs();
+	    File file = new File (myDir, apk_name);
+	    Log.e("location is", ""+myDir.toString());
+	    
+		ZipHandler zip=new ZipHandler();
+		
+		
+		zip.copyFile(mContext, apk_name);
+		 
+		Decompress dec=new Decompress(file.toString(), myDir.toString()+"/");
+	    try {
+			dec.unzip(file,myDir);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		bindData("abc");
+		file.delete();
+		zip.zipFileAtPath(myDir.toString(), root+"/buildmlearnFiles/myApplication.apk");
+		
+		SignApk apk=new SignApk();
+	    try {
+			apk.sign( root+"/buildmlearnFiles/myApplication.apk", outputDir.toString()+"/"+outputApkName);
+		} catch (ClassNotFoundException | IllegalAccessException
+				| InstantiationException | IOException
+				| GeneralSecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
+	    
+	    new MaterialDialog.Builder(mContext)
+        .title("Application Generated")
+        .content("The application has been saved at builmlearnFiles folder")
+        .positiveText(R.string.agree)
+        .positiveColorRes(R.color.primaryColor)
+        .negativeColorRes(R.color.primaryColor)
+        .titleGravity(GravityEnum.CENTER)
+        .titleColorRes(R.color.primaryColor)
+        .contentColorRes(android.R.color.white)
+        .backgroundColorRes(R.color.material_blue_grey_800)
+        .dividerColorRes(R.color.status_bar)
+        .btnSelector(R.drawable.md_btn_selector_custom, DialogAction.POSITIVE)
+        .positiveColor(Color.WHITE)
+        .negativeColorAttr(android.R.attr.textColorSecondaryInverse)
+        .theme(Theme.LIGHT)
+        .callback(new MaterialDialog.ButtonCallback() {
+            @Override
+            public void onPositive(MaterialDialog dialog) {
+            	
+            	
+            	
+            }
+
+           
+        })
+        .show();
+	    
+	}
 	public void switchFragment(Fragment f)
 	{
 		
