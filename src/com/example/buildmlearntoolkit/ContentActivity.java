@@ -176,6 +176,8 @@ public class ContentActivity extends ActionBarActivity {
 					outputApkName=mEt_Spelling.getText().toString();
 					if(outputApkName!=null)
 					{
+						if(!outputApkName.endsWith(".apk"))
+							outputApkName+=".apk";
 						mBtn_Submit.setEnabled(false);
 						mAlert.hide();
 						generateApk();
