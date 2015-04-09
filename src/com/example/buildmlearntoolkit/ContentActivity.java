@@ -144,38 +144,8 @@ public class ContentActivity extends ActionBarActivity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent i = new Intent(getApplicationContext(),SimulationActivity.class);
-				//startActivity(i);
-				String root = Environment.getExternalStorageDirectory().toString();
-			    File myDir = new File(root+"/buildmlearnFiles/temp/");    
-			    myDir.mkdirs();
-			    File file = new File (myDir, "LearningTemplate.apk");
-			    Log.e("location is", ""+myDir.toString());
-			    
-				ZipHandler zip=new ZipHandler();
-				
-				
-				zip.copyFile(mContext, "LearningTemplate.apk");
-				 
-				Decompress dec=new Decompress(file.toString(), myDir.toString()+"/");
-			    try {
-					dec.unzip(file,myDir);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				bindData("abc");
-				file.delete();
-				zip.zipFileAtPath(myDir.toString()+"/", root+"/buildmlearnFiles/myApplication.apk");
-				
-				SignApk apk=new SignApk();
-			    try {
-					apk.sign( root+"/buildmlearnFiles/myApplication.apk", myDir.toString()+"/signedapplication.apk");
-				} catch (ClassNotFoundException | IllegalAccessException
-						| InstantiationException | IOException
-						| GeneralSecurityException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				startActivity(i);
+			
 			}
 		});
       rlIcon2.setOnClickListener(new OnClickListener() {
@@ -183,7 +153,65 @@ public class ContentActivity extends ActionBarActivity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
+			String root = Environment.getExternalStorageDirectory().toString();
+		    File myDir = new File(root+"/buildmlearnFiles/temp/");    
+		    myDir.mkdirs();
+		    File file = new File (myDir, "LearningTemplate.apk");
+		    Log.e("location is", ""+myDir.toString());
+		    
+			ZipHandler zip=new ZipHandler();
 			
+			
+			zip.copyFile(mContext, "LearningTemplate.apk");
+			 
+			Decompress dec=new Decompress(file.toString(), myDir.toString()+"/");
+		    try {
+				dec.unzip(file,myDir);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			bindData("abc");
+			file.delete();
+			zip.zipFileAtPath(myDir.toString(), root+"/buildmlearnFiles/myApplication.apk");
+			
+			SignApk apk=new SignApk();
+		    try {
+				apk.sign( root+"/buildmlearnFiles/myApplication.apk", myDir.toString()+"/signedapplication.apk");
+			} catch (ClassNotFoundException | IllegalAccessException
+					| InstantiationException | IOException
+					| GeneralSecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    
+		    
+		    new MaterialDialog.Builder(mContext)
+            .title("Application Generated")
+            .content("The application has been saved at builmlearnFiles folder")
+            .positiveText(R.string.agree)
+            .positiveColorRes(R.color.primaryColor)
+            .negativeColorRes(R.color.primaryColor)
+            .titleGravity(GravityEnum.CENTER)
+            .titleColorRes(R.color.primaryColor)
+            .contentColorRes(android.R.color.white)
+            .backgroundColorRes(R.color.material_blue_grey_800)
+            .dividerColorRes(R.color.status_bar)
+            .btnSelector(R.drawable.md_btn_selector_custom, DialogAction.POSITIVE)
+            .positiveColor(Color.WHITE)
+            .negativeColorAttr(android.R.attr.textColorSecondaryInverse)
+            .theme(Theme.LIGHT)
+            .callback(new MaterialDialog.ButtonCallback() {
+                @Override
+                public void onPositive(MaterialDialog dialog) {
+                	
+                	
+                	
+                }
+
+               
+            })
+            .show();
 		}
 	});
       rlIcon3.setOnClickListener(new OnClickListener() {
