@@ -127,6 +127,7 @@ public class TemplateActivity extends BaseActivity {
 					Intent i = new Intent(getApplicationContext(),MainActivity.class);
 					startActivity(i);
 					finish();
+					rightLowerMenu.close(true);
 				}
 			});
 	       rlIcon2.setOnClickListener(new OnClickListener() {
@@ -137,6 +138,7 @@ public class TemplateActivity extends BaseActivity {
 				Intent i = new Intent(getApplicationContext(),MainActivity.class);
 				startActivity(i);
 				finish();
+				rightLowerMenu.close(true);
 			}
 		});
 	       rlIcon3.setOnClickListener(new OnClickListener() {
@@ -149,6 +151,7 @@ public class TemplateActivity extends BaseActivity {
 		       	 sendIntent.putExtra(Intent.EXTRA_TEXT, "Hi I am using BuildmLearn Toolkit  - An initiative by BuildmLearn .You must also try https://play.google.com/store/apps/details?id=org.buildmlearn.learnfrommap");
 		       	 sendIntent.setType("text/plain");
 		       	 startActivity(sendIntent);
+		       	rightLowerMenu.close(true);
 			}
 		});
 	       rlIcon4.setOnClickListener(new OnClickListener() {
@@ -182,6 +185,7 @@ public class TemplateActivity extends BaseActivity {
 	               
 	            })
 	            .show();
+				rightLowerMenu.close(true);
 			}
 		});
 	}

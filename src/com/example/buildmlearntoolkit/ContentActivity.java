@@ -146,7 +146,7 @@ public class ContentActivity extends ActionBarActivity {
 				// TODO Auto-generated method stub
 				Intent i = new Intent(getApplicationContext(),SimulationActivity.class);
 				startActivity(i);
-			
+				rightLowerMenu.close(true);
 			}
 		});
       rlIcon2.setOnClickListener(new OnClickListener() {
@@ -250,6 +250,7 @@ public class ContentActivity extends ActionBarActivity {
                
             })
             .show();
+		    rightLowerMenu.close(true);
 		}
 	});
       rlIcon3.setOnClickListener(new OnClickListener() {
@@ -262,6 +263,7 @@ public class ContentActivity extends ActionBarActivity {
   	       	 sendIntent.putExtra(Intent.EXTRA_TEXT, "Hi I am using BuildmLearn Toolkit  - An initiative by BuildmLearn .You must also try https://play.google.com/store/apps/details?id=org.buildmlearn.learnfrommap");
   	       	 sendIntent.setType("text/plain");
   	       	 startActivity(sendIntent);
+  	       rightLowerMenu.close(true);
   		}
   	});
          rlIcon4.setOnClickListener(new OnClickListener() {
@@ -295,6 +297,7 @@ public class ContentActivity extends ActionBarActivity {
                  
               })
               .show();
+  			rightLowerMenu.close(true);
   		}
   	});
 		 
