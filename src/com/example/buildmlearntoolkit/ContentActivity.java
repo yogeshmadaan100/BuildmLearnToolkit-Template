@@ -59,6 +59,7 @@ public class ContentActivity extends ActionBarActivity {
 	    private TextDrawable.IBuilder mDrawableBuilder;
 	    private Context mContext=this;
 	    private AlertDialog mAlert;
+	    String outputApkName;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -153,16 +154,53 @@ public class ContentActivity extends ActionBarActivity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
+			String apk_name = null;
+			
+			Template template= ((MyApplication)getApplication()).getmModel().getmTemplate();
+			if(template==Template.FLASHCARD)
+				apk_name="FlashcardTemplate.apk";
+			else if(template==Template.LEARNING)
+				apk_name="LearningTemplate.apk";
+			else if(template==Template.QUIZ)
+				apk_name="QuizTemplate.apk";
+			else if(template==Template.SPELLLING)
+				apk_name="SpellingTemplate.apk";
 			String root = Environment.getExternalStorageDirectory().toString();
 		    File myDir = new File(root+"/buildmlearnFiles/temp/");    
+		    File outputDir =new File(root+"/buildmlearnFiles/generatedApks/");
 		    myDir.mkdirs();
-		    File file = new File (myDir, "LearningTemplate.apk");
+		    outputDir.mkdirs();
+		    
+			LayoutInflater factory = LayoutInflater.from(mContext);
+			final View textEntryView = factory.inflate(
+					R.layout.dialog_spellinginput, null);
+			Builder builder = new Builder(mContext);
+			mAlert = builder.create();
+			mAlert.setCancelable(true);
+			mAlert.setView(textEntryView, 10, 10, 10, 10);
+			if (mAlert != null && !mAlert.isShowing()) {
+				mAlert.show();
+			}
+			final EditText mEt_Spelling = (EditText) mAlert.findViewById(R.id.et_spelling);
+			TextView dialog_name=(TextView)mAlert.findViewById(R.id.tv_spelling);
+			dialog_name.setText("Apk Name");
+			Button mBtn_Submit = (Button) mAlert.findViewById(R.id.btn_submit);
+			mBtn_Submit.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					outputApkName=mEt_Spelling.getText().toString();
+					mAlert.hide();
+				}
+			});
+		    
+		    File file = new File (myDir, apk_name);
 		    Log.e("location is", ""+myDir.toString());
 		    
 			ZipHandler zip=new ZipHandler();
 			
 			
-			zip.copyFile(mContext, "LearningTemplate.apk");
+			zip.copyFile(mContext, apk_name);
 			 
 			Decompress dec=new Decompress(file.toString(), myDir.toString()+"/");
 		    try {
@@ -177,7 +215,7 @@ public class ContentActivity extends ActionBarActivity {
 			
 			SignApk apk=new SignApk();
 		    try {
-				apk.sign( root+"/buildmlearnFiles/myApplication.apk", myDir.toString()+"/signedapplication.apk");
+				apk.sign( root+"/buildmlearnFiles/myApplication.apk", outputDir.toString()+"/"+outputApkName);
 			} catch (ClassNotFoundException | IllegalAccessException
 					| InstantiationException | IOException
 					| GeneralSecurityException e) {

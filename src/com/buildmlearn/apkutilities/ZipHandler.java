@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 import android.content.Context;
@@ -25,6 +24,7 @@ public class ZipHandler {
 
 
 	    File sourceFile = new File(sourcePath);
+	    Log.e("source file", ""+sourcePath);
 	    try {
 	        BufferedInputStream origin = null;
 	        FileOutputStream dest = new FileOutputStream(toLocation);
@@ -72,10 +72,10 @@ public class ZipHandler {
 	            String unmodifiedFilePath = file.getPath();
 	            String relativePath = unmodifiedFilePath
 	                    .substring(basePathLength);
-	            Log.i("ZIP SUBFOLDER", "Relative Path : " + relativePath.substring(5));
+	            Log.i("ZIP SUBFOLDER", "Relative Path : " + relativePath.substring(6));
 	            FileInputStream fi = new FileInputStream(unmodifiedFilePath);
 	            origin = new BufferedInputStream(fi, BUFFER);
-	            ZipEntry entry = new ZipEntry(relativePath.substring(5));
+	            ZipEntry entry = new ZipEntry(relativePath.substring(6));
 	            out.putNextEntry(entry);
 	            int count;
 	            while ((count = origin.read(data, 0, BUFFER)) != -1) {
