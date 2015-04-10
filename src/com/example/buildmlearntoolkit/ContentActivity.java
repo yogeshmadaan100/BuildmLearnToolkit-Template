@@ -179,7 +179,7 @@ public class ContentActivity extends ActionBarActivity {
 						if(!outputApkName.endsWith(".apk"))
 							outputApkName+=".apk";
 						mBtn_Submit.setEnabled(false);
-						mAlert.hide();
+						mAlert.dismiss();
 						generateApk();
 					}
 				}
@@ -474,9 +474,9 @@ public class ContentActivity extends ActionBarActivity {
 		file.delete();
 		zip.zipFileAtPath(myDir.toString(), root+"/buildmlearnFiles/myApplication.apk");
 		
-		SignApk apk=new SignApk();
+		SignApk apk=new SignApk(this);
 	    try {
-			apk.sign( root+"/buildmlearnFiles/myApplication.apk", outputDir.toString()+"/"+outputApkName);
+			apk.sign(root+"/buildmlearnFiles/myApplication.apk", outputDir.toString()+"/"+outputApkName);
 		} catch (ClassNotFoundException | IllegalAccessException
 				| InstantiationException | IOException
 				| GeneralSecurityException e) {
