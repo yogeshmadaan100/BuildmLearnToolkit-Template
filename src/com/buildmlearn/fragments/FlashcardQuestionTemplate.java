@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.buildmlearn.application.MyApplication;
+import com.buildmlearn.models.Mode;
 import com.buildmlearn.template.flashcard.FlashCardDataTemplate;
 import com.buildmlearn.template.mlearning.LearningDataTemplate;
 import com.buildmlearn.utils.ProgressGenerator;
@@ -26,6 +27,8 @@ public class FlashcardQuestionTemplate extends Fragment  implements com.buildmle
 	private EditText mQuestion;
 	private ImageView mImage;
 	private ProgressGenerator progressGenerator=new ProgressGenerator(this);
+	Mode mode=Mode.ADDITION;
+	int position;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -44,7 +47,9 @@ public class FlashcardQuestionTemplate extends Fragment  implements com.buildmle
 				// TODO Auto-generated method stub
 				if(mAnswer.getEditText().getText().toString().trim().length()!=0&&mHint.getEditText().getText().toString().trim().length()!=0&&mQuestion.getText().toString().trim().length()!=0)
 				{
-					MyApplication.mDataList.add(new FlashCardDataTemplate(mQuestion.getText().toString(),mAnswer.getEditText().getText().toString(),"www.google.com", mHint.getEditText().getText().toString()));
+					
+						MyApplication.mDataList.add(new FlashCardDataTemplate(mQuestion.getText().toString(),mAnswer.getEditText().getText().toString(),"www.google.com", mHint.getEditText().getText().toString()));
+					
 					progressGenerator.start(mAdd);
 					mAdd.setEnabled(false);
 				}
@@ -58,6 +63,21 @@ public class FlashcardQuestionTemplate extends Fragment  implements com.buildmle
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
+		try{
+			if(getArguments().getString("position","null")!="null")
+			{
+				position=Integer.parseInt(getArguments().getString("position"));
+				mode=Mode.EDITING;
+				mQuestion.setText(((FlashCardDataTemplate)QuestionsListFragment.mDataList.get(Integer.parseInt((getArguments().getString("position"))))).getQuestion());
+				mAnswer.getEditText().setText(((FlashCardDataTemplate)QuestionsListFragment.mDataList.get(Integer.parseInt((getArguments().getString("position"))))).getAnswer());
+				mHint.getEditText().setText(((FlashCardDataTemplate)QuestionsListFragment.mDataList.get(Integer.parseInt((getArguments().getString("position"))))).getHint());
+				
+			}
+		}catch(Exception e)
+		{
+			
+		}
+		
 	}
 	@Override
 	public void onComplete() {

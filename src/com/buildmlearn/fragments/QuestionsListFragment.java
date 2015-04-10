@@ -38,6 +38,7 @@ public class QuestionsListFragment extends Fragment {
 	ArrayList<String> mWords=new ArrayList<String>();
 	Fragment f;
 	EfficientAdapter adapter;
+	Bundle bundle;
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -63,7 +64,30 @@ public class QuestionsListFragment extends Fragment {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// TODO Auto-generated method stub
-				//Toast.makeText(getActivity(), ""+mDataList.get(position).getDescription(), 2000).show();
+				Template template= ((MyApplication)getActivity().getApplication()).getmModel().getmTemplate();
+				Log.e("template selected ", template.toString());
+				bundle = new Bundle();
+				bundle.putString("position", ""+position);
+				if(template==Template.FLASHCARD)
+				{
+					f= new FlashcardQuestionTemplate();
+					
+				}
+				else if(template==Template.LEARNING)
+				{
+					f= new LearningQuestionTemplate();
+					
+				}
+				else if(template==Template.QUIZ)
+				{
+					f= new QuizQuestionTemplate();
+				}
+				else if(template==Template.SPELLLING)
+				{
+					f= new SpellingQuestionTemplate();
+				}
+				f.setArguments(bundle);
+				((ContentActivity)getActivity()).switchFragment(f);
 			}
 		});
 		mAdd.setOnClickListener(new OnClickListener() {
@@ -100,7 +124,8 @@ public class QuestionsListFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if(EfficientAdapter.mPosition!=0)
+				
+				if(EfficientAdapter.mPosition!=0&&EfficientAdapter.mPosition!=-1)
 				{
 					Collections.swap(mDataList, EfficientAdapter.mPosition,EfficientAdapter.mPosition-1);
 					Collections.swap(mWords, EfficientAdapter.mPosition,EfficientAdapter.mPosition-1);
@@ -114,7 +139,7 @@ public class QuestionsListFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if(EfficientAdapter.mPosition!=mDataList.size()-1)
+				if(EfficientAdapter.mPosition!=mDataList.size()-1&&EfficientAdapter.mPosition!=-1)
 				{
 					Collections.swap(mDataList, EfficientAdapter.mPosition,EfficientAdapter.mPosition+1);
 					Collections.swap(mWords, EfficientAdapter.mPosition,EfficientAdapter.mPosition+1);
