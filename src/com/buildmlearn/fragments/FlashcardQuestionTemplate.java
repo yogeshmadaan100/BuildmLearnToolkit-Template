@@ -1,5 +1,7 @@
 package com.buildmlearn.fragments;
 
+import java.util.Collections;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -47,9 +49,16 @@ public class FlashcardQuestionTemplate extends Fragment  implements com.buildmle
 				// TODO Auto-generated method stub
 				if(mAnswer.getEditText().getText().toString().trim().length()!=0&&mHint.getEditText().getText().toString().trim().length()!=0&&mQuestion.getText().toString().trim().length()!=0)
 				{
-					
+					if(mode==Mode.ADDITION)
+					{
 						MyApplication.mDataList.add(new FlashCardDataTemplate(mQuestion.getText().toString(),mAnswer.getEditText().getText().toString(),"www.google.com", mHint.getEditText().getText().toString()));
-					
+					}
+					else
+					{
+						MyApplication.mDataList.remove(position);
+						MyApplication.mDataList.add(new FlashCardDataTemplate(mQuestion.getText().toString(),mAnswer.getEditText().getText().toString(),"www.google.com", mHint.getEditText().getText().toString()));
+						Collections.rotate(MyApplication.mDataList.subList(position, MyApplication.mDataList.size()), 1);
+					}
 					progressGenerator.start(mAdd);
 					mAdd.setEnabled(false);
 				}
@@ -77,6 +86,7 @@ public class FlashcardQuestionTemplate extends Fragment  implements com.buildmle
 		{
 			
 		}
+		
 		
 	}
 	@Override

@@ -1,5 +1,7 @@
 package com.buildmlearn.fragments;
 
+import java.util.Collections;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.buildmlearn.application.MyApplication;
+import com.buildmlearn.models.Mode;
+import com.buildmlearn.template.flashcard.FlashCardDataTemplate;
 import com.buildmlearn.template.mlearning.LearningDataTemplate;
 import com.buildmlearn.utils.ProgressGenerator;
 import com.dd.processbutton.iml.ActionProcessButton;
@@ -21,6 +25,9 @@ public class LearningQuestionTemplate extends Fragment  implements com.buildmlea
 	private ActionProcessButton mAdd;
 	private FloatLabel mWord,mMeaning;
 	private ProgressGenerator progressGenerator=new ProgressGenerator(this);
+	Mode mode=Mode.ADDITION;
+	int position;
+	
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -37,7 +44,14 @@ public class LearningQuestionTemplate extends Fragment  implements com.buildmlea
 				// TODO Auto-generated method stub
 				if(mWord.getEditText().getText().toString().trim().length()!=0&&mMeaning.getEditText().getText().toString().trim().length()!=0)
 				{
+					if(mode==Mode.ADDITION)
 					MyApplication.mDataList.add(new LearningDataTemplate(mWord.getEditText().getText().toString(), mMeaning.getEditText().getText().toString()));
+					else
+					{
+						MyApplication.mDataList.remove(position);
+						MyApplication.mDataList.add(new LearningDataTemplate(mWord.getEditText().getText().toString(), mMeaning.getEditText().getText().toString()));
+						Collections.rotate(MyApplication.mDataList.subList(position, MyApplication.mDataList.size()), 1);
+					}
 					progressGenerator.start(mAdd);
 					mAdd.setEnabled(false);
 				}
@@ -51,6 +65,19 @@ public class LearningQuestionTemplate extends Fragment  implements com.buildmlea
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
+		try{
+			if(getArguments().getString("position","null")!="null")
+			{
+				position=Integer.parseInt(getArguments().getString("position"));
+				mode=Mode.EDITING;
+				mWord.getEditText().setText(((LearningDataTemplate)QuestionsListFragment.mDataList.get(Integer.parseInt((getArguments().getString("position"))))).getmTitle());
+				mMeaning.getEditText().setText(((LearningDataTemplate)QuestionsListFragment.mDataList.get(Integer.parseInt((getArguments().getString("position"))))).getDescription());
+				
+			}
+		}catch(Exception e)
+		{
+			
+		}
 	}
 	@Override
 	public void onComplete() {

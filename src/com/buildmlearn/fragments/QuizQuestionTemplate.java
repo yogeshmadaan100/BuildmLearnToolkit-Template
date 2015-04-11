@@ -1,5 +1,7 @@
 package com.buildmlearn.fragments;
 
+import java.util.Collections;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +15,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.buildmlearn.application.MyApplication;
+import com.buildmlearn.models.Mode;
 import com.buildmlearn.template.flashcard.FlashCardDataTemplate;
 import com.buildmlearn.template.mlearning.LearningDataTemplate;
 import com.buildmlearn.template.quiz.QuizDataTemplate;
@@ -27,6 +30,9 @@ public class QuizQuestionTemplate extends Fragment  implements com.buildmlearn.u
 	private EditText mQuestion,mOption1,mOption2,mOption3,mOption4;
 	RadioGroup rGroup;
 	private ProgressGenerator progressGenerator=new ProgressGenerator(this);
+	Mode mode=Mode.ADDITION;
+	int position;
+	
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -50,7 +56,14 @@ public class QuizQuestionTemplate extends Fragment  implements com.buildmlearn.u
 				// TODO Auto-generated method stub
 				if(mQuestion.getText().toString().trim().length()!=0&&mOption1.getText().toString().trim().length()!=0&&mOption4.getText().toString().trim().length()!=0&&mOption4.getText().toString().trim().length()!=0&&mOption4.getText().toString().trim().length()!=0)
 				{
+					if(mode==Mode.ADDITION)
 					MyApplication.mDataList.add(new QuizDataTemplate(mQuestion.getText().toString(),mOption1.getText().toString(),mOption2.getText().toString(),mOption3.getText().toString(),mOption4.getText().toString(),rselected));
+					else
+					{
+						MyApplication.mDataList.remove(position);
+						MyApplication.mDataList.add(new QuizDataTemplate(mQuestion.getText().toString(),mOption1.getText().toString(),mOption2.getText().toString(),mOption3.getText().toString(),mOption4.getText().toString(),rselected));
+						Collections.rotate(MyApplication.mDataList.subList(position, MyApplication.mDataList.size()), 1);
+					}
 					progressGenerator.start(mAdd);
 					mAdd.setEnabled(false);
 				}
@@ -64,6 +77,23 @@ public class QuizQuestionTemplate extends Fragment  implements com.buildmlearn.u
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
+		try{
+			if(getArguments().getString("position","null")!="null")
+			{
+				position=Integer.parseInt(getArguments().getString("position"));
+				mode=Mode.EDITING;
+				mQuestion.setText(((QuizDataTemplate)QuestionsListFragment.mDataList.get(Integer.parseInt((getArguments().getString("position"))))).getQuestion());
+				mOption1.setText(((QuizDataTemplate)QuestionsListFragment.mDataList.get(Integer.parseInt((getArguments().getString("position"))))).getOption1());
+				mOption2.setText(((QuizDataTemplate)QuestionsListFragment.mDataList.get(Integer.parseInt((getArguments().getString("position"))))).getOption2());
+				mOption3.setText(((QuizDataTemplate)QuestionsListFragment.mDataList.get(Integer.parseInt((getArguments().getString("position"))))).getOption3());
+				mOption4.setText(((QuizDataTemplate)QuestionsListFragment.mDataList.get(Integer.parseInt((getArguments().getString("position"))))).getOption4());
+				rGroup.getChildAt(((QuizDataTemplate)QuestionsListFragment.mDataList.get(Integer.parseInt((getArguments().getString("position"))))).getCorrect_option()).setSelected(true);
+				
+			}
+		}catch(Exception e)
+		{
+			
+		}
 	}
 	@Override
 	public void onComplete() {
