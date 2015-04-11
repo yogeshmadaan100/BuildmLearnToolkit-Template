@@ -18,6 +18,9 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 
 import com.buildmlearn.application.MyApplication;
@@ -27,6 +30,7 @@ public class SignApk {
 	public Context mContext;
 	ProgressDialog pDialog;
 	String inputFile,outputFile;
+	String message;
 	public SignApk(Context context) {
 		// TODO Auto-generated constructor stub
 		pDialog=new ProgressDialog(context);
@@ -51,6 +55,12 @@ public class SignApk {
 		protected String doInBackground(String... params) {
 			// TODO Auto-generated method stub
 			try{
+				  final Handler messageHandler = new Handler(Looper.getMainLooper()) {
+				        public void handleMessage(Message msg) {
+				        	super.handleMessage(msg);
+				        	pDialog.setMessage(message);
+				        }
+				    };
 					ZipSigner zipSigner = new ZipSigner();
 					AssetManager assetManager = MyApplication.mApplication.getAssets();
 					String root = Environment.getExternalStorageDirectory().toString();
@@ -102,8 +112,8 @@ public class SignApk {
 					      String message = event.getMessage();
 					      int percentDone = event.getPercentDone();
 					      //Log.e("message ", ""+message);
-					      
-					    // updateMessage(message);
+					      SignApk.this.message=message;
+					     messageHandler.sendEmptyMessage(0);
 					      // log output or update the display here       
 					   }
 					   
@@ -120,7 +130,8 @@ public class SignApk {
 		protected void onPostExecute(String result) {
 			// TODO Auto-generated method stub
 			super.onPostExecute(result);
-			//pDialog.hide();
+			pDialog.hide();
+			ContentActivity.apkSigningComplete(mContext);
 		}
 		
 	}
@@ -130,8 +141,9 @@ public class SignApk {
 		this.outputFile=outputFile;
 		new Sign().execute();
 	}
-public void updateMessage(String message)
+/*public void updateMessage(String message)
 {
+
 	 pDialog.setMessage(message);
-}
+}*/
 }
