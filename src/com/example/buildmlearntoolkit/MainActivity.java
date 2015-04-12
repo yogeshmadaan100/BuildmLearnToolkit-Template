@@ -15,6 +15,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -34,6 +35,7 @@ import com.afollestad.materialdialogs.GravityEnum;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.buildmlearn.activities.TemplateActivity;
+import com.buildmlearn.adapters.EfficientAdapter;
 import com.buildmlearn.application.MyApplication;
 import com.buildmlearn.base.BaseActivity;
 import com.buildmlearn.design.models.ColorGenerator;
@@ -273,6 +275,19 @@ public class MainActivity extends BaseActivity {
             if(!mDrawerLayout.isDrawerOpen(Gravity.LEFT))
              mDrawerLayout.openDrawer(Gravity.LEFT);
             	return true;
+         case R.id.action_delete:
+        	 try{
+        		 NoProjectFragment.file[EfficientAdapter.mPosition].delete();
+        		 NoProjectFragment.files.remove(EfficientAdapter.mPosition);
+        		 Fragment fragment = new NoProjectFragment();
+        	       
+        	        FragmentManager fragmentManager = getSupportFragmentManager();
+        	        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+
+        	 }catch(Exception e)
+        	 {
+        		 Log.e("delete project exception", ""+e);
+        	 }
          default:
              return super.onOptionsItemSelected(item);
          }

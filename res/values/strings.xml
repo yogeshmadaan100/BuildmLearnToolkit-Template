@@ -36,6 +36,7 @@
     <string name="default_quiz_option3">I have seven beasts.</string>
     <string name="default_quiz_option4">Cats? Well, we own eleven dogs.</string>
     <string name="action_add">Add</string>
+    <string name="action_delete">Delete</string>
     <string name="template_selection"> Select Your Template</string>
     <string name="agree">Ok</string>
     <string name="disagree">Cancel</string>

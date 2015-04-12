@@ -2235,6 +2235,7 @@ containing a value of this type.
         public static final int action_bar_subtitle=0x7f080032;
         public static final int action_bar_title=0x7f080031;
         public static final int action_context_bar=0x7f080045;
+        public static final int action_delete=0x7f0800c1;
         public static final int action_menu_divider=0x7f080007;
         public static final int action_menu_presenter=0x7f080008;
         public static final int action_mode_bar=0x7f080041;
@@ -2573,8 +2574,9 @@ containing a value of this type.
          */
         public static final int abc_toolbar_collapse_description=0x7f050006;
         public static final int action_add=0x7f050025;
+        public static final int action_delete=0x7f050026;
         public static final int action_settings=0x7f050013;
-        public static final int agree=0x7f050027;
+        public static final int agree=0x7f050028;
         public static final int app_name=0x7f050001;
         public static final int default_flashcard_answer=0x7f05001c;
         public static final int default_flashcard_hint=0x7f05001d;
@@ -2588,19 +2590,19 @@ containing a value of this type.
         public static final int default_quiz_question=0x7f050020;
         public static final int default_spelling_meaning=0x7f05001a;
         public static final int default_spelling_word=0x7f050019;
-        public static final int disagree=0x7f050028;
+        public static final int disagree=0x7f050029;
         public static final int drawer_close=0x7f050016;
         public static final int drawer_open=0x7f050015;
         public static final int hello=0x7f050000;
         public static final int hello_world=0x7f050012;
-        public static final int help_text=0x7f05002c;
+        public static final int help_text=0x7f05002d;
         public static final int no_project=0x7f050017;
         public static final int no_questions=0x7f050018;
-        public static final int template_selection=0x7f050026;
+        public static final int template_selection=0x7f050027;
         public static final int title_activity_base=0x7f050014;
-        public static final int title_activity_content=0x7f05002a;
-        public static final int title_activity_simulation=0x7f05002b;
-        public static final int title_activity_template=0x7f050029;
+        public static final int title_activity_content=0x7f05002b;
+        public static final int title_activity_simulation=0x7f05002c;
+        public static final int title_activity_template=0x7f05002a;
     }
     public static final class style {
         /** 

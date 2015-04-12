@@ -31,9 +31,9 @@ import com.example.buildmlearntoolkit.R;
 
 public class NoProjectFragment extends Fragment{
 	LinearLayout noprojects;
-	ArrayList<String> files;
+	public static ArrayList<String> files;
 	ListView mList;
-	File file[];
+	public static File file[];
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -43,7 +43,7 @@ public class NoProjectFragment extends Fragment{
 		noprojects=(LinearLayout)rootView.findViewById(R.id.noprojects);
 		mList=(ListView)rootView.findViewById(R.id.listView1);
 		files = new ArrayList<String>();
-		 //((MyApplication)MyApplication.mApplication.getApplication()).resetModel();
+		 ((MyApplication)MyApplication.mApplication.getApplication()).resetModel();
 			
 		
 		String path = Environment.getExternalStorageDirectory().toString()+"/buildmLearnFiles";
