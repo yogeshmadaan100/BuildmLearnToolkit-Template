@@ -124,7 +124,8 @@ public class MainActivity extends BaseActivity {
         if (savedInstanceState == null) {
             selectItem(0);
         }
-        
+        ((MyApplication)MyApplication.mApplication.getApplication()).resetModel();
+		
         mDrawableBuilder=TextDrawable.builder().round();
 		 
 		 TextDrawable drawable = mDrawableBuilder.build("", Color.parseColor("#e81e61"));
