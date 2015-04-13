@@ -2,9 +2,15 @@ package com.buildmlearn.fragments;
 
 import java.util.Collections;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,7 +22,6 @@ import android.widget.Toast;
 import com.buildmlearn.application.MyApplication;
 import com.buildmlearn.models.Mode;
 import com.buildmlearn.template.flashcard.FlashCardDataTemplate;
-import com.buildmlearn.template.mlearning.LearningDataTemplate;
 import com.buildmlearn.utils.ProgressGenerator;
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.example.buildmlearntoolkit.ContentActivity;
@@ -24,6 +29,7 @@ import com.example.buildmlearntoolkit.R;
 import com.iangclifton.android.floatlabel.FloatLabel;
 
 public class FlashcardQuestionTemplate extends Fragment  implements com.buildmlearn.utils.ProgressGenerator.OnCompleteListener {
+	protected static final int RESULT_LOAD_IMG = 0;
 	private ActionProcessButton mAdd;
 	private FloatLabel mAnswer,mHint;
 	private EditText mQuestion;
@@ -31,6 +37,7 @@ public class FlashcardQuestionTemplate extends Fragment  implements com.buildmle
 	private ProgressGenerator progressGenerator=new ProgressGenerator(this);
 	Mode mode=Mode.ADDITION;
 	int position;
+	private Uri mImageUri;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -40,7 +47,8 @@ public class FlashcardQuestionTemplate extends Fragment  implements com.buildmle
 		mAnswer=(FloatLabel)rootView.findViewById(R.id.answer);
 		mHint=(FloatLabel)rootView.findViewById(R.id.hint);
 		mQuestion=(EditText)rootView.findViewById(R.id.question);
-		
+		mImage=(ImageView)rootView.findViewById(R.id.imageView1);
+		mImage.setImageResource(R.drawable.cat);
 		mAdd=(ActionProcessButton)rootView.findViewById(R.id.btnNext);
 		mAdd.setOnClickListener(new OnClickListener() {
 			
@@ -51,12 +59,12 @@ public class FlashcardQuestionTemplate extends Fragment  implements com.buildmle
 				{
 					if(mode==Mode.ADDITION)
 					{
-						MyApplication.mDataList.add(new FlashCardDataTemplate(mQuestion.getText().toString(),mAnswer.getEditText().getText().toString(),"www.google.com", mHint.getEditText().getText().toString()));
+						MyApplication.mDataList.add(new FlashCardDataTemplate(mQuestion.getText().toString(),mAnswer.getEditText().getText().toString(),mImageUri.toString(), mHint.getEditText().getText().toString()));
 					}
 					else
 					{
 						MyApplication.mDataList.remove(position);
-						MyApplication.mDataList.add(new FlashCardDataTemplate(mQuestion.getText().toString(),mAnswer.getEditText().getText().toString(),"www.google.com", mHint.getEditText().getText().toString()));
+						MyApplication.mDataList.add(new FlashCardDataTemplate(mQuestion.getText().toString(),mAnswer.getEditText().getText().toString(),mImageUri.toString(), mHint.getEditText().getText().toString()));
 						Collections.rotate(MyApplication.mDataList.subList(position, MyApplication.mDataList.size()), 1);
 					}
 					progressGenerator.start(mAdd);
@@ -64,6 +72,17 @@ public class FlashcardQuestionTemplate extends Fragment  implements com.buildmle
 				}
 				else
 					Toast.makeText(getActivity(), "Enter all field", 2000).show();
+			}
+		});
+		mImage.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+				        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+				// Start the Intent
+				startActivityForResult(galleryIntent, RESULT_LOAD_IMG);
 			}
 		});
 		return rootView;
@@ -80,7 +99,13 @@ public class FlashcardQuestionTemplate extends Fragment  implements com.buildmle
 				mQuestion.setText(((FlashCardDataTemplate)QuestionsListFragment.mDataList.get(Integer.parseInt((getArguments().getString("position"))))).getQuestion());
 				mAnswer.getEditText().setText(((FlashCardDataTemplate)QuestionsListFragment.mDataList.get(Integer.parseInt((getArguments().getString("position"))))).getAnswer());
 				mHint.getEditText().setText(((FlashCardDataTemplate)QuestionsListFragment.mDataList.get(Integer.parseInt((getArguments().getString("position"))))).getHint());
-				
+				try{
+					mImage.setImageURI(Uri.parse(((FlashCardDataTemplate)QuestionsListFragment.mDataList.get(Integer.parseInt((getArguments().getString("position"))))).getImageUrl()));
+				}catch(Exception e)
+				{
+					Log.e("image exception", "");
+					mImage.setImageResource(R.drawable.cat);
+				}
 			}
 		}catch(Exception e)
 		{
@@ -94,5 +119,26 @@ public class FlashcardQuestionTemplate extends Fragment  implements com.buildmle
 		// TODO Auto-generated method stub
 		((ContentActivity)getActivity()).switchFragment(new QuestionsListFragment());
 	}
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        try {
+            // When an Image is picked
+            if (requestCode == RESULT_LOAD_IMG
+                    && null != data) {
+                // Get the Image from data
+ 
+                Uri selectedImage = data.getData();
+                String[] filePathColumn = { MediaStore.Images.Media.DATA };
+                mImageUri=selectedImage;
+                mImage.setImageURI(mImageUri);
+				
+            } else {
+                
+            }
+        } catch (Exception e) {
+           
+        }
+ 
+    }
 
 }
