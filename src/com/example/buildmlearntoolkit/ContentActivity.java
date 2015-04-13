@@ -26,6 +26,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,7 +43,11 @@ import com.buildmlearn.apkutilities.ZipHandler;
 import com.buildmlearn.application.MyApplication;
 import com.buildmlearn.design.models.ColorGenerator;
 import com.buildmlearn.design.models.TextDrawable;
+import com.buildmlearn.fragments.FlashcardQuestionTemplate;
+import com.buildmlearn.fragments.LearningQuestionTemplate;
 import com.buildmlearn.fragments.QuestionsListFragment;
+import com.buildmlearn.fragments.QuizQuestionTemplate;
+import com.buildmlearn.fragments.SpellingQuestionTemplate;
 import com.buildmlearn.models.Template;
 import com.buildmlearn.simulator.SimulationActivity;
 import com.buildmlearn.template.flashcard.FlashCardXml;
@@ -60,6 +65,9 @@ public class ContentActivity extends ActionBarActivity {
 	    private Context mContext=this;
 	    private AlertDialog mAlert;
 	    String outputApkName;
+	    private static final String TAG = ContentActivity.class.getSimpleName();
+
+	    private ViewGroup mQuestionListLayout, mQuestionEntryLayout;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -69,22 +77,67 @@ public class ContentActivity extends ActionBarActivity {
             toolbar.setTitle("BuildmLearn");
             setSupportActionBar(toolbar);
             toolbar.setNavigationIcon(R.drawable.ic_menu_back);
+            toolbar.setNavigationOnClickListener(new OnClickListener() {
+    			
+    			@Override
+    			public void onClick(View v) {
+    				// TODO Auto-generated method stub
+    				Log.e("back", "called");
+    				
+    				onBackPressed();
+    			}
+    		});
         }
-        toolbar.setNavigationOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Log.e("back", "called");
-				
-				onBackPressed();
-			}
-		});
-        
-	 Fragment fragment = new QuestionsListFragment();
        
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frame, fragment).commit();
+        if (savedInstanceState != null) {
+			// The fragment manager will handle restoring them if we are being
+			// restored from a saved state
+		}
+		// If this is the first creation of the activity, add fragments to it
+		else {
+			mQuestionListLayout=(ViewGroup)findViewById(R.id.fragment_questions_list_container);
+			mQuestionEntryLayout=(ViewGroup)findViewById(R.id.fragment_question_entry_container);
+			if(mQuestionListLayout!=null)
+			{
+				Log.i(TAG, "onCreate: adding QuestionListFragment to MainActivity");
+
+				 Fragment fragment = new QuestionsListFragment();
+			       
+			        FragmentManager fragmentManager = getSupportFragmentManager();
+			        fragmentManager.beginTransaction().replace(R.id.fragment_questions_list_container, fragment).commit();
+			}
+			if(mQuestionEntryLayout!=null)
+			{
+				Log.i(TAG, "onCreate: adding QuestionEntryFragment to MainActivity");
+
+				 Fragment fragment = new QuestionsListFragment();
+				Template template= ((MyApplication)getApplication()).getmModel().getmTemplate();
+				if(template==Template.FLASHCARD)
+				{
+					fragment= new FlashcardQuestionTemplate();
+					
+				}
+				else if(template==Template.LEARNING)
+				{
+					fragment= new LearningQuestionTemplate();
+					
+				}
+				else if(template==Template.QUIZ)
+				{
+					fragment= new QuizQuestionTemplate();
+				}
+				else if(template==Template.SPELLLING)
+				{
+					fragment= new SpellingQuestionTemplate();
+				}
+				
+			       
+			        FragmentManager fragmentManager = getSupportFragmentManager();
+			        fragmentManager.beginTransaction().replace(R.id.fragment_question_entry_container, fragment).commit();
+			}
+		}
+		
+	
         
         mDrawableBuilder=TextDrawable.builder().round();
 		 
@@ -548,6 +601,21 @@ public class ContentActivity extends ActionBarActivity {
 		 Fragment fragment = f;
 	       
 	        FragmentManager fragmentManager = getSupportFragmentManager();
-	        fragmentManager.beginTransaction().replace(R.id.frame, fragment).commit();
+	        fragmentManager.beginTransaction().replace(R.id.fragment_questions_list_container, fragment).commit();
+		
+		
+	}
+	public void setQuestion(Fragment f)
+	{
+		if(mQuestionEntryLayout!=null)
+		{
+			 
+			
+		       
+		        FragmentManager fragmentManager = getSupportFragmentManager();
+		        fragmentManager.beginTransaction().replace(R.id.fragment_question_entry_container, f).commit();
+		}
+		else
+			switchFragment(f);
 	}
 }

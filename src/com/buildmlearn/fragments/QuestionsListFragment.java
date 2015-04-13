@@ -87,7 +87,7 @@ public class QuestionsListFragment extends Fragment {
 					f= new SpellingQuestionTemplate();
 				}
 				f.setArguments(bundle);
-				((ContentActivity)getActivity()).switchFragment(f);
+				((ContentActivity)getActivity()).setQuestion(f);
 			}
 		});
 		mAdd.setOnClickListener(new OnClickListener() {
