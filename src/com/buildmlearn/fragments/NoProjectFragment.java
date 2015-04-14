@@ -46,7 +46,7 @@ public class NoProjectFragment extends Fragment{
 		// ((MyApplication)MyApplication.mApplication.getApplication()).resetModel();
 			
 		
-		String path = Environment.getExternalStorageDirectory().toString()+"/buildmLearnFiles";
+		String path = Environment.getExternalStorageDirectory().toString()+"/buildmLearnFiles/SavedProjects";
 		Log.e("Files", "Path: " + path);
 		File f = new File(path);        
 		 file= f.listFiles();
@@ -64,7 +64,7 @@ public class NoProjectFragment extends Fragment{
 			    Log.e("file name is ", temp);
 			    
 			     
-			    if(file[i].getName().endsWith(".xml"))
+			    if(file[i].getName().endsWith(".bml"))
 			    	files.add(temp);
 			}
 			mList.setAdapter(new EfficientAdapter(getActivity(),files));

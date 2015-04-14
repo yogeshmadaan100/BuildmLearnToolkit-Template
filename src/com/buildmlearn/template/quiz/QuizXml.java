@@ -150,9 +150,9 @@ public class QuizXml implements XmlImplementation<QuizDataTemplate>{
 			
 		}
 		String root = Environment.getExternalStorageDirectory().toString();
-	    File myDir = new File(root + "/buildmlearnFiles");    
+	    File myDir = new File(root + "/buildmlearnFiles/SavedProjects");    
 	    myDir.mkdirs();
-	    File file = new File (myDir, filename+".xml");
+	    File file = new File (myDir, filename+".bml");
 	    if (file.exists ()) file.delete (); 
 	    try {
 	    	

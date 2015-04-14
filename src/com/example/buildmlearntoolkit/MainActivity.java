@@ -1,12 +1,18 @@
 package com.example.buildmlearntoolkit;
 
+import java.io.IOException;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -42,8 +48,7 @@ import com.buildmlearn.design.models.ColorGenerator;
 import com.buildmlearn.design.models.TextDrawable;
 import com.buildmlearn.fragments.NoProjectFragment;
 import com.buildmlearn.models.Template;
-import com.buildmlearn.simulator.SimulationActivity;
-import com.buildmlearn.utils.HelpGenerator;
+import com.buildmlearn.xml.XmlReader;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
@@ -125,7 +130,7 @@ public class MainActivity extends BaseActivity {
             selectItem(0);
         }
         ((MyApplication)MyApplication.mApplication.getApplication()).resetModel();
-		
+		receiveIntent();
         mDrawableBuilder=TextDrawable.builder().round();
 		 
 		 TextDrawable drawable = mDrawableBuilder.build("", Color.parseColor("#e81e61"));
@@ -371,6 +376,33 @@ public class MainActivity extends BaseActivity {
         super.onConfigurationChanged(newConfig);
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+    public void receiveIntent()
+    {
+    	Intent intent = getIntent();
+    	String filename = "";
+        Uri uri = intent.getData();
+        if (uri != null && uri.toString().length() > 0) {
+            // If this is a file:// URI, just use the path directly instead
+            // of going through the open-from-filedescriptor codepath.
+            String scheme = uri.getScheme();
+            if ("file".equals(scheme)) {
+                filename = uri.getPath();
+            } else {
+                filename = uri.toString();
+            }
+            Log.e("filename", filename);
+            try {
+            	((MyApplication)MyApplication.mApplication.getApplication()).getmModel().setmFileName(filename);
+    			XmlReader.readXml(filename);
+			} catch (ParserConfigurationException | SAXException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+        }
+        else
+        	Log.e("nulllllllll ", "null");
     }
     private void showThemed(String title,String description) {
     	LovelyView view =new LovelyView(getApplicationContext());
