@@ -27,6 +27,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -46,7 +47,13 @@ import com.buildmlearn.application.MyApplication;
 import com.buildmlearn.base.BaseActivity;
 import com.buildmlearn.design.models.ColorGenerator;
 import com.buildmlearn.design.models.TextDrawable;
+import com.buildmlearn.fragments.FlashcardQuestionTemplate;
+import com.buildmlearn.fragments.LearningQuestionTemplate;
 import com.buildmlearn.fragments.NoProjectFragment;
+import com.buildmlearn.fragments.QuestionsListFragment;
+import com.buildmlearn.fragments.QuizQuestionTemplate;
+import com.buildmlearn.fragments.SpellingQuestionTemplate;
+import com.buildmlearn.fragments.TemplatesListFragment;
 import com.buildmlearn.models.Template;
 import com.buildmlearn.xml.XmlReader;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
@@ -70,6 +77,7 @@ public class MainActivity extends BaseActivity {
     private ColorGenerator mColorGenerator = ColorGenerator.MATERIAL;
     private TextDrawable.IBuilder mDrawableBuilder;
     private Context mContext=this;
+    public ViewGroup mQuestionListLayout, mQuestionEntryLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,54 +89,83 @@ public class MainActivity extends BaseActivity {
 	         
 	        }
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(currentColor));*/
-        
-        mTitle = mDrawerTitle = getTitle();
-        mTemplatesTitles = getResources().getStringArray(R.array.templates_array);
-        mTemplateDescription=getResources().getStringArray(R.array.template_description_array);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
-
-        // set a custom shadow that overlays the main content when the drawer opens
-        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        // set up the drawer's list view with items and click listener
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.drawer_list_item, mTemplatesTitles));
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-
-        // enable ActionBar app icon to behave as action to toggle nav drawer
-       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-       // getSupportActionBar().setHomeButtonEnabled(true);
         toolbar=(Toolbar)findViewById(R.id.toolbar);
         if (toolbar != null) {
             toolbar.setTitle("BuildmLearn");
             setSupportActionBar(toolbar);
         }
-
-        // ActionBarDrawerToggle ties together the the proper interactions
-        // between the sliding drawer and the action bar app icon
-        mDrawerToggle = new ActionBarDrawerToggle(
-                this,                  /* host Activity */
-                mDrawerLayout,         /* DrawerLayout object */
-                toolbar,  /* nav drawer image to replace 'Up' caret */
-                R.string.drawer_open,  /* "open drawer" description for accessibility */
-                R.string.drawer_close  /* "close drawer" description for accessibility */
-                ) {
-            public void onDrawerClosed(View view) {
-                getSupportActionBar().setTitle("BuildmLearn");
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-
-            public void onDrawerOpened(View drawerView) {
-                getSupportActionBar().setTitle("Choose Template");
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-                isFirstTime=false;
-            }
-        };
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-        if (savedInstanceState == null) {
-            selectItem(0);
+        mTitle = mDrawerTitle = getTitle();
+        mTemplatesTitles = getResources().getStringArray(R.array.templates_array);
+        mTemplateDescription=getResources().getStringArray(R.array.template_description_array);
+       
+        if (savedInstanceState != null) {
+			// The fragment manager will handle restoring them if we are being
+			// restored from a saved state
+        	selectItem(0);
+		}
+		// If this is the first creation of the activity, add fragments to it
+		else {
+			mQuestionListLayout=(ViewGroup)findViewById(R.id.fragment_questions_list_container);
+			mQuestionEntryLayout=(ViewGroup)findViewById(R.id.fragment_question_entry_container);
+			if(mQuestionListLayout!=null)
+			{
+				Log.e("template list", "loading");
+				 Fragment fragment = new TemplatesListFragment();
+			       
+			        FragmentManager fragmentManager = getSupportFragmentManager();
+			        fragmentManager.beginTransaction().replace(R.id.fragment_templates_list_container, fragment).commit();
+			}
+			if(mQuestionEntryLayout!=null)
+			{
+				Log.e("no project", "loading");
+				 Fragment fragment = new NoProjectFragment();
+				
+			        FragmentManager fragmentManager = getSupportFragmentManager();
+			        fragmentManager.beginTransaction().replace(R.id.fragment_project_list_container, fragment).commit();
+			}
+		}
+        try{
+		        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+		        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+		
+		        // set a custom shadow that overlays the main content when the drawer opens
+		        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+		        // set up the drawer's list view with items and click listener
+		        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+		                R.layout.drawer_list_item, mTemplatesTitles));
+		        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+		
+		        // enable ActionBar app icon to behave as action to toggle nav drawer
+		       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		       // getSupportActionBar().setHomeButtonEnabled(true);
+		        
+		
+		        // ActionBarDrawerToggle ties together the the proper interactions
+		        // between the sliding drawer and the action bar app icon
+		        mDrawerToggle = new ActionBarDrawerToggle(
+		                this,                  /* host Activity */
+		                mDrawerLayout,         /* DrawerLayout object */
+		                toolbar,  /* nav drawer image to replace 'Up' caret */
+		                R.string.drawer_open,  /* "open drawer" description for accessibility */
+		                R.string.drawer_close  /* "close drawer" description for accessibility */
+		                ) {
+		            public void onDrawerClosed(View view) {
+		                getSupportActionBar().setTitle("BuildmLearn");
+		                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+		            }
+		
+		            public void onDrawerOpened(View drawerView) {
+		                getSupportActionBar().setTitle("Choose Template");
+		                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+		                isFirstTime=false;
+		            }
+		        };
+		        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        }catch(Exception e)
+        {
+        	
         }
+       
         ((MyApplication)MyApplication.mApplication.getApplication()).resetModel();
 		receiveIntent();
         mDrawableBuilder=TextDrawable.builder().round();
@@ -189,9 +226,12 @@ public class MainActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				if(mDrawerLayout!=null)
+				{
 				 if(!mDrawerLayout.isDrawerOpen(Gravity.LEFT))
 		             mDrawerLayout.openDrawer(Gravity.LEFT);
 				 rightLowerMenu.close(true);
+				}
 			}
 		});
        rlIcon2.setOnClickListener(new OnClickListener() {
@@ -262,8 +302,11 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // If the nav drawer is open, hide action items related to the content view
-        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        menu.findItem(R.id.action_add).setVisible(!drawerOpen);
+       try{ boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+        menu.findItem(R.id.action_add).setVisible(!drawerOpen);}catch(Exception e)
+        {
+        	
+        }
         return super.onPrepareOptionsMenu(menu);
     }
     @Override
@@ -288,7 +331,7 @@ public class MainActivity extends BaseActivity {
         		 Fragment fragment = new NoProjectFragment();
         	       
         	        FragmentManager fragmentManager = getSupportFragmentManager();
-        	        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+        	        fragmentManager.beginTransaction().replace(R.id.fragment_project_list_container, fragment).commit();
 
         	 }catch(Exception e)
         	 {
@@ -321,13 +364,19 @@ public class MainActivity extends BaseActivity {
         Fragment fragment = new NoProjectFragment();
        
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
-
+        if(mQuestionEntryLayout!=null)
+        fragmentManager.beginTransaction().replace(R.id.fragment_project_list_container, fragment).commit();
+        else
+        	fragmentManager.beginTransaction().replace(R.id.fragment_project_list_container, fragment).commit();
+        
+        if(mDrawerList!=null)
+        {
         // update selected item and title, then close the drawer
         mDrawerList.setItemChecked(position, true);
         //setTitle(mTemplatesTitles[position]);
        
         mDrawerLayout.closeDrawer(mDrawerList);
+        }
         if(!isFirstTime)
         {
 	        switch (position) {
@@ -368,7 +417,12 @@ public class MainActivity extends BaseActivity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
-        mDrawerToggle.syncState();
+        try{
+        	mDrawerToggle.syncState();
+        }catch(Exception e)
+        {
+        	
+        }
     }
 
     @Override
