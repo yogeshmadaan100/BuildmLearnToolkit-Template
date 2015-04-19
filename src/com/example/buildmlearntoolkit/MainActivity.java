@@ -78,6 +78,7 @@ public class MainActivity extends BaseActivity {
     private TextDrawable.IBuilder mDrawableBuilder;
     private Context mContext=this;
     public ViewGroup mQuestionListLayout, mQuestionEntryLayout;
+    public int viewCase=0;//) for potrait view
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,18 +99,21 @@ public class MainActivity extends BaseActivity {
         mTemplatesTitles = getResources().getStringArray(R.array.templates_array);
         mTemplateDescription=getResources().getStringArray(R.array.template_description_array);
        
-        if (savedInstanceState != null) {
+       /* if (savedInstanceState != null) {
 			// The fragment manager will handle restoring them if we are being
 			// restored from a saved state
         	selectItem(0);
+        	Log.e("svaed instnce", "not null");
 		}
 		// If this is the first creation of the activity, add fragments to it
 		else {
-			mQuestionListLayout=(ViewGroup)findViewById(R.id.fragment_questions_list_container);
-			mQuestionEntryLayout=(ViewGroup)findViewById(R.id.fragment_question_entry_container);
+			Log.e("svaed instance", "null");*/
+			mQuestionListLayout=(ViewGroup)findViewById(R.id.fragment_templates_list_container);
+			mQuestionEntryLayout=(ViewGroup)findViewById(R.id.fragment_project_list_container);
 			if(mQuestionListLayout!=null)
 			{
-				Log.e("template list", "loading");
+				viewCase=1;
+				Log.e("view cse", ""+viewCase);
 				 Fragment fragment = new TemplatesListFragment();
 			       
 			        FragmentManager fragmentManager = getSupportFragmentManager();
@@ -117,14 +121,18 @@ public class MainActivity extends BaseActivity {
 			}
 			if(mQuestionEntryLayout!=null)
 			{
-				Log.e("no project", "loading");
+				
+				Log.e("initializing", "no fragment");
 				 Fragment fragment = new NoProjectFragment();
 				
 			        FragmentManager fragmentManager = getSupportFragmentManager();
 			        fragmentManager.beginTransaction().replace(R.id.fragment_project_list_container, fragment).commit();
 			}
-		}
+		
         try{
+        	if(viewCase==0)
+        	{
+        		Log.e("initalizing", "drawer");
 		        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		        mDrawerList = (ListView) findViewById(R.id.left_drawer);
 		
@@ -135,14 +143,7 @@ public class MainActivity extends BaseActivity {
 		                R.layout.drawer_list_item, mTemplatesTitles));
 		        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 		
-		        // enable ActionBar app icon to behave as action to toggle nav drawer
-		       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		       // getSupportActionBar().setHomeButtonEnabled(true);
-		        
-		
-		        // ActionBarDrawerToggle ties together the the proper interactions
-		        // between the sliding drawer and the action bar app icon
-		        mDrawerToggle = new ActionBarDrawerToggle(
+		         mDrawerToggle = new ActionBarDrawerToggle(
 		                this,                  /* host Activity */
 		                mDrawerLayout,         /* DrawerLayout object */
 		                toolbar,  /* nav drawer image to replace 'Up' caret */
@@ -161,13 +162,16 @@ public class MainActivity extends BaseActivity {
 		            }
 		        };
 		        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        	}
         }catch(Exception e)
         {
+        	Log.e("drawer exception",""+e);
         	
         }
        
         ((MyApplication)MyApplication.mApplication.getApplication()).resetModel();
-		receiveIntent();
+		if(getIntent().getExtras()!=null)
+			receiveIntent();
         mDrawableBuilder=TextDrawable.builder().round();
 		 
 		 TextDrawable drawable = mDrawableBuilder.build("", Color.parseColor("#e81e61"));
@@ -364,9 +368,7 @@ public class MainActivity extends BaseActivity {
         Fragment fragment = new NoProjectFragment();
        
         FragmentManager fragmentManager = getSupportFragmentManager();
-        if(mQuestionEntryLayout!=null)
-        fragmentManager.beginTransaction().replace(R.id.fragment_project_list_container, fragment).commit();
-        else
+        
         	fragmentManager.beginTransaction().replace(R.id.fragment_project_list_container, fragment).commit();
         
         if(mDrawerList!=null)
@@ -455,8 +457,7 @@ public class MainActivity extends BaseActivity {
 			}
 		
         }
-        else
-        	Log.e("nulllllllll ", "null");
+       
     }
     private void showThemed(String title,String description) {
     	LovelyView view =new LovelyView(getApplicationContext());

@@ -13,11 +13,11 @@
     android:layout_height="match_parent">
 
    
-    <FrameLayout
+   
+	<FrameLayout
         android:id="@+id/fragment_project_list_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
    
     <ListView
         android:id="@+id/left_drawer"
@@ -31,5 +31,5 @@
         android:textColor="@drawable/list_item_text"/>
 </android.support.v4.widget.DrawerLayout>
     
-
+ 
 </LinearLayout>

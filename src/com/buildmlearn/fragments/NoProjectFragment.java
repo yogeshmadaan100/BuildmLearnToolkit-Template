@@ -47,7 +47,6 @@ public class NoProjectFragment extends Fragment{
 			
 		
 		String path = Environment.getExternalStorageDirectory().toString()+"/buildmLearnFiles/SavedProjects";
-		Log.e("Files", "Path: " + path);
 		File f = new File(path);        
 		 file= f.listFiles();
 
@@ -58,12 +57,7 @@ public class NoProjectFragment extends Fragment{
 			Log.e("Files", "Size: "+ file.length);
 			for (int i=0; i < file.length; i++)
 			{
-			    Log.e("Files", "FileName:" + file[i].getName());
-			    Log.e("Files", "File Location :" +file[i].getAbsolutePath());
 			    String temp=file[i].getName().substring(0, file[i].getName().toString().length()-4);
-			    Log.e("file name is ", temp);
-			    
-			     
 			    if(file[i].getName().endsWith(".bml"))
 			    	files.add(temp);
 			}
