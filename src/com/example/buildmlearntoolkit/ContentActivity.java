@@ -89,12 +89,7 @@ public class ContentActivity extends ActionBarActivity {
     		});
         }
        
-        if (savedInstanceState != null) {
-			// The fragment manager will handle restoring them if we are being
-			// restored from a saved state
-		}
-		// If this is the first creation of the activity, add fragments to it
-		else {
+       
 			mQuestionListLayout=(ViewGroup)findViewById(R.id.fragment_questions_list_container);
 			mQuestionEntryLayout=(ViewGroup)findViewById(R.id.fragment_question_entry_container);
 			if(mQuestionListLayout!=null)
@@ -135,7 +130,7 @@ public class ContentActivity extends ActionBarActivity {
 			        FragmentManager fragmentManager = getSupportFragmentManager();
 			        fragmentManager.beginTransaction().replace(R.id.fragment_question_entry_container, fragment).commit();
 			}
-		}
+		
 		
 	
         
