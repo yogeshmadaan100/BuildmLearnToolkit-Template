@@ -326,7 +326,7 @@ public class MainActivity extends BaseActivity {
          case R.id.action_add:
              // create intent to perform web search for this planet
             if(!mDrawerLayout.isDrawerOpen(Gravity.LEFT))
-             mDrawerLayout.openDrawer(Gravity.LEFT);
+            	mDrawerLayout.openDrawer(Gravity.LEFT);
             	return true;
          case R.id.action_delete:
         	 try{
