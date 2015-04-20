@@ -73,7 +73,7 @@ public class TemplateActivity extends BaseActivity {
 			final ImageView fabIconNew = new ImageView(this);
 	       fabIconNew.setImageDrawable(getResources().getDrawable(R.drawable.ic_menu_close_clear_cancel));
 	      final FloatingActionButton rightLowerButton = new FloatingActionButton.Builder(this)
-	               .setContentView(fabIconNew).setBackgroundDrawable(drawable)
+	               .setContentView(fabIconNew).setBackgroundDrawable(R.drawable.fab_selector)
 	               .build();
 
 	       SubActionButton.Builder rLSubBuilder = new SubActionButton.Builder(this);
