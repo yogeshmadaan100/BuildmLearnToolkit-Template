@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">BuildmLearnToolkit</string>
+    <string name="app_name">iMLearnToolkit</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_base">BaseActivity</string>
@@ -44,7 +44,7 @@
     <string name="title_activity_content">ContentActivity</string>
     <string name="title_activity_simulation">SimulationActivity</string>
     <string name="help_text">Introduction
-\nBuildmLearn Toolkit is an application which helps you to create interactive mobile applications in a WYSIWYG way. You do not need to know anything about programming, no extra skills are required.
+\niMLearn Toolkit is an application which helps you to create interactive mobile applications in a WYSIWYG way. You do not need to know anything about programming, no extra skills are required.
 \nThe toolkit comes with a number of useful mobile application templates that you can choose from. Each template can be customised with your learning material (be it from textbook chapters or other sources) to create m-Learning applications.
 \nEach mobile application template that comes with the toolkit is designed for specific purposes, however you are free to use the templates as they suit your learning material.
 \n\nGetting started
@@ -65,7 +65,7 @@
 \nYou have an option to submit your mobile applications to the BuildmLearn store. To do this choose "Project -> Submit application to store". You will be asked to fill some basic information about the application before submitting.
 \nOnce you have submitted your mobile application to the store, it would go through a quick review before it appears on the BuildmLearn store. You will get an email notification when the application is available on the BuildmLearn store, so please provide a valid email address while submitting.
 \n\nSettings and other facts
-\nBuildmLearn Toolkit has many options that can be tweaked in Tools -> settings. The settings provided are self explanatory. The toolkit is a portable application which does not store anything to system registry. The only system folders it uses are user-specific folders.
+\niMLearn Toolkit has many options that can be tweaked in Tools -> settings. The settings provided are self explanatory. The toolkit is a portable application which does not store anything to system registry. The only system folders it uses are user-specific folders.
        
     </string>
 
